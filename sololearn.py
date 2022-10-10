@@ -166,7 +166,6 @@
 () ** * / + - 
 """
 
-
 # age = int(input())
 # if 0 <= age <= 11:
 #     print('Child')
@@ -1331,3 +1330,197 @@
 #     print("PIN code is created")
 # except ValueError:
 #     print("Please enter a number")
+
+# try:
+#     num1 = 7
+#     num2 = 0
+#     print(num1 / num2)
+#     print("Done calculation")
+# except ZeroDivisionError:
+#     print("An error occurred")
+#     print("due to zero division")
+
+# try:
+#     variable = 10
+#     print(10 / 2)
+# except ZeroDivisionError:
+#     print("Error")
+# print("Finished")
+
+# try:
+#     variable = 10
+#     print(variable + "hello")
+#     print(variable / 2)
+# except ZeroDivisionError:
+#     print("Divided by zero")
+# except (ValueError, TypeError):
+#     print("Error occurred")
+
+# try:
+#     meaning = 42
+#     print(meaning / 0)
+#     print("the meaning of life")
+# except (ValueError, TypeError):
+#     print("ValueError or TypeError occurred")
+# except ZeroDivisionError:
+#     print("Divided by zero")
+
+# try:
+#     word = "spam"
+#     print(word / 0)
+# except:
+#     print("An error occurred")
+
+#  TODO: finally - используется чтобы убедиться, что какой-то код работает независимо от того, какие ошибки возникают.
+#   Помещается в конец оператора try/except, запускается после выполнения кода в блоках try/except.
+# try:
+#     print("Hello")
+#     print(1 / 0)
+# except ZeroDivisionError:
+#     print("Divided by zero")
+# finally:
+#     print("This code will run no matter what")
+
+# try:
+#     print(1)
+# except:
+#     print(2)
+# finally:
+#     print(3)
+
+# try:
+#     print(1)
+#     print(10 / 0)
+# except ZeroDivisionError:
+#     print(unknown_var)
+# finally:
+#     print("This is executed last")
+
+# coffee = ["Caff Latte", "Caffe Americano", "Espresso", "Cappuccino", "Machination"]
+# choice = int(input())
+# try:
+#     print(coffee[choice])
+# except:
+#     print('Invalid number')
+#
+# finally:
+#     print('Have a good day')
+
+#  TODO: raise
+# print(1)
+# raise ValueError
+# print(2)
+
+# try:
+#     print(1 / 0)
+# except ZeroDivisionError:
+#     raise ValueError
+
+# name = "123"
+# raise NameError("Invalid name!")
+
+# try:
+#     num = 5 / 0
+# except:
+#     print("An error occurred")
+#     raise
+
+#  TODO: Assertions - это проверка работоспособности,
+#   которую можно включить или выключить после завершения тестирования программы.
+#   Выражение проверяется, и если результат оказывается ложным, возникает исключение.
+#   Утверждения выполняются с помощью оператора assert .
+# print(1)
+# assert 2 + 2 == 4
+# print(2)
+# assert 1 + 1 == 3
+# print(3)
+
+# print(0)
+# assert "h" != "w"
+# print(1)
+# assert False
+# print(2)
+# assert True
+# print(3)
+
+# temp = -10
+# assert (temp >= 0), "Colder than absolute zero!"
+
+# TODO: Opening Files - Вы можете использовать Python для чтения и записи содержимого файлов. Текстовыми файлами легче
+#  всего манипулировать. Прежде чем файл можно будет отредактировать, его необходимо открыть с помощью функции
+#  open.
+# myfile = open("C:/Users/User/PycharmProjects/SQLite/filename.txt")
+
+# # write mode
+# open("filename.txt", "w")
+#
+# # read mode
+# open("filename.txt", "r")
+# open("filename.txt")
+#
+# # binary write mode
+# open("filename.txt", "wb")
+
+# file = open("filename.txt", "w")
+# # do stuff to the file
+# file.close()
+
+# TODO: Reading Files
+# file = open("filename.txt", "r")
+# cont = file.read()
+# print(cont)
+# file.close()
+
+# file = open("filename.txt", "r")
+# print(file.read(16))
+# print(file.read(4))
+# print(file.read(4))
+# print(file.read())
+# file.close()
+
+# file = open("filename.txt", "r")
+# cont = file.read()
+# print(cont)
+# file.close()
+
+# file = open("filename.txt", "r")
+# for i in range(21):
+#     print(file.read(4))
+# file.close()
+
+# file = open("filename.txt", "r")
+# file.read()
+# print("Re-reading")
+# print(file.read())
+# print("Finished")
+# file.close()
+
+# прочитать количество строк файла
+# file = open("filename.txt", "r")
+# str = file.read()
+# print(len(str))
+# file.close()
+
+# Чтобы получить каждую строку в файле, вы можете использовать метод readiness() для возврата списка,
+# в котором каждый элемент является строкой
+# file = open("filename.txt", "r")
+# print(file.readlines())
+# file.close()
+
+# Можно использовать цикл for для перебора строк в файле:
+# file = open("filename.txt", "r")
+#
+# for line in file:
+#     print(line)
+#
+# file.close()
+
+# number_of_lines = len(open("filename.txt").readlines())
+# print(number_of_lines)
+
+# file = open("/usercode/files/pull_ups.txt")
+# n = int(input())
+#
+# print(file.readlines()[n])
+#
+# file.close()
