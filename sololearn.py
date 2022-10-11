@@ -166,6 +166,8 @@
 () ** * / + - 
 """
 
+# import readline
+
 # age = int(input())
 # if 0 <= age <= 11:
 #     print('Child')
@@ -513,6 +515,10 @@
 # a = input()
 # print(a[-1])
 
+# x = input()
+# elements = x.split()
+# print(elements[-1])
+
 # names = [1, 2, 3, 4, 5]
 # print(names[1:-1])
 
@@ -528,6 +534,35 @@
 # for i in (range(0, N+1)):
 #     count += i
 # print(count)
+
+#  TODO: List Comprehensions Генерация списков — удобный способ быстрого создания списков,
+#   содержимое которых подчиняется простому правилу.
+# a list comprehension:
+# cubes = [i ** 3 for i in range(10)]
+# print(cubes)
+
+# nums = [i * 2 for i in range(10)]
+# print(nums)
+
+# evens = [i ** 2 for i in range(10) if i ** 2 % 2 == 0]
+# evens2 = [i ** 2 for i in range(10) if i ** 2 % 2 == 1]
+# print(evens)
+# print(evens2)
+
+# a = [i for i in range(20) if i % 3 == 0]
+# print(a)
+
+# a = [x * 10 for x in range(5, 9)]
+# print(a)
+
+# # Попытка создать список в очень широком диапазоне приведет к ошибке MemoryError .
+# # В этом коде показан пример, когда для понимания списка не хватает памяти.
+# # Эту проблему решают генераторы , которые рассматриваются в следующем модуле.
+# even = [2 * i for i in range(10 ** 100)]
+
+# x = int(input())
+# evens = [i for i in range(x) if i % 3 == 0 and i % 5 == 0]
+# print(evens)
 
 # TODO: Functions — это группа связанных операторов, которая выполняет определенную задачу.
 #  Пример функции: print("Hello"), где print — это имя функции, а «Hello» — аргумент.
@@ -1524,3 +1559,195 @@
 # print(file.readlines()[n])
 #
 # file.close()
+
+# file = open("filename2.txt", "w")
+# file.write("This has been written to a file")
+# file.close()
+#
+# file = open("filename2.txt", "r")
+# print(file.read())
+# file.close()
+
+# file = open("filename2.txt", "w")
+# file.write("Some new text")
+# file.close()
+#
+# file = open("filename2.txt", "r")
+# print("Reading new contents")
+# print(file.read())
+# print("Finished")
+# file.close()
+
+# msg = "Hello world!"
+# file = open("filename2.txt", "w")
+# amount_written = file.write(msg)
+# print(amount_written)
+# file.close()
+
+# file = open("filename2.txt", "w")
+# file.write("Some new text")
+# print(file.write("Some new text"))
+# file.close()
+#
+# file = open("filename2.txt", "r")
+# print("Reading new contents")
+# print(file.read())
+# print("Finished")
+# file.close()
+
+# names = ["John", "Oscar", "Jacob"]
+#
+# file = open("filename2.txt", "w+")
+# for i in names:
+#     file.write(i + "\n")
+# file.close()
+#
+# file = open("filename2.txt", "r")
+# print(file.read())
+# file.close()
+
+# try:
+#     f = open("filename.txt")
+#     print(f.read())
+# finally:
+#     f.close()
+
+# try:
+#     f = open("filename.txt")
+#     print(f.read())
+#     print(1 / 0)
+# finally:
+#     f.close()
+
+# # Файл автоматически закрывается в конце оператора with , даже если в нем возникают исключения.
+# with open("filename.txt") as f:
+#     print(f.read())
+
+# try:
+#     print(1)
+#     assert 2 + 2 == 5
+# except AssertionError:
+#     print(3)
+# except:
+#     print(4)
+
+# file = open("filename2.txt", "r")
+# for line in file.readlines():
+#     print(f'{line[0]}{len(line.strip())}')
+# file.close()
+
+# код выше можно записать в две строки:
+# for line in open("filename2.txt", "r"):
+#     print(f'{line[0]}{len(line.strip())}')
+
+#  TODO: None - объект None используется для представления отсутствия значения
+# print(None)
+
+# def some_func():
+#     print("Hi!")
+#
+#
+# var = some_func()
+# print(var)
+
+# foo = print()
+# if foo == None:
+#     print(1)
+# else:
+#     print(2)
+
+#  TODO: Dictionaries - это структуры данных, используемые для сопоставления произвольных ключей со значениями
+# ages = {"Dave": 24, "Mary": 42, "John": 58, 'BMW': "black", 'VOLVO': 'white', 'cs-stroy@mail.ru': 'dkd2020202$$CSS'}
+# print(ages["Dave"])
+# print(ages["Mary"])
+# print(ages["BMW"])
+# print(ages['cs-stroy@mail.ru'])
+
+# primary = {
+#     "red": [255, 0, 0],
+#     "green": [0, 255, 0],
+#     "blue": [0, 0, 255],
+# }
+# # Попытка проиндексировать ключ, который не является частью словаря, возвращает KeyError
+# print(primary["red"])
+# print(primary["yellow"])
+
+# # Попытка проиндексировать ключ, который не является частью словаря, возвращает KeyError
+# test = {}
+# print(test[0])
+
+# # В качестве ключей к словарям можно использовать только неизменяемые объекты.
+# # Неизменяемые объекты — это объекты, которые нельзя изменить
+# bad_dict = {
+#     [1, 2, 3]: "one two three",
+# }
+
+# store = {"Orange": 2, "Watermelon": 0, "Apple": 8, "Banana": 42}
+# print(store["Apple"])
+
+# squares = {0: 1, 1: 2, 2: "error", 3: 4}
+# squares[4] = 5
+# squares[2] = 3
+# print(squares)
+
+# primes = {1: 2, 2: 3, 4: 7, 7: 17}
+# # print(primes[4])
+# # print(primes[7])
+# print(primes[primes[4]])
+
+# # Чтобы определить, находится ли ключ в словаре, можно использовать in и not in так же, как и для списка.
+# nums = {
+#     1: "one",
+#     2: "two",
+#     3: "three",
+# }
+# print(1 in nums)
+# print("three" in nums)
+# print(4 not in nums)
+
+# # Полезным словарным методом является get .
+# # Он делает то же самое, что и индексация, но если ключ не найден в словаре,
+# # вместо этого возвращается другое указанное через запятую значение (по умолчанию «None»).
+# pairs = {1: "apple",
+#          "orange": [2, 3, 4],
+#          True: False,
+#          None: "True",
+#          }
+#
+# print(pairs.get("orange"))
+# print(pairs.get(7))
+# print(pairs.get(12345, "not in dictionary"))
+
+# fib = {1: 1, 2: 1, 3: 2, 4: 3}
+# print(fib.get(4, 0) + fib.get(7, 5))
+
+# books = {
+#     "Life of Pi": "Adventure Fiction",
+#     "The Three Musketeers": "Historical Adventure",
+#     "Watchmen": "Comics",
+#     "Bird Box": "Horror",
+#     "Harry Potter": "Fantasy Fiction",
+#     "Good Omens": "Comedy"
+# }
+#
+# book = input()
+# print(books.get(book, "Book not found"))
+
+#  TODO: Tuples - кортежи очень похожи на списки, за исключением того, что они неизменяемы (их нельзя изменить).
+#   Кортежи быстрее, чем списки, но их нельзя изменить.
+# words = ("spam", "eggs", "sausages",)
+# print(words[0])  # можем получить доступ к значениям в кортеже с их индексом, как и со списками.
+# words[1] = "cheese"  # Попытка переназначить значение в кортеже приводит к ошибке TypeError.
+
+# # Кортежи можно создавать без круглых скобок, просто разделяя значения запятыми:
+# my_tuple = "one", "two", "three"
+# print(my_tuple[0])
+
+# # Пустой кортеж создается с помощью пустой пары скобок.
+# tpl = ()
+
+# import math
+#
+# p1 = (23, -88)
+# p2 = (6, 42)
+# print(math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2))
