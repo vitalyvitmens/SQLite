@@ -627,8 +627,10 @@
 # print(nums)
 # print(nums[3])
 
+# TODO: String Formatting — Форматирование строк предоставляет более мощный способ встраивания не строк в строки.
+#  Форматирование строки использует метод форматирования строки для замены ряда аргументов в строке.
 # nums = [4, 5, 6]
-# msg = "Numbers: {0} {1} {2}". format(nums[0], nums[1], nums[2])
+# msg = "Numbers: {0} {1} {2}".format(nums[0], nums[1], nums[2])
 # nms = f"Numbers: {nums[0]} {nums[1]} {nums[2]}"
 # print(msg)
 # print(nms)
@@ -637,6 +639,38 @@
 
 # a = "{x}, {y}".format(x=5, y=12)
 # print(a)
+
+#  TODO: String Functions
+#   join - объединяет список строк с другой строкой в качестве разделителя. Из списка в строку.
+#   replace - заменяет одну подстроку в строке на другую.
+#   startswith and endswith - определяют, есть ли подстрока в начале и в конце строки соответственно.
+#   lower and upper - чтобы изменить регистр строки на нижний и верхний.
+#   split - противоположен join, превращающему строку с определенным разделителем в список. Из строки в список.
+
+# print(", ".join(["spam", "eggs", "ham"]))
+# # prints "spam, eggs, ham"
+#
+# print("Hello ME".replace("ME", "world"))
+# # prints "Hello world"
+#
+# print("This is a sentence.".startswith("This"))
+# # prints "True"
+#
+# print("This is a sentence.".endswith("sentence."))
+# # prints "True"
+#
+# print("This is a sentence.".upper())
+# # prints "THIS IS A SENTENCE."
+#
+# print("AN ALL CAPS SENTENCE".lower())
+# # prints "an all caps sentence"
+#
+# string = "This is a sentence."
+# print(f'{string[0:4].upper()} {string[4::].lower()}')
+# # prints "THIS  is a sentence."
+#
+# print("spam, eggs, ham".split(", "))
+# # prints "['spam', 'eggs', 'ham']"
 
 # x = ", ".join(["spam", "eggs", "ham"])
 # print(x)
@@ -662,6 +696,264 @@
 
 # msg = input()
 # print(msg.replace('#', ' '))
+
+#  TODO: Numeric Functions -
+#   max or min  - чтобы найти максимум или минимум некоторых чисел или списка.
+#   abs - чтобы найти расстояние числа от нуля (его абсолютное значение).
+#   round - чтобы округлить число до определенного количества знаков после запятой.
+#   sum - чтобы найти итог списка.
+# print(min(1, 2, 3, -4, 0, 2, 1))
+# print(max([1, 4, 9, 2, 5, 6, 8]))
+# print(abs(-99))
+# print(abs(42))
+# print(round(77.394953738, 3))
+# print(sum([1, 2, 3, 4, 5]))
+
+# a = min([sum([11, 22]), max(abs(-30), 2)])
+# print(a)
+
+#  TODO: List Functions -
+#   all и any принимают список в качестве аргумента и возвращают True,
+#   если все или некоторые (соответственно) их аргументы оцениваются как True (и False в противном случае).
+#   enumerate может использоваться для одновременного перебора значений и индексов списка.
+# nums = [55, 44, 33, 22, 11]
+#
+# if all([i > 5 for i in nums]):
+#     print("All larger than 5")
+# else:
+#     print('not all over 5')
+#
+# if any([i % 2 == 0 for i in nums]):
+#     print("At least one is even")
+# else:
+#     print('Not one is even')
+#
+# for v in enumerate(nums):
+#     print(v)
+
+# nums = [-1, 2, -3, 4, -5]
+# if all([abs(i) < 3 for i in nums]):
+#     print(1)
+# else:
+#     print(2)
+
+# txt = input()
+# print(txt.replace('#', ' '))
+
+# TODO: Text Analyzer - анализирует образец файла, чтобы определить, какой процент текста занимает каждый символ
+# filename = input("Enter a filename: ")
+#
+# with open(filename) as f:
+#     text = f.read()
+#
+# print(text)
+
+# def count_char(text, char):  # функция, которая подсчитывает, сколько раз символ встречается в строке.
+#     count = 0
+#     for c in text:
+#         if c == char:
+#             count += 1
+#     return count
+#
+#
+# filename = input("Enter a filename: ")  # функция принимает в качестве аргументов текст файла и один символ,
+# with open(filename) as f:  # возвращая количество раз, которое этот символ появляется в тексте.
+#     text = f.read()
+#
+# print(count_char(text, "1"))
+#
+# for char in "abcdefghijklmnopqrstuvwxyz":
+#     perc = 100 * count_char(text, char) / len(text)
+#     print("{0} - {1}%".format(char, round(perc, 2)))
+
+# # программа находит, какой процент текста занимает каждый символ английского алфавита,
+# # в только что созданном программой файле newfile.txt.
+# def count_char(text, char):
+#     count = 0
+#     for c in text:
+#         if c == char:
+#             count += 1
+#     return count
+#
+#
+# file = open("newfile.txt", "w")
+# file.write("""Ornhgvshy vf orggre guna htyl.
+# Rkcyvpvg vf orggre guna vzcyvpvg.
+# Fvzcyr vf orggre guna pbzcyvpngrq.
+# Syng vf orggre guna arfgrq.
+# Fcenfr fv orggre guna qrafr.
+# Ernqnovyvgl pbhagf.
+# Fcrpvny pnfrf nera'g fcrpvny rabthu gb oernx gur ehyrf.
+# Nygubhtu cenpgvpnyvgl orgnf chevgl.
+# Reebef fubhyq arire cnff fvyragyl.
+# Hayrff rkcyvpvgyl fvyraprq.
+# Va gur snpr bs nzovthvgl, ershfr gur grzcgngvba bg thrff.
+# Gurer fubhyq or bar-- naq cersrenoylbayl bar --boivbhf jnl gb qb vg.
+# Nygubhtu gung jnl znl abg or boivbhf ng svefg hayrff lbh'er Qhgpu.
+# Abj vf orggre guna arrire.
+# Nygubhtu arire vf bsgra orggre guna *evtug* abj.
+# Vs gur vzcyrzragngvba vf uneq gb rkcynva, vg'f n onq vqrn.
+# Vs gur vzcyrzragngvba vf rnfl gb rkcynva, vg znl or n tbbq vqrn.
+# Anzrfcnprf ner bar ubaxvat terng vqrn -- yrg'f qb zber bs gubfr!""")
+# file.close()
+# filename = "newfile.txt"
+# with open(filename) as f:
+#     text = f.read()
+#
+# for char in "abcdefghijklmnopqrstuvwxyz":
+#     perc = 100 * count_char(text, char) / len(text)
+#     print(f'{char} - {round(perc, 2)}%')
+# print(f'Текст состоит из {len(text)} символов')
+
+
+# # программа находит, какой процент текста занимает каждый символ белорусского алфавита в файле newfileBY.txt
+# def count_char(text, char):
+#     count = 0
+#     for c in text:
+#         if c == char:
+#             count += 1
+#     return count
+#
+#
+# filename = "newfileBY.txt"
+# with open(filename) as f:
+#     text = f.read()
+#
+# for char in "абвгдеёжзійклмнопрстуўфхцчшыьэюя":
+#     perc = 100 * count_char(text, char) / len(text)
+#     print(f'{char} - {round(perc, 2)}%')
+# print(f'Текст состоит из {len(text)} символов')
+
+# Задача: Дан текст на входе, выведите количество содержащихся в нем слов.
+# Пример ввода: hello world
+# Пример вывода: 2
+# txt = input()
+# a = txt.split()
+# print(len(a))
+
+# nums = (55, 44, 33, 22)
+# print(max(min(nums[:2]), abs(-42)))
+
+# txt = input()
+# list_words = txt.split()
+# print(max(list_words, key=len))
+
+# # код выше, но записанный в 2 строки:
+# txt = input().split()
+# print(max(txt, key=len))
+
+#  TODO: Functional Programming - это стиль программирования, который (как следует из названия) основан на функциях.
+# def apply_twice(func, arg):  # Функция apply_twice принимает в качестве аргумента другую функцию
+#     return func(func(arg))  # и дважды вызывает ее внутри своего тела.
+#
+#
+# def add_five(x):
+#     return x + 5
+#
+#
+# print(apply_twice(add_five, 10))
+
+
+# def test(func, arg):
+#     return func(func(arg))
+#
+#
+# def mult(x):
+#     return x * x
+#
+#
+# print(test(mult, 2))
+
+#  TODO: Pure Functions - Чистые функции не имеют побочных эффектов и возвращают значение,
+#   которое зависит только от их аргументов.
+# def pure_function(x, y):  # Чистая функция
+#     temp = x + 2 * y
+#     return temp / (2 * x + y)
+#
+#
+# print(pure_function(2, 4))
+
+# def func(x):  # Чистая функция
+#     y = x ** 2
+#     z = x + y
+#     return z
+
+# some_list = []
+#
+#
+# def impure(arg):  # Не чистая функция, потому что она изменила состояние some_list
+#     some_list.append(arg)
+#
+#
+# impure('Не')
+# impure('чистая')
+# impure('функция')
+# impure(', потому что она изменила состояние some_list')
+# print(some_list)
+
+#  TODO: Lambdas - Лямбда-функции получили свое название от лямбда-исчисления — модели вычислений,
+#   изобретенной Алонзо Чёрчем. Лямбда-функции можно создавать на лету, не присваивая их переменной.
+# def my_func(f, arg):
+#     return f(arg)
+#
+#
+# print(my_func(lambda x: 2 * x * x, 5))
+
+# # named function
+# def polynomial(x):
+#     return x ** 2 + 5 * x + 4
+#
+#
+# print(polynomial(-4))
+
+# # lambda
+# print((lambda x: x ** 2 + 5 * x + 4)(-4))
+
+# a = (lambda x: x * x)(8)
+# print(a)
+
+# double = lambda x: x * 2
+# print(double(7))
+
+# triple = lambda x: x * 3
+# add = lambda x, y: x + y
+# print(add(triple(3), 4))
+
+# x = int(input())
+# y = (lambda z:z*z*z)(x)
+# print(y)
+
+#  TODO: map - Встроенные функции map и filter — это очень полезные функции высшего порядка,
+#   которые работают со списками (или подобными объектами, называемыми итерируемыми).
+#   map - принимает функцию и итерируемый объект в качестве аргументов и возвращает
+#   новый итерируемый объект с функцией, примененной к каждому аргументу.
+# def add_five(x):
+#     return x + 5
+#
+#
+# nums = [11, 22, 33, 44, 55]
+# result = list(map(add_five, nums))
+# print(result)
+
+# # можем бы добиться того же результата более легко, используя лямбда - синтаксис:
+# nums = [11, 22, 33, 44, 55]
+# result = list(map(lambda x: x + 5, nums))
+# print(result)
+
+#  TODO: filter - фильтрует итерируемый объект, удаляя элементы,
+#   не соответствующие предикату (функция, возвращающая логическое значение).
+#   Как и map, результат должен быть явно преобразован в список, если вы хотите его распечатать.
+# nums = [11, 22, 33, 44, 55]
+# res = list(filter(lambda x: x % 2 == 0, nums))
+# print(res)
+
+# nums = [1, 2, 5, 8, 3, 0, 7]
+# res = list(filter(lambda x: x < 5, nums))
+# print(res)
+
+# names = ["David", "John", "Annabelle", "Johnathan", "Veronica"]
+# res = list(filter(lambda x: len(x) > 5, names))
+# print(res)
 
 # txt = "hello"
 # print(max(txt))
