@@ -166,6 +166,7 @@
 () ** * / + - 
 """
 
+
 # import readline
 
 # age = int(input())
@@ -954,6 +955,164 @@
 # names = ["David", "John", "Annabelle", "Johnathan", "Veronica"]
 # res = list(filter(lambda x: len(x) > 5, names))
 # print(res)
+
+# #       01234567890123456789012345678901
+# text = 'абвгдеёжзійклмнопрстуўфхцчшыьэюя'
+# a = f'{text[13]}{text[5]}{text[14]}{text[18]}{text[11]}'
+# print(a.upper())
+
+# TODO: Generators - тип итерируемых объектов, таких как списки или кортежи.
+#  В отличие от списков, они не допускают индексации с произвольными индексами,
+#  но их все же можно перебирать с помощью циклов for.
+#  Их можно создать с помощью функций и оператора yield
+# def countdown():
+#     i = 5
+#     while i > 0:
+#         yield i
+#         i -= 1
+#
+#
+# # Короче говоря, генераторы позволяют вам объявить функцию, которая ведет себя как итератор,
+# # и ее можно использовать в цикле for.
+# for x in countdown():
+#     print(x)
+
+# def infinite_sevens():
+#     while True:
+#         yield 7
+#
+#
+# for i in infinite_sevens():
+#     print(i)
+
+# def is_prime(n):
+#     for i in range(2, int(n ** 0.5) + 1):
+#         if n % i == 0:
+#             return False
+#
+#     return True
+#
+#
+# def get_primes():
+#     num = 2
+#     while True:
+#         if is_prime(num):
+#             yield num
+#         num += 1
+#
+#
+# for x in get_primes():
+#     print(x)
+
+# def numbers(x):
+#     for i in range(x):
+#         if i % 2 == 0:
+#             yield i
+#
+#
+# print(list(numbers(11)))
+
+
+# def make_word():
+#     word = ""
+#     for ch in "spam":
+#         word += ch
+#         yield word
+#
+#
+# print(list(make_word()))
+
+# txt = input()
+#
+#
+# def words(t):
+#     yield t.split()
+#
+#
+# for x in words(txt):
+#     print(x)
+
+#  TODO: Decorators - позволяют изменять функции, используя другие функции.
+#   Это идеально, когда Вам нужно расширить функциональность функций, которые вы не хотите изменять.
+# def decor(func):
+#     def wrap():
+#         print("============")
+#         func()
+#         print("============")
+#
+#     return wrap
+#
+#
+# def print_text():
+#     print("Hello world!")
+#
+#
+# decorated = decor(print_text)
+# decorated()
+
+
+# def decor(func):
+#     def wrap():
+#         print("============")
+#         func()
+#         print("============")
+#
+#     return wrap
+#
+#
+# def print_text():
+#     print("Hello world!")
+#
+#
+# print_text = decor(print_text)
+# print_text()
+
+# def decor(func):
+#     def wrap():
+#         print("============")
+#         func()
+#         print("============")
+#
+#     return wrap
+#
+#
+# @decor
+# def print_text():
+#     print("Hello world!")
+#
+#
+# print_text()
+
+# text = input()
+#
+#
+# def uppercase_decorator(func):
+#     def wrapper(t):
+#         return t.upper()
+#
+#     return wrapper
+#
+#
+# @uppercase_decorator
+# def display_text(x):
+#     return x
+#
+#
+# print(display_text(text))
+
+def uppercase_decorator(func):
+    def wrapper(t):
+        return t.upper()
+
+    return wrapper
+
+
+@uppercase_decorator
+def display_text(x):
+    return x
+
+
+print(display_text('text'))
 
 # txt = "hello"
 # print(max(txt))
