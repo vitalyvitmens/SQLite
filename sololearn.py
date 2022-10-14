@@ -1100,19 +1100,648 @@
 #
 # print(display_text(text))
 
-def uppercase_decorator(func):
-    def wrapper(t):
-        return t.upper()
+# def uppercase_decorator(func):
+#     def wrapper(t):
+#         return t.upper()
+#
+#     return wrapper
+#
+#
+# @uppercase_decorator
+# def display_text(x):
+#     return x
+#
+#
+# print(display_text('text'))
 
-    return wrapper
+# def decorator_a(fun):
+#     print('Get in decorator_a')
+#
+#     def inner_a(*args, **kwargs):
+#         print('Get in inner_a')
+#         res = fun(*args, **kwargs)
+#         return res
+#
+#     return inner_a
+#
+#
+# def decorator_b(fun):
+#     print('Get in decorator_b')
+#
+#     def inner_b(*args, **kwargs):
+#         print('Get in inner_b')
+#         res = fun(*args, **kwargs)
+#         return res
+#
+#     return inner_b
+#
+#
+# @decorator_a
+# @decorator_b
+# def f(x):
+#     print('Get in f')
+#     return x * 2
+#
+#
+# f(2)
+
+# TODO: Recursion -  очень важная концепция в функциональном программировании.
+#   Фундаментальной частью рекурсии является самоссылка — функции, вызывающей саму себя.
+#   Используется для решения проблем, которые можно разбить на более простые подзадачи того же типа.
+#   Классическим примером рекурсивно реализованной функции является функция факториала.
+# def factorial(x):
+#     if x == 1:
+#         return 1
+#     else:
+#         return x * factorial(x - 1)
+#
+#
+# print(factorial(5))
+
+# def is_even(x):
+#     if x == 0:
+#         return True
+#     else:
+#         return is_odd(x - 1)
+#
+#
+# def is_odd(x):
+#     return not is_even(x)
+#
+#
+# print(is_odd(1))
+# print(is_even(3))
 
 
-@uppercase_decorator
-def display_text(x):
-    return x
+# def fib(x):
+#     if x == 0 or x == 1:
+#         return 1
+#     else:
+#         return fib(x - 1) + fib(x - 2)
+#
+#
+# print(fib(4))
+
+# def calc(list):
+#     if len(list) == 0:
+#         return 0
+#     else:
+#         return list[0]**2 + calc(list[1:])
+#
+#
+# list = [1, 3, 4, 2, 5]
+# x = calc(list)
+# print(x)
+
+# TODO: Sets - это структуры данных, похожие на списки или словари.
+#  Они создаются с помощью фигурных скобок {} или функции set().
+#  Они имеют некоторые общие функции со списками, такие как использование in для проверки того,
+#  содержат ли они определенный элемент.
+#  Наборы отличаются от списков несколькими способами, но имеют несколько общих операций со списками, таких как len().
+#  Они неупорядочены, что означает, что они не могут быть проиндексированы.
+#  Они не могут содержать повторяющиеся элементы!!!
+#  Из-за того, как они хранятся, быстрее проверить, является ли элемент частью набора, а не частью списка.
+#  Вместо использования append для добавления в набор используйте add().
+#  Метод remove() удаляет определенный элемент из набора; pop() удаляет произвольный элемент.
+
+# num_set = {1, 2, 3, 4, 5}
+# word_set = set(["spam", "eggs", "sausage"])
+#
+# print(3 in num_set)
+# print("spam" not in word_set)
+
+# letters = {"a", "b", "c", "d"}
+# if "e" not in letters:
+#     print(1)
+# else:
+#     print(2)
+
+# nums = {1, 2, 1, 3, 1, 4, 5, 6}
+# print(nums)
+# nums.add(-7)
+# nums.remove(3)
+# print(nums)
+
+# nums = {"a", "b", "c", "d"}
+# nums.add("z")
+# print(len(nums))
+# TODO: Sets наборы можно комбинировать с помощью математических операций:
+#  Оператор объединения | объединяет два набора, чтобы сформировать новый, содержащий элементы в любом из них.
+#  Оператор пересечения & получает элементы только в обоих случаях.
+#  Оператор разности    - получает элементы в первом наборе, но не во втором.
+#  Оператор симметричной разности ^ получает элементы в любом наборе, но не в обоих одновременно.
+# first = {1, 2, 3, 4, 5, 6}
+# second = {4, 5, 6, 7, 8, 9}
+#
+# print(first | second)
+# print(first & second)
+# print(first - second)
+# print(second - first)
+# print(first ^ second)
+
+# a = {1, 2, 3}
+# b = {0, 3, 4, 5}
+# print(a & b)
+
+# TODO: Data Structures (Структуры данных) - списки, словари, кортежи, наборы.
+#  Когда использовать словарь: - если нужна логическая ассоциация между парой ключ: значение и нужен быстрый поиск
+#  данных на основе пользовательского ключа, если данные постоянно изменяются, словари изменяемы.
+#  Когда использовать списки: - если есть коллекция данных, не требующая произвольного доступа и
+#  нужна простая итерируемая коллекция, которая часто изменяется.
+#  Когда использовать Set (набор): - если нужна уникальность для элементов.
+#  Когда использовать кортежи: - если данные не могут измениться.
+# set1 = {2, 4, 5, 6}
+# set2 = {4, 6, 7, 8, 11, 42, 2}
+# print(set1 & set2)
+
+# a = (2, 3, 2, 3)
+# print(a)
+# b = {2, 3, 2, 3}
+# print(b)
+# print(len(b))
+
+# TODO: itertools - Модуль itertools — это стандартная библиотека, содержащая несколько функций,
+#  полезных в функциональном программировании.
+#  Один из типов функций, которые он производит — это бесконечные итераторы.
+#  Функция count бесконечно увеличивает значение.
+#  Функциональный cycle бесконечно перебирает итерируемый объект (например, список или строку).
+#  Функция repeat повторяет объект либо бесконечно, либо определенное количество раз.
+#  Функция takewhile - берет элементы из итерации, пока функция предиката остается истинной.
+#  Функция chain - объединяет несколько итераций в одну длинную.
+#  Функция accumulate - возвращает промежуточную сумму значений в итерации.
+#  Функции product (произведение) and permutation (перестановка) - комбинаторные функции,
+#  используются для выполнения задач со всеми возможными комбинациями некоторых элементов.
+
+# from itertools import count
+#
+# for i in count(3):
+#     print(i)
+#     if i >= 11:
+#         break
+
+# from itertools import accumulate, takewhile
+#
+# nums = list(accumulate(range(8)))
+# print(nums)
+# print(list(takewhile(lambda x: x <= 15, nums)))
+
+# from itertools import takewhile
+#
+# nums = [2, 4, 6, 8, 7, 9, 8]
+# a = takewhile(lambda x: x % 2 == 0, nums)
+# print(list(a))
+
+# from itertools import product, permutations
+#
+# letters = ("A", "B")
+# print(list(product(letters, range(2))))
+# print(list(permutations(letters)))
+
+# from itertools import product
+#
+# a = {1, 2}
+# print(list(product(range(3), a)))
+# print(len(list(product(range(3), a))))
+
+# from itertools import permutations
+#
+# items = ['x', 'y']
+# print(list(permutations(items)))
+
+# nums = {1, 2, 3, 4, 5, 6}
+# nums = {0, 1, 2, 3} & nums
+# print(nums)
+# nums = filter(lambda x: x > 1, nums)
+# print(len(list(nums)))
+
+# def power(x, y):
+#     if y == 0:
+#         return 1
+#     else:
+#         return x * power(x, y - 1)
+#
+#
+# print(power(3, 4))
+
+# a = (lambda x: x * (x + 1))(6)
+# print(a)
+
+# nums = [1, 2, 8, 3, 7]
+# res = list(filter(lambda x: x % 2 == 0, nums))
+# print(res)
+
+# num = int(input())
+#
+#
+# def fibonacci(n):
+#     if n <= 1:
+#         return n
+#     else:
+#         return fibonacci(n - 1) + fibonacci(n - 2)
+#
+#
+# for i in range(num):
+#     print(fibonacci(i))
+
+# TODO: Classes - Ранее мы рассмотрели две парадигмы программирования — императивную (использующую операторы,
+#  циклы и функции в качестве подпрограмм) и функциональную (использующую чистые функции,
+#  функции высшего порядка и рекурсию). Другой очень популярной парадигмой является
+#  объектно-ориентированное программирование (ООП). Объекты создаются с использованием классов,
+#  которые на самом деле являются фокусом ООП. Класс описывает, каким будет объект, но он отделен от самого объекта.
+#  Другими словами, класс можно описать как схему, описание или определение объекта.
+#  Вы можете использовать один и тот же класс в качестве схемы для создания нескольких разных объектов.
+# class Cat:
+#     """
+#     Классы создаются с использованием ключевого слова class и блока с отступом,
+#     который содержит методы класса (которые являются функциями).
+#     Этот код определяет класс с именем Cat, который имеет два атрибута: цвет и ноги .
+#     """
+#
+#     def __init__(self, color, legs):
+#         self.color = color
+#         self.legs = legs
+#
+#
+# """
+# Класс Cat используется для создания 3 отдельных объектов этого класса.
+# """
+# felix = Cat("ginger", 4)
+# rover = Cat("dog-colored", 4)
+# stumpy = Cat("brown", 3)
 
 
-print(display_text('text'))
+# TODO: __init__ - самый важный метод в классе.
+#  Это вызывается при создании экземпляра (объекта) класса с использованием имени класса в качестве функции.
+#  Все методы должны иметь self в качестве первого параметра, хотя он не передается явно,
+#  Python добавляет аргумент self в список за вас; вам не нужно включать его при вызове методов.
+#  В определении метода self ссылается на экземпляр, вызывающий метод. Экземпляры класса имеют атрибуты,
+#  которые представляют собой фрагменты данных, связанные с ними.
+#  В этом примере экземпляры Cat имеют атрибуты цвета и ног.
+#  Доступ к ним можно получить, поставив точку и имя атрибута после экземпляра.
+# class Cat:
+#     """
+#     в методе __init__ self.attribute можно использовать для установки начального значения атрибутов экземпляра.
+#     Метод __init__ принимает два аргумента и присваивает их атрибутам объекта.
+#     Метод __init__ называется конструктором класса.
+#     """
+#     def __init__(self, color, legs):
+#         self.color = color
+#         self.legs = legs
+#
+#
+# felix = Cat("ginger", 4)
+# print(felix.color)
+
+# TODO: Methods - Классы могут иметь другие методы, определенные для добавления функциональности.
+#  Все методы должны иметь self в качестве первого параметра.
+#  Доступ к этим методам осуществляется с использованием того же синтаксиса точек, что и у атрибутов.
+# class Dog:
+#     def __init__(self, name, color):
+#         self.name = name
+#         self.color = color
+#
+#     def bark(self):
+#         print("Woof!")
+#
+#
+# fido = Dog("Fido", "brown")
+# print(fido.name)
+# fido.bark()
+
+
+# class Dog:
+#     """
+#     Классы также могут иметь атрибуты класса, созданные путем присвоения переменных в теле класса.
+#     Доступ к ним можно получить либо из экземпляров класса, либо из самого класса.
+#     Атрибуты класса являются общими для всех экземпляров класса.
+#     """
+#     legs = 4
+#
+#     def __init__(self, name, color):
+#         self.name = name
+#         self.color = color
+#
+#
+# fido = Dog("Fido", "brown")
+# print(fido.legs)
+# print(Dog.legs)
+
+# class Student:
+#     def __init__(self, name):
+#         self.name = name
+#
+#     def sayHi(self):
+#         print("Hi from " + self.name)
+#
+#
+# s1 = Student("Amy")
+# s1.sayHi()
+
+# class Rectangle:
+#     def __init__(self, width, height, color):
+#         self.width = width
+#         self.height = height
+#         self.color = f'Цвет треугольника: {color}'
+#
+#
+# rect = Rectangle(7, 8, 'black')
+# print(rect.color)
+
+# class Student:
+#     def __init__(self, name):
+#         self.name = name
+#
+#     def greet(self):
+#         print(self.name + " says hi")
+#
+#
+# obj = Student("John")
+# obj.greet()
+
+# TODO: Inheritance - Наследование позволяет разделить функциональность между классами.
+#  Представьте себе несколько классов, Cat, Dog, Rabbit и так далее.
+#  Хотя они могут в чем-то отличаться (только у Dog может быть метод bark), у других они,
+#  скорее всего, будут похожи (все имеют атрибуты color и name) - это сходство можно выразить,
+#  заставив их всех наследовать от суперкласса Animal, который содержит общие функции.
+#  Чтобы наследовать класс от другого класса, поместите имя суперкласса в круглых скобках после имени класса.
+# class Animal:
+#     def __init__(self, name, color):
+#         self.name = name
+#         self.color = color
+#
+#
+# class Cat(Animal):
+#     def purr(self):
+#         print("Purr...")
+#
+#
+# class Dog(Animal):
+#     def bark(self):
+#         print("Woof!")
+#
+#
+# fido = Dog("Fido", "brown")
+# print(fido.color)
+# fido.bark()
+
+# """
+# Класс, который наследуется от другого класса, называется подклассом.
+# Класс, который наследуют, называется суперклассом.
+# Если класс наследуется от другого с теми же атрибутами или методами, он переопределяет их.
+# В примере Wolf — это надкласс, а Dog — подкласс.
+# """
+#
+#
+# class Wolf:
+#     def __init__(self, name, color):
+#         self.name = name
+#         self.color = color
+#
+#     def bark(self):
+#         print("Grr...")
+#
+#
+# class Dog(Wolf):
+#     def bark(self):
+#         print("Woof")
+#
+#
+# husky = Dog("Max", "grey")
+# husky.bark()
+
+# class A:
+#     def method(self):
+#         print(1)
+#
+#
+# class B(A):
+#     def method(self):
+#         print(2)
+#
+#
+# B().method()
+
+# """
+# Наследование может быть и косвенным.
+# Один класс может наследовать от другого, а тот класс может наследовать от третьего класса.
+# Однако циклическое наследование невозможно.
+# """
+#
+#
+# class A:
+#     def method(self):
+#         print("A method")
+#
+#
+# class B(A):
+#     def another_method(self):
+#         print("B method")
+#
+#
+# class C(B):
+#     def third_method(self):
+#         print("C method")
+#
+#
+# c = C()
+# c.method()
+# c.another_method()
+# c.third_method()
+
+# class A:
+#     def a(self):
+#         print(1)
+#
+#
+# class B(A):
+#     def a(self):
+#         print(2)
+#
+#
+# class C(B):
+#     def c(self):
+#         print(3)
+#
+#
+# c = C()
+# c.a()
+
+# """
+# Функция super — полезная функция, связанная с наследованием, которая ссылается на родительский класс.
+# Его можно использовать для поиска метода с определенным именем в суперклассе объекта.
+# super().spam() вызывает spam - метод суперкласса.
+# """
+#
+#
+# class A:
+#     def spam(self):
+#         print(1)
+#
+#
+# class B(A):
+#     def spam(self):
+#         print(2)
+#         super().spam()
+#
+#
+# B().spam()
+
+
+# """
+# Завершите предоставленный код, чтобы наследовать класс Car от класса Vehicle,
+# создайте объект Car и вызовите его метод horn(), унаследованный от суперкласса Vehicle.
+# """
+#
+#
+# class Vehicle:
+#     def horn(self):
+#         print("Beep!")
+#
+#
+# class Car(Vehicle):
+#     def __init__(self, name, color):
+#         self.name = name
+#         self.color = color
+#
+#
+# obj = Car("BMW", "red")
+# obj.horn()
+
+# TODO: Magic Methods (Магические методы) — это специальные методы, имена которых имеют двойное подчеркивание в
+#  начале и в конце. Они также известны как дандеры. Пока что мы столкнулись только с __init__ ,
+#  но есть и несколько других. Они используются для создания функциональности,
+#  которую нельзя представить в виде обычного метода.
+#  Одним из их распространенных применений является перегрузка операторов.
+#  Это означает определение операторов для пользовательских классов,
+#  которые позволяют использовать в них такие операторы, как + и *.
+# class Vector2D:
+#     def __init__(self, x, y):
+#         self.x = x
+#         self.y = y
+#
+#     def __add__(self, other):
+#         return Vector2D(self.x + other.x, self.y + other.y)
+#
+#
+# """
+# Метод __add__ позволяет определить пользовательское поведение для оператора + в нашем классе.
+# Как видите, он добавляет соответствующие атрибуты объектов и возвращает новый объект, содержащий результат.
+# Как только он определен, мы можем добавить два объекта класса вместе.
+# """
+# first = Vector2D(5, 7)
+# second = Vector2D(3, 9)
+# result = first + second
+# print(result.x)
+# print(result.y)
+
+# """
+# Метод __add__ позволяет определить пользовательское поведение для оператора + в нашем классе.
+# Предоставленный код пытается сложить вместе два объекта BankAccount, в результате чего должен
+# получиться новый объект с суммой остатков на указанных счетах. Исправьте код,
+# чтобы он работал должным образом, и выведите итоговый баланс счета.
+#
+# Метод __add__ должен принимать 2 параметра, которые представляют добавляемые вами объекты
+# """
+#
+#
+# class BankAccount:
+#     def __init__(self, balance):
+#         self.balance = balance
+#
+#     def __add__(self, other):
+#         return BankAccount(self.balance + other.balance)
+#
+#
+# a = BankAccount(1024)
+# b = BankAccount(42)
+#
+# result = a + b
+# print(result.balance)
+
+# TODO: Магические методы для общих операторов:
+#  __add__ для +
+#  __sub__ for -
+#  __mul__ for *
+#  __truediv__ for /
+#  __floordiv__ for //
+#  __mod__ for %
+#  __pow__ for **
+#  __and__ for &
+#  __xor__ for ^
+#  __or__ for |
+#  Выражение x + y переводится в x.__add__(y),
+#  Однако, если x не реализовал __add__, а x и y имеют разные типы, то вызывается y.__radd__(x)
+
+# class SpecialString:
+#     def __init__(self, cont):
+#         self.cont = cont
+#
+#     def __truediv__(self, other):
+#         line = "=" * len(other.cont)
+#         return "\n".join([self.cont, line, other.cont])
+#
+#
+# spam = SpecialString("spam")
+# hello = SpecialString("Hello world!")
+# print(spam / hello)
+
+# TODO: Python также предоставляет волшебные методы для сравнения.
+#  __lt__ for <
+#  __le__ for <=
+#  __eq__ for ==
+#  __ne__ for !=
+#  __gt__ for >
+#  __ge__ for >=
+#  Если __ne__ не реализовано, возвращается значение, противоположное __eq__ .
+#  Других отношений между другими операторами нет.
+#  Можем определить любое пользовательское поведение для перегруженных операторов.
+# class SpecialString:
+#     def __init__(self, cont):
+#         self.cont = cont
+#
+#     def __gt__(self, other):
+#         for index in range(len(other.cont) + 1):
+#             result = other.cont[:index] + ">" + self.cont
+#             result += ">" + other.cont[index:]
+#             print(result)
+#
+#
+# spam = SpecialString("spam")
+# eggs = SpecialString("eggs")
+# spam > eggs
+
+# TODO: Есть несколько волшебных способов заставить классы работать как контейнеры.
+#  __len__ для len()
+#  __getitem__ для индексации
+#  __setitem__ для присвоения индексированным значениям
+#  __delitem__ для удаления индексированных значений
+#  __iter__ для итерации по объектам (например, in для циклов)
+#  __contains__ для in
+#  Существует множество других волшебных методов, которые мы не будем здесь рассматривать,
+#  например __call__ для вызова объектов как функций и __int__ , __str__ и т.п.
+#  для преобразования объектов во встроенные типы.
+#  Мы переопределили функцию len() для класса VagueList, чтобы она возвращала случайное число.
+#  Функция индексирования также возвращает случайный элемент в диапазоне из списка на основе выражения.
+import random
+
+
+class VagueList:
+    def __init__(self, cont):
+        self.cont = cont
+
+    def __getitem__(self, index):
+        return self.cont[index + random.randint(-1, 1)]
+
+    def __len__(self):
+        return random.randint(0, len(self.cont) * 2)
+
+
+vague_list = VagueList(["A", "B", "C", "D", "E"])
+print(len(vague_list))
+print(len(vague_list))
+print(vague_list[2])
+print(vague_list[2])
+
 
 # txt = "hello"
 # print(max(txt))
@@ -1127,12 +1756,10 @@ print(display_text('text'))
 # print(list_dic)
 # print(latin.index('o') + 1)
 
-
 # def my_func():
 #     print("spam")
 #     print("spam")
 #     print("spam")
-
 
 # def hello():
 #     print("Hello world!")
@@ -1224,7 +1851,6 @@ print(display_text('text'))
 #
 # area(w, h)
 
-
 # def sum(x):
 #     res = 0
 #     for i in range(x):
@@ -1244,7 +1870,6 @@ print(display_text('text'))
 # # this is a comment
 #
 # print(x % y)  # find the remainder
-
 
 # print (x // y)
 # another comment
@@ -1747,7 +2372,6 @@ print(display_text('text'))
 # print(dice1)
 # print(dice2)
 
-
 # import math
 #
 # num = 10
@@ -1773,7 +2397,6 @@ print(display_text('text'))
 #
 #
 # print_nums(10)
-
 
 # def func(x):
 #     res = 0
