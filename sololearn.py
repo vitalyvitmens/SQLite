@@ -1839,20 +1839,368 @@
 # print(s._Spam__egg)
 # print(s.__egg)
 
-class BankAccount:
-    def __init__(self, balance):
-        self._balance = balance
+# class BankAccount:
+#     def __init__(self, balance):
+#         self._balance = balance
+#
+#     def __repr__(self):
+#         return f'Account Balance: {self._balance}'
+#
+#     def deposit(self, amount):
+#         self._balance += amount
+#
+#
+# acc = BankAccount(0)
+# acc.deposit(int(input()))
+# print(acc)
 
-    def __repr__(self):
-        return f'Account Balance: {self._balance}'
+# TODO: Class Methods (Методы класса).
+#  Методы объектов, которые мы рассмотрели до сих пор, вызываются экземпляром класса,
+#  который затем передается параметру self метода.
+#  Методы класса бывают разные - их вызывает класс, который передается в параметр cls метода.
+#  Обычно они используются в фабричных методах, которые создают экземпляр класса с использованием параметров,
+#  отличных от тех, которые обычно передаются конструктору класса.
+#  Методы класса отмечены декоратором classmethod.
+#  new_square — это метод класса, который вызывается в классе, а не в экземпляре класса.
+#  Он возвращает новый объект класса cls.
+#  Технически параметры self и cls — это просто соглашения; их можно поменять на что угодно.
+#  Тем не менее, им следуют повсеместно, поэтому разумно придерживаться их.
+# class Rectangle:
+#     def __init__(self, width, height):
+#         self.width = width
+#         self.height = height
+#
+#     def calculate_area(self):
+#         return self.width * self.height
+#
+#     @classmethod
+#     def calculate_area_square(cls, side_length):
+#         return cls(side_length, side_length)
+#
+#
+# square = Rectangle.calculate_area_square(5)
+# print(square.calculate_area())
+#
+# rectangle = Rectangle(4, 5)
+# print(rectangle.calculate_area())
 
-    def deposit(self, amount):
-        self._balance += amount
+# class Person:
+#
+#     def __init__(self, name):
+#         self.name = name
+#
+#     @classmethod
+#     def sayHi(cls):
+#         return "Hi"
+#
+#
+# person = Person.sayHi()
+# print(person)
+
+# TODO: Static Methods - Статические методы аналогичны методам класса, за исключением того, что они не получают
+#  никаких дополнительных аргументов; они идентичны обычным функциям, принадлежащим классу.
+#  Они отмечены декоратором staticmethod.
+#  Статические методы ведут себя как обычные функции, за исключением того, что их можно вызывать из экземпляра класса.
+# class Pizza:
+#     def __init__(self, toppings):
+#         self.toppings = toppings
+#
+#     @staticmethod
+#     def validate_topping(topping):
+#         if topping == "pineapple":
+#             raise ValueError("No pineapples!")
+#         else:
+#             return True
+#
+#
+# ingredients = ["cheese", "onions", "spam"]
+# if all(Pizza.validate_topping(i) for i in ingredients):
+#     pizza = Pizza(ingredients)
+#
+# topping_check = Pizza.validate_topping("cheese")
+# print(topping_check)
+
+# class Calculator:
+#     @staticmethod
+#     def add(n1, n2):
+#         return n1 + n2
+#
+#
+# n1 = int(input())
+# n2 = int(input())
+#
+# print(Calculator.add(n1, n2))
+
+# TODO: Properties - Свойства предоставляют способ настройки доступа к атрибутам экземпляра.
+#  Они создаются путем размещения декоратора свойства над методом, что означает, что при доступе
+#  к атрибуту экземпляра с тем же именем, что и у метода, вместо этого будет вызываться метод.
+#  Одно из распространенных применений свойства — сделать атрибут доступным только для чтения.
+# class Pizza:
+#     def __init__(self, toppings):
+#         self.toppings = toppings
+#
+#     @property
+#     def pineapple_allowed(self):
+#         return False
+#
+#
+# pizza = Pizza(["cheese", "tomato"])
+# print(pizza.pineapple_allowed)
+# # pizza.pineapple_allowed = True
+
+# class Person:
+#
+#     def __init__(self, age):
+#         self.age = int(age)
+#
+#
+# @property
+# def isAdult(self):
+#     if self.age > 18:
+#         return True
+#     else:
+#         return False
+#
+#
+# human = Person(27).age
+# boy = Person(16).age
+# print(human)
+# print(boy)
+
+# TODO: Свойства также можно установить, определив функции setter/getter (установки/получения).
+#  Функция установки устанавливает значение соответствующего свойства.
+#  Геттер получает значение.
+#  Чтобы определить setter, вам нужно использовать декоратор с тем же именем,
+#  что и у свойства, за которым следует точка и ключевое слово setter.
+#  То же самое относится к определению функций получения.
+# class Pizza:
+#     def __init__(self, toppings):
+#         self.toppings = toppings
+#         self._pineapple_allowed = False
+#
+#     @property
+#     def pineapple_allowed(self):
+#         return self._pineapple_allowed
+#
+#     @pineapple_allowed.setter
+#     def pineapple_allowed(self, value):
+#         if value:
+#             password = input("Enter the password: ")
+#             if password == "Sw0rdf1sh!":
+#                 self._pineapple_allowed = value
+#             else:
+#                 raise ValueError("Alert! Intruder!")
+#
+#
+# pizza = Pizza(["cheese", "tomato"])
+# print(pizza.pineapple_allowed)
+# pizza.pineapple_allowed = True
+# print(pizza.pineapple_allowed)
+
+# class Number:
+#     def __init__(self, num):
+#         self.value = num
+#
+#     @property
+#     def isEven(self):
+#         if self.value % 2 == 0:
+#             return True
+#         else:
+#             return False
+#
+#
+# x = Number(int(input()))
+# print(x.isEven)
+
+# TODO: A Simple Game. Объектная ориентация очень полезна при управлении различными объектами и их отношениями.
+#  Это особенно полезно, когда вы разрабатываете игры с разными персонажами и функциями.
+#  Давайте рассмотрим пример проекта, который показывает, как классы используются в разработке игр.
+#  Разрабатываемая игра представляет собой старомодную текстовую приключенческую игру.
+#  Ниже приведена функция обработки ввода и простой синтаксический анализ.
+# def get_input():
+#     command = input(": ").split()
+#     verb_word = command[0]
+#     if verb_word in verb_dict:
+#         verb = verb_dict[verb_word]
+#     else:
+#         print(f'Unknown verb {verb_word}')
+#         return
+#
+#     if len(command) >= 2:
+#         noun_word = command[1]
+#         print(verb(noun_word))
+#     else:
+#         print(verb("nothing"))
+#
+#
+# def say(noun):
+#     return f'You said "{noun}"'
+#
+#
+# def hi(word):
+#     word = 'Hello!'
+#     return word
+#
+#
+# verb_dict = {
+#     "say": say,
+#     "Hi": hi,
+#     "HI": hi,
+#     "hello": hi,
+#     "Hello": hi,
+#     "Hello!": hi,
+#     "HELLO": hi,
+#
+# }
+#
+# while True:
+#     get_input()
+
+# TODO: Следующим шагом будет использование классов для представления игровых объектов.
+#  Мы создали класс Goblin, который наследуется от класса GameObjects.
+#  Мы также создали новую функцию exam, которая возвращает описание объектов.
+#  Теперь мы можем добавить в наш словарь новый глагол «исследовать» и попробовать его!
+# class GameObject:
+#     class_name = ""
+#     desc = ""
+#     objects = {}
+#
+#     def __init__(self, name):
+#         self.name = name
+#         GameObject.objects[self.class_name] = self
+#
+#     def get_desc(self):
+#         return self.class_name + "\n" + self.desc
+#
+#
+# class Goblin(GameObject):
+#     def __init__(self, name):
+#         self.class_name = "goblin"
+#         self.health = 3
+#         self._desc = " A foul creature"
+#         super().__init__(name)
+#
+#     @property
+#     def desc(self):
+#         if self.health >= 3:
+#             return self._desc
+#         elif self.health == 2:
+#             health_line = "It has a wound on its knee."
+#         elif self.health == 1:
+#             health_line = "Its left arm has been cut off!"
+#         elif self.health <= 0:
+#             health_line = "It is dead."
+#         return self._desc + "\n" + health_line
+#
+#     @desc.setter
+#     def desc(self, value):
+#         self._desc = value
+#
+#
+# def hit(noun):
+#     if noun in GameObject.objects:
+#         thing = GameObject.objects[noun]
+#         if type(thing) == Goblin:
+#             thing.health = thing.health - 1
+#             if thing.health <= 0:
+#                 msg = "You killed the goblin!"
+#             else:
+#                 msg = f"You hit the {thing.class_name}"
+#     else:
+#         msg = f"There is no {noun} here."
+#     return msg
+#
+#
+# goblin = Goblin("Gobbly")
+#
+#
+# def examine(noun):
+#     if noun in GameObject.objects:
+#         return GameObject.objects[noun].get_desc()
+#     else:
+#         return f"There is no {noun} here."
+#
+#
+# def get_input():
+#     command = input(": ").split()
+#     verb_word = command[0]
+#     if verb_word in verb_dict:
+#         verb = verb_dict[verb_word]
+#     else:
+#         print(f'Unknown verb {verb_word}')
+#         return
+#
+#     if len(command) >= 2:
+#         noun_word = command[1]
+#         print(verb(noun_word))
+#     else:
+#         print(verb("nothing"))
+#
+#
+# def say(noun):
+#     return f'You said "{noun}"'
+#
+#
+# verb_dict = {
+#     "say": say,
+#     "examine": examine,
+# }
+# while True:
+#     get_input()
 
 
-acc = BankAccount(0)
-acc.deposit(int(input()))
-print(acc)
+# class Test:
+#     __egg = 7
+#
+#
+# t = Test()
+# print(t._Test__egg)
+
+
+# class Person:
+#
+#     def __init__(self, name):
+#         self._name = name
+#
+#     @property
+#     def name(self):
+#         return self._name
+#
+#     @name.setter
+#     def name(self, value):
+#         self._name = value
+#
+#
+# richi = Person('Ричи')
+# print(richi.name)
+
+class Juice:
+    def __init__(self, name, capacity):
+        self.name = name
+        self.capacity = capacity
+
+    def __str__(self):
+        return f'{self.name} ({self.capacity}L)'
+
+    def __add__(self, other):
+        self.name += f'&{other.name}'
+        self.capacity += other.capacity
+        return self.__str__
+
+
+a = Juice('Orange', 1.5)
+b = Juice('Apple', 2.0)
+c = Juice('lemon', 0.5)
+result_a_b = a.__add__(b)()
+result_b_c = b.__add__(c)()
+result_a_b_c = a.__add__(c)()
+result_c_a_b_c = c.__add__(a)()
+print(result_a_b)
+print(result_b_c)
+print(result_a_b_c)
+print(result_c_a_b_c)
+
+
 
 # txt = "hello"
 # print(max(txt))
