@@ -166,7 +166,6 @@
 () ** * / + - 
 """
 
-
 # import readline
 
 # age = int(input())
@@ -2174,31 +2173,307 @@
 # richi = Person('Ричи')
 # print(richi.name)
 
-class Juice:
-    def __init__(self, name, capacity):
-        self.name = name
-        self.capacity = capacity
+# class Juice:
+#     def __init__(self, name, capacity):
+#         self.name = name
+#         self.capacity = capacity
+#
+#     def __str__(self):
+#         return f'{self.name} ({self.capacity}L)'
+#
+#     def __add__(self, other):
+#         self.name += f'&{other.name}'
+#         self.capacity += other.capacity
+#         return self.__str__
+#
+#
+# a = Juice('Orange', 1.5)
+# b = Juice('Apple', 2.0)
+# c = Juice('lemon', 0.5)
+# result_a_b = a.__add__(b)()
+# result_b_c = b.__add__(c)()
+# result_a_b_c = a.__add__(c)()
+# result_c_a_b_c = c.__add__(a)()
+# print(result_a_b)
+# print(result_b_c)
+# print(result_a_b_c)
+# print(result_c_a_b_c)
 
-    def __str__(self):
-        return f'{self.name} ({self.capacity}L)'
+# class Juice:
+#     def __init__(self, name, capacity):
+#         self.name = name
+#         self.capacity = capacity
+#
+#     def __str__(self):
+#         return f'{self.name} ({self.capacity}L)'
+#
+#     def __add__(self, other):
+#         return Juice(f'{self.name}&{other.name}', f'{self.capacity + other.capacity}')
+#
+#
+# a = Juice('Orange', 1.5)
+# b = Juice('Apple', 2.0)
+#
+# result = a + b
+# print(result)
 
-    def __add__(self, other):
-        self.name += f'&{other.name}'
-        self.capacity += other.capacity
-        return self.__str__
+# TODO: Regular Expressions (Регулярные выражения) — это мощный инструмент для различных видов манипуляций со строками.
+#  Это предметно-ориентированный язык (DSL), который присутствует в виде библиотеки в большинстве
+#  современных языков программирования, а не только в Python.
+#  Они полезны для двух основных задач:
+#  - проверка соответствия строк шаблону (например, формат строки адреса электронной почты)
+#  - выполнение подстановок в строке (например, замена всех американских вариантов написания на британские).
+#  Языки предметной области — это узкоспециализированные мини-языки программирования.
+#  Регулярные выражения — популярный пример, а SQL (для работы с базой данных) — еще один.
+#  Частные доменные языки часто используются для конкретных промышленных целей.
+#  Доступ к регулярным выражениям в Python можно получить с помощью модуля re,
+#  который является частью стандартной библиотеки.
+#  После того как вы определили регулярное выражение, можно использовать функцию re.match,
+#  чтобы определить, совпадает ли оно с началом строки.
+#  Если это так, match возвращает объект, представляющий совпадение, если нет, возвращает None.
+#  Чтобы избежать путаницы при работе с регулярными выражениями, мы будем использовать необработанные строки в
+#  качестве r"expression". Необработанные строки ничего не экранируют, что упрощает использование регулярных выражений.
+# import re
+#
+# """
+# В примере проверяется, соответствует ли шаблон «спам» строке, и печатается «Соответствие», если это так.
+# Здесь шаблон представляет собой простое слово, но есть различные символы,
+# которые будут иметь особое значение при использовании в регулярном выражении.
+# """
+# pattern = r"spam"
+#
+# if re.match(pattern, "spamspamspam"):
+#     print("Match")
+# else:
+#     print("No match")
 
+# TODO: Другими функциями для сопоставления шаблонов являются re.search и re.findall
+#  Функция re.search находит соответствие шаблону в любом месте строки.
+#  Функция re.findall возвращает список всех подстрок, соответствующих шаблону.
+# import re
+#
+# """
+# В примере функция сопоставления не совпала с шаблоном, так как она смотрит в начало строки.
+# Функция поиска нашла совпадение в строке.
+# Функция re.finditer делает то же самое, что и re.findall,
+# за исключением того, что она возвращает итератор, а не список.
+# """
+# pattern = r"spam"
+#
+# if re.match(pattern, "eggspamsausagespam"):
+#     print("Match")
+# else:
+#     print("No match")
+#
+# if re.search(pattern, "eggspamsausagespam"):
+#     print("Match")
+# else:
+#     print("No match")
+#
+# print(re.findall(pattern, "eggspamsausagespam"))
+# print(list(re.finditer(pattern, 'eggspamsausagespam')))
 
-a = Juice('Orange', 1.5)
-b = Juice('Apple', 2.0)
-c = Juice('lemon', 0.5)
-result_a_b = a.__add__(b)()
-result_b_c = b.__add__(c)()
-result_a_b_c = a.__add__(c)()
-result_c_a_b_c = c.__add__(a)()
-print(result_a_b)
-print(result_b_c)
-print(result_a_b_c)
-print(result_c_a_b_c)
+# import re
+#
+# """
+# Поиск по регулярному выражению возвращает объект с несколькими методами,
+# которые предоставляют подробную информацию о нем.
+# К этим методам относятся:
+# - group, возвращающая совпадающую строку,
+# - start и end, возвращающие начальную и конечную позиции первого совпадения,
+# - span, возвращающий начальную и конечную позиции первого совпадения в виде кортежа.
+# """
+# pattern = r"pam"
+#
+# match = re.search(pattern, "eggspamsausage")
+# if match:
+#     print(match.group())
+#     print(match.start())
+#     print(match.end())
+#     print(match.span())
+
+# import re
+#
+# pattern = r"test"
+# match = re.search(pattern, "some test")
+#
+# print(match.group())
+# print(match.start())
+# print(match.end())
+# print(match.span())
+
+# TODO: Search & Replace (Поиск и замена).
+#  Одним из наиболее важных методов re, использующих регулярные выражения, является sub:
+#      re.sub(pattern, repl, string, count=0)
+#  Этот метод заменяет все вхождения шаблона в строке на repl, заменяя все вхождения, если не указано количество.
+#  Этот метод возвращает измененную строку.
+# import re
+#
+# string = "My name is David. Hi David."
+# pattern = r"David"
+# new_string = re.sub(pattern, "Danik", string)
+# print(new_string)
+
+# import re
+#
+# num = "07987549836"
+# pattern = r"9"
+# num = re.sub(pattern, "0", num)
+# print(num)
+
+# import re
+#
+# num = input()
+# pattern = r"00"
+# mat = re.search(pattern, num)
+# if mat and mat.end() == 2:
+#     re.match(pattern, "00")
+#     num = re.sub(pattern, "+", num, 1)
+#     print(num)
+# else:
+#     print(num)
+
+# import re
+#
+# num = input()
+# pattern = r"00"
+#
+# if re.match(pattern, num):
+#     print(re.sub(pattern, "+", num, 1))
+# else:
+#     print(num)
+
+# import re
+#
+# pattern = r"00"
+# num = input()
+# if re.match(pattern, num):
+#     num = f'+{num[2:]}'
+# print(num)
+
+# TODO: Metacharacters - Метасимволы делают регулярные выражения более мощными, чем обычные строковые методы.
+#  Они позволяют создавать регулярные выражения для представления таких понятий, как
+#  «одно или несколько повторений гласной». Существование метасимволов создает проблему,
+#  если вы хотите создать регулярное выражение (или регулярное выражение),
+#  которое соответствует литеральному метасимволу, например "$".
+#  Вы можете сделать это, избегая метасимволов, поставив перед ними обратную косую черту.
+#  Однако это может вызвать проблемы, поскольку обратная косая черта также имеет функцию экранирования в
+#  обычных строках Python. Это может означать размещение трех или четырех обратных косых черт подряд для
+#  выполнения всего экранирования. Чтобы избежать этого, вы можете использовать необработанную строку,
+#  которая представляет собой обычную строку с буквой «r» перед ней.
+#  Мы видели использование необработанных строк в предыдущем уроке.
+# import re
+#
+# """
+# Первый метасимвол, который мы рассмотрим, это . (точка). Соответствует любому символу, кроме новой строки.
+# """
+# pattern = r"gr.y"
+#
+# if re.match(pattern, "grey"):
+#     print("Match 1")
+#
+# if re.match(pattern, "gray"):
+#     print("Match 2")
+#
+# if re.match(pattern, "blue"):
+#     print("Match 3")
+
+# import re
+#
+# """
+# Следующие два метасимвола — ^ и $. Они соответствуют началу и концу строки соответственно.
+# Шаблон "^gr.y$" означает, что строка должна начинаться с gr,
+# затем следует любой символ, кроме символа новой строки и заканчиваться на y.
+# """
+# pattern = r"^gr.y$"
+#
+# if re.match(pattern, "grey"):
+#     print("Match 1")
+#
+# if re.match(pattern, "gray"):
+#     print("Match 2")
+#
+# if re.match(pattern, "stingray"):
+#     print("Match 3")
+
+# import re
+#
+# word = input()
+# pattern = r"^m..e$"
+#
+# if re.match(pattern, word):
+#     print("Match")
+#
+# else:
+#     print("No match")
+
+# TODO: Character Classes - Классы символов позволяют сопоставить только один из определенного набора символов.
+#  Класс символов создается путем помещения символов, совпадающих с ним, в квадратные скобки.
+#  Шаблон [aeiou] в функции поиска соответствует всем строкам, содержащим любой из определенных символов.
+# import re
+#
+# pattern = r"[aeiou]"
+#
+# if re.search(pattern, "grey"):
+#     print("Match 1")
+#
+# if re.search(pattern, "qwertyuiop"):
+#     print("Match 2")
+#
+# if re.search(pattern, "rhythm myths"):
+#     print("Match 3")
+
+# TODO: Классы символов также могут соответствовать диапазонам символов.
+#  Некоторые примеры:
+#  Класс [az] соответствует любому строчному буквенному символу.
+#  Класс [GP] соответствует любому символу верхнего регистра от G до P.
+#  Класс [0-9] соответствует любой цифре.
+#  В один класс можно включить несколько диапазонов. Например, [A-Za-z] соответствует букве любого регистра.
+# import re
+#
+# """
+# Шаблон в примере соответствует строкам, содержащим две прописные буквы алфавита, за которыми следует цифра.
+# """
+# pattern = r"[A-Z][A-Z][0-9]"
+#
+# if re.search(pattern, "LS8"):
+#     print("Match 1")
+#
+# if re.search(pattern, "E3"):
+#     print("Match 2")
+#
+# if re.search(pattern, "1ab"):
+#     print("Match 3")
+
+# TODO: Поместите ^ в начале класса символов, чтобы инвертировать его.
+#  Это приводит к тому, что он соответствует любому символу, кроме включенных.
+#  Другие метасимволы, такие как $ и . , не имеют значения в классах символов.
+#  Метасимвол ^ не имеет значения, если он не является первым символом в классе.
+#  Шаблон  [^A-Z] исключает строки в верхнем регистре.
+#  Обратите внимание, что ^ должен быть внутри скобок, чтобы инвертировать класс символов.
+# import re
+#
+# pattern = r"[^A-Z]"
+#
+# if re.search(pattern, "this is all quiet"):
+#     print("Match 1")
+#
+# if re.search(pattern, "AbCdEfG123"):
+#     print("Match 2")
+#
+# if re.search(pattern, "THISISALLSHOUTING"):
+#     print("Match 3")
+
+import re
+Id = input()
+
+pattern = r"[A-Z][A-Z][0-9][0-9]$"
+
+if re.match(pattern, Id):
+    print("Searching")
+
+else:
+    print("Wrong format")
 
 
 
