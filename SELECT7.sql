@@ -1,15 +1,15 @@
 SELECT 
-	genres.name AS ЖАНР
+	ge.name AS ЖАНР
 	, SURNAME AS ФАМИЛИЯ
-	, TUTOR.NAME AS ИМЯ
+	, tu.NAME AS ИМЯ
 	, CITY AS МЕСТОПОЛОЖЕНИЕ
 FROM
-	genres
-	LEFT JOIN TUTOR
-		ON genres.GenreId = TUTOR.GenreId
+	genres AS ge
+	LEFT JOIN TUTOR AS tu
+		ON ge.GenreId = tu.GenreId
 WHERE 
-	genres.Name IN('Rock', 'Metal', 'Hip Hop/Rap', 'Шансон')
-	OR TUTOR.SURNAME Like ('Ляли%')
+	ge.Name IN('Rock', 'Metal', 'Hip Hop/Rap', 'Шансон')
+	OR tu.SURNAME Like ('Ляли%')
 ORDER BY
 	SURNAME 
 LIMIT 10
