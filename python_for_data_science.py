@@ -520,3 +520,297 @@ Python широко используется в науке о данных и и
 # }
 # df = pd.DataFrame(data, index=['James', 'Billy', 'Bob', 'Amy', 'Tom'])
 # print(df.loc[input()])
+
+# TODO: Indexing (Индексация)
+#  Мы можем выбрать один столбец, указав его имя в квадратных скобках:
+# import pandas as pd
+#
+# data = {
+#     'ages': [14, 18, 24, 42],
+#     'heights': [165, 180, 176, 184]
+# }
+#
+# df = pd.DataFrame(data, index=['James', 'Bob', 'Amy', 'Dave'])
+#
+# print(df["ages"])
+# TODO: Результатом является объект Series.
+#  Если мы хотим выбрать несколько столбцов, мы можем указать список имен столбцов:
+#  На этот раз результатом является DataFrame, так как он включает в себя несколько столбцов.
+#  Это полезно, когда нам нужно выбрать только часть столбцов из набора данных.
+# import pandas as pd
+#
+# data = {
+#     'ages': [14, 18, 24, 42],
+#     'heights': [165, 180, 176, 184]
+# }
+#
+# df = pd.DataFrame(data, index=['James', 'Bob', 'Amy', 'Dave'])
+#
+# print(df[["ages", "heights"]])
+
+# TODO: Slicing (Нарезка)
+#  Pandas использует функцию iloc для выбора данных на основе их числового индекса.
+#  Он работает так же, как списки индексации в Python.
+#  iloc следует тем же правилам, что и нарезка со списками Python.
+#  Например:
+# import pandas as pd
+#
+# data = {
+#     'ages': [14, 18, 24, 42],
+#     'heights': [165, 180, 176, 184]
+# }
+#
+# df = pd.DataFrame(data, index=['James', 'Bob', 'Amy', 'Dave'])
+#
+# # third row
+# print(df.iloc[2])
+#
+# # first 3 rows
+# print(df.iloc[:3])
+#
+# # rows 2 to 3
+# print(df.iloc[1:3])
+
+# TODO: Conditions (Условия)
+#  Мы также можем выбирать данные на основе условия.
+#  Например, выберем все строки, где возраст больше 18, а рост больше 180:
+#  Точно так же или | Оператор может использоваться для объединения условий.
+# import pandas as pd
+#
+# data = {
+#     'ages': [14, 18, 24, 42],
+#     'heights': [165, 180, 176, 184]
+# }
+#
+# df = pd.DataFrame(data, index=['James', 'Bob', 'Amy', 'Dave'])
+#
+# print(df[(df['ages'] > 18) & (df['heights'] > 180)])
+
+# TODO: ЗАДАЧА: Рейтинговая доска
+#  Вам предоставляется DataFrame, который включает в себя имена и ранги людей.
+#  Вам нужно взять ранг в качестве входных данных и вывести соответствующий столбец имени из DataFrame как ряд.
+#  Обратите внимание, что ранг является целым числом,
+#  поэтому вам необходимо преобразовать пользовательский ввод в целое число.
+# import pandas as pd
+#
+# data = {
+#     'name': ['James', 'Billy', 'Bob', 'Amy', 'Tom', 'Harry'],
+#     'rank': [4, 1, 3, 5, 2, 6]
+# }
+# df = pd.DataFrame(data, index=data['name'])
+# print(df['name'][df['rank'] == int(input())])
+
+# TODO: Reading Data (Чтение данных)
+#  Довольно часто данные поступают в формате файла.
+#  Одним из самых популярных форматов является CSV (значения, разделенные запятыми).
+#  Pandas поддерживает чтение данных из файла CSV непосредственно в DataFrame.
+#  В наших примерах мы будем использовать файл CSV, содержащий данные о заражении COVID-19 в Калифорнии за 2020 год,
+#  который называется «ca-covid.csv».
+#  Функция read_csv() считывает данные CSV-файла в DataFrame:
+#  df = pd.read_csv("ca-covid.csv")
+#  Нам нужно указать путь к файлу для функции read_csv().
+#  Pandas также поддерживает чтение из файлов JSON и баз данных SQL.
+#  Когда у нас есть данные в DataFrame, мы можем начать их изучение.
+#  Мы можем получить первые строки данных, используя функцию head() DataFrame:
+# import pandas as pd
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+#
+# print(df.head())
+# TODO:
+#  По умолчанию он возвращает первые 5 строк.
+#  Вы можете дать ему указание возвращать в качестве аргумента необходимое количество строк (например:
+#  df.head(10) вернет первые 10 строк).
+#  Мы видим, что наш DataFrame содержит дату, штат, количество случаев и смертей на эту дату.
+#  Точно так же вы можете получить последние строки, используя функцию tail().
+
+# TODO: Функция info() используется для получения важной информации о вашем наборе данных,
+#  такой как количество строк, столбцов, типы данных и т. д.:
+# import pandas as pd
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+#
+# df.info()
+# TODO: Запустите код, чтобы увидеть результат!
+#  Из результата мы видим, что наш набор данных содержит 342 строки и 4 столбца: дата, штат, случаи, смерти.
+#  Мы также видим, что Pandas добавил автоматически сгенерированный индекс.
+#  Мы можем установить наш собственный индексный столбец с помощью функции set_index():
+# import pandas as pd
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.set_index("date", inplace=True)
+#
+# print(df.head())
+# TODO: Столбец даты — хороший выбор для нашего индекса, так как для каждой даты есть одна строка.
+#  Аргумент inplace=True указывает, что изменение будет применено к нашему DataFrame
+#  без необходимости назначать его новой переменной DataFrame.
+
+# TODO: Dropping a Column (Удаление столбца)
+#  Поскольку наши данные относятся только к штату Калифорния, мы можем удалить этот столбец из нашего DataFrame,
+#  так как он содержит одно и то же значение для всех строк:
+#   - drop() удаляет строки и столбцы.
+#   - axis=1 указывает, что мы хотим удалить столбец.
+#   - axis=0 удалит строку.
+#   Теперь наш набор данных стал намного чище: у нас есть индекс дат и столбцы случаев смерти.
+# import pandas as pd
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.set_index('date', inplace=True)
+# df.drop('state', axis=1, inplace=True)
+#
+# df.info()
+# print(df.head())
+
+# TODO: ЗАДАЧА: 31 декабря
+#  Вы работаете с CSV-файлом «ca-covid», который содержит данные о заражении COVID-19 в Калифорнии за 2020 год.
+#  В файле представлены данные о ежедневных случаях и смертях за весь год.
+#  Найдите и выведите строку, соответствующую 31 декабря 2020 года.
+#  Запрашиваемая дата — это последняя строка в наборе данных, поэтому для ее выбора можно использовать индексирование.
+# import pandas as pd
+#
+# df = pd.read_csv("/usercode/files/ca-covid.csv")
+# # df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.set_index('date', inplace=True)
+# df.drop('state', axis=1, inplace=True)
+# print(df.iloc[-1])
+
+# TODO: Creating Columns (Создание столбцов)
+#  Pandas позволяет нам создавать собственные столбцы.
+#  Например, мы можем добавить столбец месяца на основе столбца даты:
+#  Мы делаем это, преобразуя столбец даты в дату и время и извлекая из него название месяца,
+#  присваивая значение нашему новому столбцу месяца.
+#  Наша дата имеет формат ДД.ММ.ГГ, поэтому нам нужно указать атрибут формата.
+# import pandas as pd
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+#
+# df.drop('state', axis=1, inplace=True)
+#
+# df['day'] = pd.to_datetime(df['date'], format="%d.%m.%y").dt.day_name()
+# df['month'] = pd.to_datetime(df['date'], format="%d.%m.%y").dt.month_name()
+#
+# df.set_index('date', inplace=True)
+#
+# print(df.head())
+
+# df['area'] = df['width'] * df['height']
+
+# TODO: Summary Statistics (Сводные статистические данные)
+#  Теперь, когда наш набор данных чист и настроен, мы готовы взглянуть на некоторые статистические данные!
+#  Функция description() возвращает сводную статистику по всем числовым столбцам:
+# import pandas as pd
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+#
+# df.drop('state', axis=1, inplace=True)
+# df['month'] = pd.to_datetime(df['date'], format="%d.%m.%y").dt.month_name()
+# df.set_index('date', inplace=True)
+#
+# print(df.describe())
+# TODO: Эта функция покажет основную статистику для числовых столбцов, таких как стандартное, среднее, минимальное,
+#  максимальное значения и т. д. Запустите код, чтобы увидеть результат!
+#  Из результата мы видим, что максимальное количество случаев, которые были зафиксированы за сутки, составляет 64987,
+#  а среднесуточное количество новых случаев — 6748.
+#  Мы также можем получить сводную статистику для одного столбца, например:
+#  df['cases'].describe()
+# import pandas as pd
+#
+# data = {
+#     'height': [133, 120, 180, 100],
+#     'age': [9, 7, 16, 4]
+# }
+# df = pd.DataFrame(data)
+# print(df['age'].mean())
+
+# TODO: ЗАДАЧА: Будние дни
+#  Вы продолжаете работать с набором данных COVID для Калифорнии.
+#  Теперь добавьте названия дней недели для каждой строки в виде нового столбца с именем «день недели».
+#  Затем выведите данные набора данных
+#  за последние 7 дней. Не устанавливайте индекс в DataFrame.
+#  Данный код преобразует столбец даты в datetime, поэтому вам не нужно менять его формат.
+#  Использовать. dt.strftime("%A")  в столбце даты, чтобы преобразовать его в название дня недели.
+# import pandas as pd
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# # df = pd.read_csv("/usercode/files/ca-covid.csv")
+#
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['weekday'] = df['date'].dt.strftime("%A")
+#
+# print(df.tail(7))
+
+# TODO: Grouping (Группировка)
+#  Поскольку у нас есть столбец месяца, мы можем увидеть,
+#  сколько значений имеет каждый месяц, используя функции value_counts():
+#  Мы видим, что, например, в январе всего 7 записей, а в остальных месяцах есть данные за все дни.
+#  value_counts() возвращает, сколько раз значение появляется в наборе данных, также называемое частотой значений.
+# import pandas as pd
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+#
+# df.drop('state', axis=1, inplace=True)
+# df['month'] = pd.to_datetime(df['date'], format="%d.%m.%y").dt.month_name()
+# df['weekday'] = pd.to_datetime(df['date'], format="%d.%m.%y").dt.day_name()
+# df.set_index('date', inplace=True)
+#
+# print(df['month'].value_counts())
+# print(df['weekday'].value_counts())
+
+# TODO: Группировка
+#  Теперь мы можем рассчитать данные!
+#  Например, давайте определим общее количество заражений в каждом месяце.
+#  Для этого нам нужно сгруппировать наши данные по столбцу месяца,
+#  а затем вычислить сумму столбца случаев за каждый месяц:
+# import pandas as pd
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+#
+# df.drop('state', axis=1, inplace=True)
+# df['month'] = pd.to_datetime(df['date'], format="%d.%m.%y").dt.month_name()
+# df.set_index('date', inplace=True)
+#
+# print(df.groupby('month')['cases'].sum())
+# TODO: Функция groupby() используется для группировки нашего набора данных по заданному столбцу.
+#  Мы также можем рассчитать общее количество случаев за весь год:
+#  Мы видим, что в 2020 году в Калифорнии было зарегистрировано 2 307 769 случаев заражения.
+#  Точно так же мы можем использовать min(), max(), среднее() и т. д.,
+#  чтобы найти соответствующие значения для каждой группы.
+# import pandas as pd
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+#
+# df.drop('state', axis=1, inplace=True)
+# df['month'] = pd.to_datetime(df['date'], format="%d.%m.%y").dt.month_name()
+# df.set_index('date', inplace=True)
+#
+# print(df['cases'].sum())
+# print(df['cases'].min())
+# print(df['cases'].max())
+# print(df['cases'].mean())
+
+# # Заполните пробелы, чтобы получить максимальный возраст для каждого имени.
+# df.groupby('name')['age'].max()
+
+# TODO: ЗАДАЧА: Худший день
+#  Учитывая данные о COVID, найдите день с максимальным количеством случаев в данном месяце.
+#  Возьмите в качестве входных данных название месяца и выведите строку,
+#  соответствующую дню с максимальным количеством случаев в этом месяце.
+#  Вы можете сначала отфильтровать DataFrame для данного месяца,
+#  а затем выбрать строку с максимальным количеством случаев. Важно: на выходе должен быть DataFrame,
+#  включающий все столбцы. Например, для февраля ожидаемый результат будет следующим:
+#  число случаев смерти месяц
+#  дата
+#  2020-02-26 15 0 февраль
+#  Данный код добавляет столбец месяца в набор данных и добавляет индекс. Не изменяйте эту часть кода.
+import pandas as pd
+
+df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df = pd.read_csv("/usercode/files/ca-covid.csv")
+
+df.drop('state', axis=1, inplace=True)
+df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+df['month'] = df['date'].dt.month_name()
+df.set_index('date', inplace=True)
+maxim = df[df["month"] == input()]['cases'].max()
+print(df[df['cases'] == maxim])
