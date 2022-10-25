@@ -668,8 +668,8 @@ Python широко используется в науке о данных и и
 #  Запрашиваемая дата — это последняя строка в наборе данных, поэтому для ее выбора можно использовать индексирование.
 # import pandas as pd
 #
-# df = pd.read_csv("/usercode/files/ca-covid.csv")
-# # df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# # df = pd.read_csv("/usercode/files/ca-covid.csv")
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
 # df.set_index('date', inplace=True)
 # df.drop('state', axis=1, inplace=True)
 # print(df.iloc[-1])
@@ -803,14 +803,344 @@ Python широко используется в науке о данных и и
 #  дата
 #  2020-02-26 15 0 февраль
 #  Данный код добавляет столбец месяца в набор данных и добавляет индекс. Не изменяйте эту часть кода.
-import pandas as pd
+# import pandas as pd
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# # df = pd.read_csv("/usercode/files/ca-covid.csv")
+#
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month_name()
+# # df['day'] = df['date'].dt.day_name()
+# df.set_index('date', inplace=True)
+# maxim = df[df["month"] == input()]['cases'].max()
+# print(df[df['cases'] == maxim])
 
-df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
-# df = pd.read_csv("/usercode/files/ca-covid.csv")
+# import pandas as pd
+#
+# data = {
+#     'a': [1, 2, 3],
+#     'b': [5, 8, 4]
+# }
+# df = pd.DataFrame(data)
+# df['c'] = df['a'] + df['b']
+# print(df.iloc[2]['c'])
 
-df.drop('state', axis=1, inplace=True)
-df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
-df['month'] = df['date'].dt.month_name()
-df.set_index('date', inplace=True)
-maxim = df[df["month"] == input()]['cases'].max()
-print(df[df['cases'] == maxim])
+# TODO: ЗАДАЧА: Анализ данных COVID
+#  Вы работаете с набором данных COVID для Калифорнии,
+#  который включает количество случаев и смертей на каждый день 2020 года.
+#  Найдите день, когда соотношение смертей/случаев было самым высоким.
+#  Для этого вам нужно сначала рассчитать соотношение смертей/случаев и добавить его в виде столбца в DataFrame
+#  с именем 'ratio', затем найти строку, которая соответствует наибольшему значению.
+#  Важно: на выходе должен быть DataFrame, содержащий все столбцы набора данных для соответствующей строки.
+# import pandas as pd
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# # df = pd.read_csv("/usercode/files/ca-covid.csv")
+#
+# df.drop('state', axis=1, inplace=True)
+# df.set_index('date', inplace=True)
+# df['ratio'] = df['deaths'] / df['cases']
+# print(df.loc[df["ratio"] == df["ratio"].max()])
+
+# TODO: Matplotlib (Матплотлиб)
+#  Matplotlib — это библиотека, используемая для создания графиков, диаграмм и рисунков.
+#  Он также предоставляет функции для настройки ваших фигур путем изменения цветов, меток и т.д.
+#  Чтобы начать использовать matplotlib, нам сначала нужно его импортировать:
+#       import matplotlib.pyplot as plt
+#  pyplot — это модуль, который мы будем использовать для создания наших графиков.
+#  plt — это обычное имя, используемое для импорта этого модуля.
+
+# TODO: Matplotlib очень хорошо работает с Pandas!
+#  Чтобы продемонстрировать мощь matplotlib, давайте создадим диаграмму из фиктивных данных.
+#  Мы создадим серию панд с некоторыми числами и используем ее для создания нашей диаграммы:
+# import matplotlib.pyplot as plt
+# import pandas as pd
+#
+# s = pd.Series([18, 42, 9, 32, 81, 64, 3])
+# s.plot(kind='bar')
+# plt.savefig('plot.png')
+# TODO: Функция plot() используется для создания графика из данных в серии Pandas или DataFrame.
+#  Вот результат: данные из ряда используют ось Y, а индекс построен по оси X.
+#  Поскольку мы не предоставили пользовательский индекс для наших данных, используется числовой индекс по умолчанию.
+#  plt.savefig('plot.png') используется для сохранения и отображения диаграммы на нашей площадке для кода.
+#  В большинстве сред этот шаг не нужен, так как вызов функции plot() автоматически отображает диаграмму.
+
+# TODO: Line Plot (Линейный график)
+#  Matplotlib поддерживает создание различных типов диаграмм.
+#  Начнем с самого простого — линейного графика.
+#  Мы будем использовать данные COVID-19 из предыдущего модуля для создания наших диаграмм.
+#  Давайте покажем количество случаев в декабре месяце. Чтобы создать линейный график,
+#  нам просто нужно вызвать функцию plot() в нашем DataFrame, который содержит соответствующие данные:
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month
+# df.set_index('date', inplace=True)
+#
+# df[df['month'] == 12]['cases'].plot()
+# plt.savefig('plot.png')
+
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month
+# df.set_index('date', inplace=True)
+#
+# df[df['month'] == 6]['deaths'].plot()
+# plt.savefig('plot.png')
+
+# TODO: Мы также можем включить несколько линий в нашу диаграмму.
+#  Например, давайте также включим столбец смертей в наш DataFrame:
+#  Как видно из результата, matplotlib автоматически добавил легенду, чтобы показать цвета линий для столбцов.
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month
+# df.set_index('date', inplace=True)
+#
+# (df[df['month'] == 12])[['cases', 'deaths']].plot()
+# plt.savefig('plot.png')
+
+# TODO: Bar Plot (Бар График)
+#  Функция plot() может принимать аргумент типа, указывающий тип графика, который мы хотим создать.
+#  Для гистограмм укажите kind="bar".
+#  Давайте сделаем гистограмму для ежемесячных случаев заражения:
+#  Сначала мы группируем данные по столбцу месяца, а затем вычисляем сумму случаев в этом месяце.
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month
+# df.set_index('date', inplace=True)
+#
+# (df.groupby('month')['cases'].sum()).plot(kind="bar")
+# plt.savefig('plot.png')
+
+# TODO: Рассчитать количество смертей за месяц, и создать столбчатую диаграмму.
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month
+# df.set_index('date', inplace=True)
+#
+# df = df.groupby('month')
+# df['deaths'].sum().plot(kind="bar")
+# plt.savefig('plot.png')
+
+# TODO: Мы также можем построить несколько столбцов.
+#  Свойство stacked можно использовать, чтобы указать, должны ли столбцы располагаться друг над другом.
+#  Например:
+#  Мы суммировали случаи и смерти за каждый месяц.
+#  kind="barh" можно использовать для создания горизонтальной гистограммы.
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month
+# # df['day'] = df['date'].dt.day
+# df.set_index('date', inplace=True)
+#
+# # df = df.groupby('day')[['cases', 'deaths']].sum()
+# df = df.groupby('month')[['cases', 'deaths']].sum()
+# df.plot(kind="bar", stacked=True)
+# plt.savefig('plot.png')
+
+# TODO: Файл people.csv содержит возраст и рост людей.
+#  Заполните пробелы, чтобы прочитать данные в DataFrame и создать гистограмму,
+#  показывающую средний рост для каждого возраста.
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("people.csv")
+# df.set_index('age', inplace=True)
+# df = df.groupby('age')['height'].mean()
+# df.plot(kind="bar")
+
+# TODO: Box Plot (Коробчатый График)
+#  Блочная диаграмма используется для визуализации распределения значений в столбце,
+#  в основном визуализируя результат функции describe().
+#  Например, давайте создадим блочную диаграмму для случаев в июне:
+#  Зеленая линия показывает среднее значение.
+#  В рамке показаны верхний и нижний квартили (25% данных больше или меньше этих значений).
+#  Кружками показаны выбросы, а черными линиями показаны минимальные/максимальные значения без учета выбросов.
+#  Ознакомьтесь со следующей статьей для получения дополнительной информации о ящичковых диаграммах:
+#  https://en.wikipedia.org/wiki/Box_plot
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month
+# df.set_index('date', inplace=True)
+#
+# df[df["month"] == 6]["cases"].plot(kind="box")
+# plt.savefig('plot.png')
+
+# TODO: Histogram (Гистограмма)
+#  Подобно ящичковым диаграммам, гистограммы показывают распределение данных.
+#  Визуально гистограммы похожи на гистограммы, однако гистограммы отображают частоты для группы данных,
+#  а не для отдельной точки данных; поэтому между стержнями нет пробелов.
+#  Как правило, гистограмма группирует данные в порции (или ячейки).
+#  Например:
+#  Гистограмма сгруппировала данные в 9 бинов и показывает их частоту.
+#  Вы можете видеть, что, например, только отдельные точки данных превышают 6000.
+#  Вы можете вручную указать количество бинов для использования с помощью атрибута bins: plot(kind="hist", bins = 10)
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month
+# df.set_index('date', inplace=True)
+#
+# df[df["month"] == 6]["cases"].plot(kind="hist")
+# plt.savefig('plot.png')
+
+# TODO: Area Plot (График Площади)
+#  kind='area' создает график площади:
+#  Графики площади по умолчанию сложены, поэтому мы явно указали stacked=False .
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month
+# df.set_index('date', inplace=True)
+#
+# df[df["month"] == 6][["cases", "deaths"]].plot(kind="area", stacked=False)
+# plt.savefig('plot.png')
+
+# TODO: Scatter Plot (Точечная диаграмма)
+#  Точечная диаграмма используется для отображения взаимосвязи между двумя переменными.
+#  Например, мы можем визуализировать, как связаны случаи/смерти:
+#  Нам нужно указать столбцы x и y, которые будут использоваться для графика.
+#  График содержит 30 точек, так как мы использовали данные за каждый день июня.
+#  Точки данных выглядят «разбросанными» по графику, что и дало название этому типу визуализации данных.
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month
+# df.set_index('date', inplace=True)
+#
+# df[df["month"] == 6][["cases", "deaths"]].plot(kind="scatter", x='cases', y='deaths')
+# plt.savefig('plot.png')
+
+# TODO: Pie Chart (Круговая диаграмма)
+#  Мы можем создать круговую диаграмму, используя kind="pie".
+#  Давайте создадим один для дел по месяцам:
+#  Круговые диаграммы обычно используются для отображения процентных или пропорциональных данных.
+#  Круговые диаграммы обычно используются, когда у вас есть до 6 категорий.
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = (df['date'].dt.month_name()).str[:3]
+# df.set_index('date', inplace=True)
+#
+# df.groupby('month')['cases'].sum().plot(kind="pie")
+# plt.savefig('plot.png')
+
+# TODO: Plot Formatting (Форматирование графика)
+#  Matplotlib предоставляет ряд аргументов для настройки вашего графика.
+#  Аргумент легенды указывает, показывать ли легенду.
+#  Вы также можете изменить метки оси, задав аргументы xlabel и ylabel:
+#  По умолчанию pandas выбирает имя индекса как xlabel, оставляя его пустым для ylabel .
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+#
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month
+# df['day'] = df['date'].dt.day
+# df.set_index('day', inplace=True)
+#
+# df = df[df['month'] == 6]
+#
+# df[['cases', 'deaths']].plot(kind="line", legend=True)
+# plt.xlabel('Days in June')
+# plt.ylabel('Number')
+# plt.savefig('plot.png')
+
+# TODO: Функцию suptitle() можно использовать для установки заголовка графика:
+#  Мы также можем изменить цвета, используемые на графике, установив атрибут цвета.
+#  Он принимает список шестнадцатеричных цветов.
+#  Например, давайте установим:
+#  - для 'cases' синий цвет,
+#  - для 'deaths' красный цвет:
+#  Эти атрибуты работают практически для всех типов диаграмм.
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+#
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month
+# df['day'] = df['date'].dt.day
+# df.set_index('day', inplace=True)
+#
+# df = df[df['month'] == 6]
+#
+# df[['cases', 'deaths']].plot(kind="area", legend=True)
+# plt.xlabel('Days in June')
+# plt.ylabel('Number')
+# plt.suptitle("COVID-19 in June")
+# plt.savefig('plot.png')
+
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# df = pd.read_csv("https://www.sololearn.com/uploads/ca-covid.csv")
+#
+# df.drop('state', axis=1, inplace=True)
+# df['date'] = pd.to_datetime(df['date'], format="%d.%m.%y")
+# df['month'] = df['date'].dt.month
+# df['day'] = df['date'].dt.day
+# df.set_index('day', inplace=True)
+#
+# df = df[df['month'] == 6]
+#
+# df[['cases', 'deaths']].plot(kind="area", legend=True, stacked=False, color=['#1970E7', '#E73E19'])
+# plt.xlabel('Days in June')
+# plt.ylabel('Number')
+# plt.suptitle("COVID-19 in June")
+# plt.savefig('plot.png')
+
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# data = {
+#     'sport': ["Soccer", "Tennis", "Soccer", "Hockey"],
+#     'players': [5, 4, 8, 20]
+# }
+# df = pd.DataFrame(data)
+# df.groupby('sport')['players'].sum().plot(kind="pie")
+# plt.savefig('plot.png')
+
