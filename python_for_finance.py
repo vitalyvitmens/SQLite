@@ -2,6 +2,8 @@
 #  В Python есть множество пакетов, особенно полезных при работе с финансовыми данными.
 #  В этом курсе мы узнаем, как Python можно использовать в финансах для решения различных проблем и проведения
 #  финансового анализа. Кроме того, в качестве практического проекта мы создадим программу для анализа цены биткойнов!
+import data as data
+import yfinance
 
 # TODO: Welcome (Добро пожаловать)
 #  Умение программировать действительно полезно для многих дисциплин, включая финансы.
@@ -625,15 +627,497 @@
 #  DataFrame похож на электронную таблицу, хранящую данные в строках и столбцах.
 #  Это набор серий, соответствующих столбцам.
 #  Давайте создадим DataFrame, который содержит цены и соответствующие им даты:
-import pandas as pd
-
-data = {
-    'date': ['2021-06-10', '2021-06-11', '2021-06-12', '2021-06-13'],
-    'prices': [42.8, 102.03, 240.38, 80.9]
-}
-df = pd.DataFrame(data)
-print(df)
+# import pandas as pd
+#
+# data = {
+#     'date': ['2021-06-10', '2021-06-11', '2021-06-12', '2021-06-13'],
+#     'prices': [42.8, 102.03, 240.38, 80.9]
+# }
+# df = pd.DataFrame(data)
+# print(df)
 # TODO: Приведенный выше код создает DataFrame с двумя столбцами: дата и цены .
 #  Pandas предоставляет множество полезных функций для управления данными в DataFrame.
 #  Мы рассмотрим их на следующих уроках, собирая данные из Интернета.
 #  Вы можете узнать больше о Pandas и DataFrames в нашем курсе Python для науки о данных.
+
+# TODO: Web Scraping (Веб-скрейпинг)
+#  Pandas предоставляет функцию read_html(),
+#  которую можно использовать для преобразования таблиц на веб-страницах в DataFrames.
+#  Например, возьмем список компаний S&P 500 из Википедии.
+#  Список доступен на следующей странице статьи Википедии в виде таблицы:
+#  https://en.wikipedia.org/wiki/List_of_S%26P_500_companies
+#  Чтобы соскрейпинговать данные, нам просто нужно вызвать функцию read_html()
+#  с URL-адресом страницы в качестве параметра:
+#  Это прочитает и сохранит все таблицы страницы в переменной данных.
+#  data = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
+
+# TODO: Web Scraping (Веб-скрейпинг)
+#  Каждая таблица на веб-странице хранится как DataFrame в отдельном индексе.
+#  Первая таблица имеет индекс 0, вторая таблица имеет индекс 1 и так далее.
+#  Давайте получим доступ и выведем первую таблицу:
+#  Из-за большого размера таблица может выглядеть немного сложной.
+# import pandas as pd
+#
+# data = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
+# df = data[0]
+# print(df)
+
+# import pandas as pd
+#
+# data = pd.read_html('https://stal-stroy.by/prais-list')
+# df = data[0]
+# print(df)
+
+# TODO: Web Scraping (Веб-скрейпинг)
+#  Мы можем определить только определенные столбцы, которые мы хотим выбрать.
+#  Выберем и выведем только столбцы Symbol и Security:
+#  Обратите внимание на синтаксис: две квадратные скобки используются для указания столбцов,
+#  которые мы хотим выбрать, которые должны быть разделены запятыми.
+# import pandas as pd
+#
+# data = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
+# df = data[0]
+#
+# df = df[['Symbol', 'Security']]
+# print(df)
+
+# TODO: Web Scraping (Веб-скрейпинг)
+#  Мы также можем отфильтровать таблицу, например, по названию компании:
+#  При этом будут выбраны только те строки, в которых столбец «Security» равен «Apple».
+# import pandas as pd
+#
+# data = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
+# df = data[0]
+# df = df[df['Security'] == 'Apple']
+# print(df)
+# df.info()
+
+# TODO: Web Scraping (Веб-скрейпинг)
+#  Функцию info() можно использовать для просмотра всех доступных столбцов:
+#  Вы можете узнать больше о манипулировании данными с помощью Pandas в нашем курсе Python для науки о данных.
+# import pandas as pd
+#
+# data = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
+# df = data[0]
+# df.info()
+
+# TODO: Web Scraping (Веб-скрейпинг)
+#  Давайте перейдем к Yahoo Finance, которая предоставляет данные о компаниях,
+#  их финансовых показателях и профилях. Например, вот страница профиля Tesla:
+#  https://finance.yahoo.com/quote/TSLA/profile
+
+# TODO: Web Scraping (Веб-скрейпинг)
+#  Первая таблица представляет собой список ключевых руководителей.
+#  Давайте соскрейпингуем его в DataFrame:
+#      data = pd.read_html('https://finance.yahoo.com/quote/TSLA/profile')
+#  Этот код вызовет ошибку, поскольку Yahoo проверяет запрашивающую сторону и требует допустимый заголовок.
+#  Для того, чтобы исправить ошибку, нам нужно указать заголовок запроса.
+#  Для этого мы будем использовать пакет запросов и снабдим его допустимым заголовком:
+# import requests
+#
+# url_link = 'https://finance.yahoo.com/quote/TSLA/profile'
+# r = requests.get(url_link, headers={
+#     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'})
+# TODO: Это будет использовать пакет запросов для получения содержимого веб-страницы, указанной в переменной url_link.
+#  Значение заголовков используется, чтобы заставить Yahoo думать, что стандартный браузер делает запрос, а не программа
+#  Заголовок запроса используется в HTTP-запросе для предоставления информации о контексте запроса,
+#  чтобы сервер мог адаптировать ответ. Мы предоставили данные для стандартного веб-браузера.
+
+# TODO: Web Scraping (Веб-скрейпинг)
+#  Теперь, когда у нас есть содержимое страницы, мы можем передать его Pandas для очистки таблиц:
+#  r.text представляет содержимое веб-страницы, которое мы получили с помощью пакета запросов.
+#  Мы использовали пакет request для получения данных и передачи их в функцию read_html().
+# import pandas as pd
+# import requests
+#
+# url_link = 'https://finance.yahoo.com/quote/TSLA/profile'
+# r = requests.get(url_link, headers={
+#     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'})
+#
+# data = pd.read_html(r.text)
+# print(data[0])
+
+# TODO: Web Scraping (Веб-скрейпинг)
+#  Теперь мы можем получить доступ к другим финансовым показателям.
+#  Например, давайте соскрейпингуем оценки доходов со страницы анализа:
+#  Мы использовали индекс [0], так как это первая таблица на странице.
+# import pandas as pd
+# import requests
+#
+# url_link = 'https://finance.yahoo.com/quote/TSLA/analysis?p=TSLA'
+# r = requests.get(url_link, headers={
+#     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'})
+#
+# data = pd.read_html(r.text)
+# print(data[0])
+
+# TODO: Web Scraping (Веб-скрейпинг)
+#  Мы можем получить доступ к Avg. Оцените строку из таблицы и постройте ее в виде гистограммы:
+#  Запустите код, чтобы увидеть диаграмму, показывающую Avg. Оцените значения из таблицы.
+#  Обратите внимание, что мы вызвали функцию plot() прямо в DataFrame, указав тип диаграммы.
+#  Это был просто пример данных — с помощью этой техники вы можете извлечь и использовать любые данные
+#  в табличном формате из Интернета.
+# import pandas as pd
+# import requests
+#
+# url_link = 'https://finance.yahoo.com/quote/TSLA/analysis?p=TSLA'
+# r = requests.get(url_link, headers={
+#     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'})
+#
+# data = pd.read_html(r.text)
+# print(data[0])
+# # data = data[data['Earnings Estimate'] == 'Avg.Estimate']
+# # data.plot(kind='bar')
+
+# TODO: Python Package (Пакет Python)
+#  Парсинг Yahoo Finance включает в себя много ручной работы, включая добавление заголовка,
+#  указание URL-адреса, выполнение запроса и использование функции read_html().
+#  Еще один способ получить финансовые данные от Yahoo Finance — использовать пакет yfinance.
+#  Он был создан, чтобы обеспечить очень простой способ доступа к финансовым данным без необходимости ручной работы.
+#  Существует множество пакетов, созданных сообществом Python, которые можно использовать
+#  для извлечения данных из Интернета.
+
+# TODO: yFinance (пакет Yahoo Finance)
+#  Чтобы использовать пакет, нам нужно сначала установить и импортировать его:
+#      import yfinance as yf
+#  Пакет создается и распространяется среди сообщества Python независимым разработчиком.
+
+# TODO: yFinance (пакет Yahoo Finance)
+#  После импорта пакета мы можем использовать его возможности.
+#  Модуль Ticker позволяет нам получить доступ к данным компании на основе их рыночного тикера.
+#  Например, возьмем данные Теслы:
+#      data = yf.Ticker("TSLA")
+#  TSLA — это тикер, представляющий Tesla на рынке.
+
+# TODO: yFinance (пакет Yahoo Finance)
+#  Теперь мы можем получить доступ к информации о компании в соответствующих полях.
+#  Например, чтобы получить общие данные:
+# import yfinance as yf
+#
+# data = yf.Ticker("TSLA")
+# print(data.info)
+# TODO: Выведем маржу прибыли и RoE:
+# import yfinance as yf
+#
+# data = yf.Ticker("TSLA")
+# print(data.info['profitMargins'])
+# print(data.info['returnOnEquity'])
+# TODO: Вы можете проверить все доступные имена полей, используя data.info.keys()
+# info = data.info.keys()
+# print('\n'.join(info))
+
+# TODO: yFinance (пакет Yahoo Finance)
+#  В дополнение к информационным полям объект данных предоставляет следующие поля:
+# import yfinance as yf
+#
+# data = yf.Ticker("TSLA")
+# # show dividends (показывать дивиденды)
+# print(data.dividends)
+# # show splits (показать шпагаты)
+# print(data.splits)
+# # show balance sheet (показать баланс)
+# print(data.balance_sheet)
+# # show cashflow (показать денежный поток)
+# print(data.cashflow)
+# # show earnings (показать доход)
+# print(data.earnings)
+
+# TODO: yFinance (пакет Yahoo Finance)
+#  Мы также можем легко построить данные.
+#  Например, давайте создадим гистограмму дохода:
+#  Как видите, пакет yfinance упрощает доступ к данным Yahoo Finance и их использование.
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+#
+# data = yf.Ticker("TSLA")
+#
+# x = data.earnings
+# x.plot(kind="bar")
+# # rev = [18000, 25000, 20000, 45000, 32000]
+# # plt.plot(rev)
+# plt.savefig('plot.png')
+
+# import yfinance as yf
+#
+# data = yf.Ticker("BTC-USD")
+# print(data.info['description'])
+
+# TODO: Отобразить таблицу денежных потоков в виде гистограмм:
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+#
+# data = yf.Ticker("TSLA")
+# x = data.cashflow
+# x.plot(kind="bar")
+# plt.savefig('plot.png')
+
+# TODO: Company Data (Данные компании)
+#  Мы также можем использовать пакет yfinance для доступа к данным об инвесторах компании.
+#  Выведем список основных держателей Tesla:
+# import yfinance as yf
+#
+# data = yf.Ticker("TSLA")
+# print(data.major_holders)
+
+# TODO: Company Data (Данные компании)
+#  Мы также можем получить список институциональных держателей:
+#  Эти поля на самом деле являются DataFrames.
+#  Это означает, что вы можете использовать все функции DataFrame и параметры фильтрации данных.
+#  Например, вы можете использовать .info(), чтобы увидеть все столбцы, доступные в DataFrame.
+# import yfinance as yf
+#
+# data = yf.Ticker("TSLA")
+# print(data.institutional_holders)
+# # print(data.institutional_holders.info())
+
+
+# TODO: ЗАДАЧА: Company Data (Данные компании)
+#  1). Выведите только институциональных инвесторов Tesla, у которых более 10 миллионов акций.
+#  2). Выведите только институциональных инвесторов Tesla, у которых 'Value' (стоимость) более 20 миллиардов.
+# import yfinance as yf
+#
+# data = yf.Ticker("TSLA")
+# x = data.institutional_holders
+# print(x[x['Shares'] > 10000000])
+# print(x[x['Value'] > 20000000000])
+
+# TODO: Company Data (Данные компании)
+#  Поле рекомендаций предоставляет данные по историческим рекомендациям инвестиционных банков.
+#  Давайте отфильтруем только те, которые появились недавно:
+#  Индекс DataFrame — это столбец Date.
+# import yfinance as yf
+#
+# data = yf.Ticker("TSLA")
+#
+# x = data.recommendations
+# x = x[x.index > '2022-10-01']
+# print(x)
+
+# TODO: Company Data (Данные компании)
+#  Давайте применим то, что мы узнали: создадим функцию,
+#  которая будет принимать тикер в качестве параметра и выводить значение ROE для этого тикера.
+#  Это позволит вам сравнить значения ROE разных компаний:
+#  Наша функция получает данные для данного тикера и выводит название и поля RoE для этой компании.
+# import yfinance as yf
+#
+#
+# def RoE(ticker):
+#     data = yf.Ticker(ticker)
+#     roe = data.info['returnOnEquity']
+#     name = data.info['shortName']
+#     print(f'{name} : {roe}')
+#
+#
+# RoE('TSLA')
+
+# TODO: Company Data (Данные компании)
+#  Теперь мы можем вызывать нашу функцию с разными значениями тикера:
+#  Это позволяет нам повторно использовать нашу функцию и вызывать ее для разных параметров
+#  в нашем коде, когда это необходимо.
+# import yfinance as yf
+#
+#
+# def RoE(ticker):
+#     data = yf.Ticker(ticker)
+#     roe = data.info['returnOnEquity']
+#     name = data.info['shortName']
+#     print(f'{name} : {roe}')
+#
+#
+# RoE('AAPL')
+# RoE('MSFT')
+
+# TODO: Stock Prices (Цены на акции)
+#  yfinance также предоставляет цены акций данного тикера.
+#  Это выведет цены акций за последний месяц.
+#  Обратите внимание, что history() — это функция, и ее нужно вызывать с круглыми скобками.
+# import yfinance as yf
+#
+# data = yf.Ticker('TSLA')
+# print(data.history())
+
+# import yfinance as yf
+#
+# data = yf.Ticker('AMZN')
+# print(data.history())
+
+# import yfinance as yf
+#
+# data = yf.Ticker('MSFT')
+# print(data.history())
+
+# TODO: Stock Prices (Цены на акции)
+#  Мы можем предоставить параметр периода, чтобы получить данные за указанный период:
+#  Valid periods: 1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max.
+#  Срок действия: 1д, 5д, 1мес, 3мес, 6мес, 1г, 2г, 5г, 10г, с начала года, макс.
+# import yfinance as yf
+#
+# data = yf.Ticker('TSLA')
+# print(data.history(period='1mo'))
+
+# TODO: Stock Prices (Цены на акции)
+#  Мы также можем указать пользовательские даты начала и окончания.
+#  Например:
+# import yfinance as yf
+#
+# data = yf.Ticker('TSLA')
+# print(data.history(start="2022-01-01", end="2022-10-27"))
+
+# TODO: Stock Prices (Цены на акции)
+#  Поскольку данные представляют собой DataFrame, мы можем легко их построить.
+#  Давайте построим дневную цену закрытия акций Tesla за последний месяц:
+#  Вы можете применить любую функцию DataFrame и фильтр для управления данными.
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+#
+# data = yf.Ticker('TSLA')
+#
+# x = data.history(period='1y')['Close']
+# x.plot()
+#
+# plt.savefig('plot.png')
+
+# TODO: ЗАДАЧА: Выведите среднюю цену закрытия акций Tesla за последние 3 месяца.
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+#
+# data = yf.Ticker('TSLA')
+# x = data.history('3mo')['Close']
+# print(x.mean())
+# x.plot()
+# plt.savefig('plot.png')
+
+# TODO: Кроме того, yfinance позволяет загружать исторические цены для нескольких акций одновременно.
+#  Например, возьмем цены акций Apple, Microsoft и Tesla одной линией:
+#  Вам нужно разделить символы тикера пробелами.
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+#
+# data = yf.download("AAPL MSFT TSLA", start='2021-01-01')
+# print(data['Close'])
+# data.plot()
+# plt.savefig('plot.png')
+
+# TODO: ЗАДАЧА:
+#  1). Выведите максимальную цену акций за все время для данных тикеров.
+#  2). Выведите максимальную цену акций за 1 месяц для данных тикеров.
+# import yfinance as yf
+#
+# data = yf.download('SPY MSFT AAPL TSLA')
+# print(data['Close'].max())
+# data = yf.download('SPY MSFT AAPL TSLA', period='1mo')
+# print(data['Close'].max())
+
+# TODO: Поскольку наши данные содержат цены акций 3 компаний, мы можем построить цены акций всех 3 тикеров:
+#  Мы можем выбрать цену закрытия только одного выбранного тикера, например, MSFT, используя:
+#      data['Close']['MSFT']
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+#
+# data = yf.download("AAPL MSFT TSLA", start='2021-01-01')
+# data['Close'].plot()
+# plt.savefig('plot.png')
+
+# TODO: ЗАДАЧА: Bitcoin Price (Биткойн Цена)
+#  Время получить некоторые значения!
+#  Задача 1. Получить и вывести цены закрытия акций Tesla за последние 5 дней.
+#  Подсказка: Используйте функцию history() для вашего объекта данных
+#  и передайте параметр period с соответствующим значением для указанного периода.
+#  Не забудьте добавить фильтр ['Close'] в конце.
+# import yfinance as yf
+#
+# data = yf.Ticker('TSLA')
+# x = data.history(period='5d')['Close']
+# print(x)
+
+# TODO: Stock Returns (Возврат акций)
+#  Теперь, когда мы знаем, как получить цены акций, мы можем выполнять расчеты и анализ.
+#  Мы начнем с расчета дневной доходности акции. Получим цены акций Tesla за последний год:
+# import yfinance as yf
+# data = yf.Ticker('TSLA')
+# price = data.history(period='1y')
+# print(price)
+
+# TODO: Daily Returns (Ежедневные возвраты)
+#  Чтобы рассчитать ежедневную доходность, мы будем использовать функцию pct_change(),
+#  которая вычисляет процентное изменение между текущим элементом и предыдущим.
+#  Мы будем использовать его в столбце «Close»:
+#  pct_change() — это функция Pandas, которую можно применять к DataFrames.
+# import yfinance as yf
+# from matplotlib import pyplot as plt
+#
+# data = yf.Ticker('TWTR')
+# price = data.history(period='1y')
+# x = price['Close'].pct_change()
+# print(x)
+# x.plot()
+# plt.savefig('plot.png')
+
+# TODO: Daily Returns (Ежедневные возвраты)
+#  Чтобы визуализировать результаты, мы можем построить график для ежедневной доходности:
+#  Этот график покажет, как ежедневные доходы изменились за период.
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+#
+# data = yf.Ticker('TSLA')
+# price = data.history(period='1y')
+# x = price['Close'].pct_change()
+# x.plot()
+# plt.savefig('plot.png')
+
+# TODO: Daily Returns (Ежедневные возвраты)
+#  Мы также можем сделать гистограмму, чтобы увидеть распределение:
+#  Гистограмма — это приблизительное представление распределения числовых данных.
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+#
+# data = yf.Ticker('TWTR')
+# price = data.history(period='1y')
+# x = price['Close'].pct_change()
+# x.plot(kind='hist')
+# plt.savefig('plot.png')
+
+# TODO: Stock Returns (Возврат акций)
+#  Поняв, как распределяется прибыль, мы можем рассчитать прибыль от инвестиций.
+#  Для этого нам нужно рассчитать совокупную доходность, что можно сделать с помощью функции cumprod():
+#  Мы добавляем 1 к х, потому что это представляет ежедневное изменение в процентах.
+#  Функция cumprod() используется для получения совокупного произведения
+#  по массиву элементов и возврата массива результатов.
+#      x = price['Close'].pct_change()
+#      returns = (x + 1).cumprod()
+
+# import numpy as np
+#
+# x = np.array([2, 4, 2])
+# r = x.cumprod()
+# print(r)
+
+# TODO: Stock Returns (Возврат акций)
+#  Теперь, когда у нас есть ежедневная доходность, мы можем построить данные:
+#  График показывает, как инвестиции в размере 1 доллара будут расти за данный период.
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+#
+# data = yf.Ticker('TWTR')
+# price = data.history(period='1y')
+# x = price['Close'].pct_change()
+# returns = (x + 1).cumprod()
+# returns.plot()
+# plt.savefig('plot.png')
+
+# TODO: ЗАДАЧА: Analyzing Bitcoin (Анализ биткойнов)
+#  Время рассчитать совокупную доходность биткойнов!
+#  Задача: Рассчитайте и начертите кумулятивную доходность биткойнов за последние 2 года.
+#  Совет Построить график легко! Просто импортируйте пакет matplotlib.pyplot и вызовите функцию plot() для массива.
+#  Не забудьте использовать функцию pct_change(),
+#  чтобы получить процент ежедневной доходности, а затем рассчитать совокупную доходность с помощью функции cumprod().
+import yfinance as yf
+import matplotlib.pyplot as plt
+
+data = yf.Ticker('BTC-USD')
+price = data.history(period='2y')
+x = price['Close'].pct_change()
+returns = (x + 1).cumprod()
+returns.plot()
+plt.savefig('plot.png')
+print(price)
