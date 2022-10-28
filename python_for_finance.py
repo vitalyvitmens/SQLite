@@ -993,7 +993,7 @@ import yfinance
 # import yfinance as yf
 # import matplotlib.pyplot as plt
 #
-# data = yf.download("AAPL MSFT TSLA", start='2021-01-01')
+# data = yf.download("AAPL BTC-USD META MSFT SPY TSLA TWTR", start='2021-01-01')
 # print(data['Close'])
 # data.plot()
 # plt.savefig('plot.png')
@@ -1003,9 +1003,9 @@ import yfinance
 #  2). Выведите максимальную цену акций за 1 месяц для данных тикеров.
 # import yfinance as yf
 #
-# data = yf.download('SPY MSFT AAPL TSLA')
+# data = yf.download('AAPL BTC-USD META MSFT SPY TSLA TWTR')
 # print(data['Close'].max())
-# data = yf.download('SPY MSFT AAPL TSLA', period='1mo')
+# data = yf.download('AAPL BTC-USD META MSFT SPY TSLA TWTR', period='1mo')
 # print(data['Close'].max())
 
 # TODO: Поскольку наши данные содержат цены акций 3 компаний, мы можем построить цены акций всех 3 тикеров:
@@ -1014,7 +1014,7 @@ import yfinance
 # import yfinance as yf
 # import matplotlib.pyplot as plt
 #
-# data = yf.download("AAPL MSFT TSLA", start='2021-01-01')
+# data = yf.download("AAPL BTC-USD META MSFT SPY TSLA TWTR", start='2021-01-01')
 # data['Close'].plot()
 # plt.savefig('plot.png')
 
@@ -1111,13 +1111,515 @@ import yfinance
 #  Совет Построить график легко! Просто импортируйте пакет matplotlib.pyplot и вызовите функцию plot() для массива.
 #  Не забудьте использовать функцию pct_change(),
 #  чтобы получить процент ежедневной доходности, а затем рассчитать совокупную доходность с помощью функции cumprod().
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+#
+# data = yf.Ticker('BTC-USD')
+# price = data.history(period='2y')
+# x = price['Close'].pct_change()
+# returns = (x + 1).cumprod()
+# returns.plot()
+# plt.savefig('plot.png')
+# print(price)
+
+# TODO: Multiple Stocks (Несколько акций)
+#  Давайте возьмем 4 разных тикера и воспользуемся функцией pct_change() для расчета дневной доходности:
+#  Приведенный ниже код получает цены акций для заданных акций и применяет функцию pct_change() к цене закрытия.
+#  Когда мы указываем только дату начала для функции download(), дата окончания устанавливается как текущая дата.
+# import yfinance as yf
+#
+# data = yf.download("AAPL BTC-USD META MSFT SPY TSLA TWTR", start='2022-10-26', end='2022-10-28')
+# x = data['Close'].pct_change()
+# print(x)
+
+# TODO: Multiple Stocks (Несколько акций)
+#  Чтобы лучше понять возвращаемые значения, мы можем использовать функцию describe() в DataFrame,
+#  чтобы получить описательную статистику:
+#  Описательная статистика включает среднее значение, стандартное отклонение,
+#  минимальное и максимальное значения, а также процентили 25/50/75%.
+# import yfinance as yf
+#
+# data = yf.download("AAPL BTC-USD META MSFT SPY TSLA TWTR", start='2021-01-01')
+# x = data['Close'].pct_change()
+# print(x.describe())
+
+# TODO: Multiple Stocks (Несколько акций)
+#  Давайте визуализируем результаты с помощью диаграмм.
+#  Вот график, сравнивающий дневные цены акций:
+#  Запустите код, чтобы увидеть результирующую диаграмму.
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+#
+# data = yf.download("AAPL BTC-USD META MSFT SPY TSLA TWTR", start='2022-10-26')
+# data['Close'].plot()
+# plt.savefig('plot.png')
+
+# TODO: Multiple Stocks (Несколько акций)
+#  Мы также можем построить график их ежедневной доходности:
+#  Как видите, логика та же, что и для одиночной акции.
+#  Разница в том, что результат включает в себя результаты для нескольких акций в DataFrame.
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+#
+# data = yf.download("AAPL BTC-USD META MSFT SPY TSLA TWTR", start='2022-10-26')
+# x = data['Close'].pct_change()
+# x.plot()
+# plt.savefig('plot.png')
+
+# TODO: Multiple Stocks (Несколько акций)
+#  И, наконец, вот совокупная доходность данных акций:
+#  Визуализация помогает понять, как ведут себя акции в данный период.
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+#
+# data = yf.download("AAPL BTC-USD META MSFT SPY TSLA TWTR", period='1mo')
+# x = data['Close'].pct_change()
+# (x + 1).cumprod().plot()
+# plt.savefig('plot.png')
+
+# TODO: Correlations (Корреляции)
+#  В финансах корреляция — это статистика, которая измеряет степень изменения двух ценных бумаг
+#  по отношению друг к другу. Мы можем легко рассчитать корреляции между акциями в Python с помощью функции corr().
+#  "AAPL AMZN BTC-USD GOOG META MSFT NFLX SPY TSLA TWTR"
+# import yfinance as yf
+#
+# data = yf.download("AAPL AMZN GOOG META NFLX", period='1mo')
+# x = data['Close'].pct_change()
+# corr = x.corr()
+# print(corr)
+
+# TODO: Correlations (Корреляции)
+#  Результатом функции corr() является матрица, включающая значения для каждой пары акций.
+#  Значения находятся в диапазоне от -1 до 1.
+#  Положительная корреляция означает, что доходность акций имеет положительную корреляцию и движется в одном направлении
+#  +1 означает, что доходы полностью коррелированны. Корреляция 0 показывает отсутствие связи между парой.
+#  Отрицательная корреляция показывает, что доходы движутся в разных направлениях.
+#  Поиск акций с низкой корреляцией помогает диверсифицировать инвестиционный портфель и минимизировать риск.
+
+# TODO: Correlations (Корреляции)
+#  Корреляция — это матрица, показывающая, как каждая из акций коррелирует с другими.
+#  Чтобы показать корреляцию визуально, нам нужно построить ее.
+#  Построить корреляцию можно с помощью пакета statsmodels, который включает в себя модуль API:
+#      import statsmodels.api as sm
+#  Нам нужен только модуль API пакета, поэтому это все, что мы импортировали.
+
+# TODO: Correlations (Корреляции)
+#  Давайте нарисуем красивую графику с помощью пакета statmodels:
+#  Функция plot_corr() принимает в качестве параметров корреляционную матрицу и названия акций.
+#  Это приведет к графику, показывающему корреляцию между данными акциями в данный период.
+# import yfinance as yf
+# import matplotlib.pyplot as plt
+# import statsmodels.api as sm
+#
+# data = yf.download("META AMZN AAPL NFLX GOOG", start='2022-10-24')
+# x = data['Close'].pct_change()
+# corr = x.corr()
+# sm.graphics.plot_corr(corr, xnames=list(x.columns))
+# plt.savefig('plot.png')
+
+# TODO: Analyzing a Portfolio (Анализ портфолио)
+#  В этом уроке мы возьмем гипотетический портфель акций и проанализируем его,
+#  рассчитав некоторые важные показатели. Во-первых, давайте определим наш портфель.
+#  В качестве примера, давайте создадим наш портфель из 30% Apple, 20% Amazon, 40% Microsoft и 10% Tesla.
+#  Мы определим биржевые тикеры и веса портфеля, используя массивы:
+#      stocks = ['AAPL', 'AMZN', 'MSFT', 'TSLA']
+#      weights = [0.3, 0.2, 0.4, 0.1]
+
+# TODO: Analyzing a Portfolio (Анализ портфолио)
+#  Теперь, когда у нас определены массивы, мы можем получить цены акций и рассчитать доходность портфеля:
+#  Чтобы получить дневную доходность портфеля, мы умножили дневную доходность на веса и вычислили сумму результатов.
+# import yfinance as yf
+# import numpy as np
+#
+# stocks = ['AAPL', 'AMZN', 'MSFT', 'TSLA']
+# weights = [0.3, 0.2, 0.4, 0.1]
+#
+# data = yf.download(stocks, start='2022-10-01')
+# # daily returns (ежедневный доход)
+# x = data['Close'].pct_change()
+# # portfolio return (доходность портфеля)
+# ret = (x * weights).sum(axis=1)
+# # total cumulative returns for our portfolio (общая совокупная доходность нашего портфеля)
+# cumulative = (ret + 1).cumprod()
+# print(cumulative)
+
+# TODO: Analyzing a Portfolio (Анализ портфолио)
+#  График кумулятивной доходности даст нам лучшее понимание данных:
+#  График показывает, как наш портфель работает в течение периода.
+# import yfinance as yf
+# import numpy as np
+# import matplotlib.pyplot as plt
+#
+# stocks = ['AAPL', 'AMZN', 'MSFT', 'TSLA']
+# weights = [0.3, 0.2, 0.4, 0.1]
+#
+# data = yf.download(stocks, start='2022-10-01')
+# # daily returns (ежедневный доход)
+# x = data['Close'].pct_change()
+# # portfolio return (доходность портфеля)
+# ret = (x * weights).sum(axis=1)
+# # total cumulative returns for our portfolio (общая совокупная доходность нашего портфеля)
+# cumulative = (ret + 1).cumprod()
+# cumulative.plot()
+# plt.savefig('plot.png')
+
+# TODO: Analyzing a Portfolio (Анализ портфолио)
+#  Далее мы рассчитаем волатильность нашего портфеля.
+#  Волатильность рассчитывается с использованием стандартного отклонения доходности портфеля.
+#  Мы можем рассчитать дневную волатильность, просто используя стандартную функцию NumPy для наших ежедневных доходов:
+#  Волатильность также часто используется для измерения риска.
+#  Если акция очень волатильна, вы можете ожидать больших изменений ее цены и, следовательно, более высокого риска.
+# import yfinance as yf
+# import numpy as np
+#
+# stocks = ['AAPL', 'AMZN', 'MSFT', 'TSLA']
+# weights = [0.3, 0.2, 0.4, 0.1]
+#
+# data = yf.download(stocks, start='2022-10-01')
+# # daily returns (ежедневный доход)
+# x = data['Close'].pct_change()
+# # portfolio return (доходность портфеля)
+# ret = (x * weights).sum(axis=1)
+# print(np.std(ret))
+
+# TODO: Analyzing a Portfolio (Анализ портфолио)
+#  Мы можем рассчитать годовую волатильность,
+#  взяв квадрат числа торговых дней в году (252) и умножив его на дневную волатильность:
+#  Это вернет процент риска нашего портфеля.
+#  np.sqrt() используется для вычисления квадратного корня заданного числа.
+# import yfinance as yf
+# import numpy as np
+#
+# stocks = ['AAPL', 'AMZN', 'MSFT', 'TSLA']
+# weights = [0.3, 0.2, 0.4, 0.1]
+#
+# data = yf.download(stocks, start='2022-10-01')
+# # daily returns (ежедневный доход)
+# x = data['Close'].pct_change()
+# # portfolio return (доходность портфеля)
+# ret = (x * weights).sum(axis=1)
+# annual_std = np.std(ret) * np.sqrt(252)
+# print(annual_std)
+
+# TODO: Analyzing a Portfolio (Анализ портфолио) Еще одним важным показателем является коэффициент Шарпа.
+#  Коэффициент Шарпа — это мера доходности портфеля с поправкой на риск.
+#  Портфель с более высоким коэффициентом Шарпа считается лучшим.
+#  Чтобы рассчитать коэффициент Шарпа, нам нужно взять среднюю доходность и разделить ее на волатильность.
+#  Мы умножили результат на квадратный корень из 252, чтобы перевести коэффициент Шарпа в год.
+#  (В году 252 торговых дня)
+#  Коэффициенты Шарпа больше 1 считаются оптимальными.
+# import yfinance as yf
+# import numpy as np
+#
+# stocks = ['AAPL', 'AMZN', 'MSFT', 'TSLA']
+# weights = [0.3, 0.2, 0.4, 0.1]
+#
+# data = yf.download(stocks, start='2022-10-01')
+# # daily returns (ежедневный доход)
+# x = data['Close'].pct_change()
+# # portfolio return (доходность портфеля)
+# ret = (x * weights).sum(axis=1)
+# annual_std = np.std(ret) * np.sqrt(252)
+# sharpe = (np.mean(ret) / np.std(ret)) * np.sqrt(252)
+# print(sharpe)
+
+# TODO: ЗАДАЧА: Analyzing Bitcoin (Анализ биткойнов)
+#  Пришло время рассчитать основные метрики для биткойна!
+#  Задачи:
+#  1. Импортировать пакет numpy
+#  2. Рассчитать годовую волатильность биткойнов и вывести процент риска
+#  3. Рассчитать и вывести коэффициент Шарпа
+#  Годовая волатильность представляет собой стандартное отклонение,
+#  умноженное на квадратный корень из 252 (используйте функцию np.sqrt()).
+#  То же самое относится и к коэффициенту Шарпа.
+# import yfinance as yf
+# import numpy as np
+#
+# data = yf.Ticker('BTC-USD')
+# price = data.history(period='1y')
+# x = price['Close'].pct_change()
+# # # portfolio return (доходность портфеля)
+# annual_std = np.std(x) * np.sqrt(252)
+# print(annual_std)
+# sharpe = (np.mean(x) / np.std(x)) * np.sqrt(252)
+# print(sharpe)
+
+# TODO: Loops (Циклы)
+#  Прежде чем мы сможем оптимизировать портфель, нам нужно узнать о циклах for и ranges.
+#  Цикл позволяет запускать блок кода несколько раз.
+#  Каждый раз, когда код в цикле выполняется, он называется итерацией.
+
+# TODO: Loops (Циклы)
+#  Например, мы можем использовать цикл for для перебора массива и вычисления произведения всех элементов:
+#  Приведенный выше код вычисляет произведение всех элементов массива и выводит результат.
+#  Давайте разберемся, как это работает.
+# prices = [3, 5, 2, 8]
+#
+# prod = 1
+# for p in prices:
+#     prod = prod * p
+#
+# print(prod)
+
+# TODO: Loops (Циклы)
+#  Код создает переменную с именем prod и инициализирует её значением 1, которая будет хранить результат.
+#  Далее, во время каждой итерации цикла for, переменная prod умножается на текущий элемент массива:
+#  Обратите внимание на синтаксис цикла for: он использует временную переменную, представляющую текущий элемент массива.
+#  Мы назвали его p, но вы можете назвать его как угодно.
+#  Цикл for начинается с двоеточия : .
+#  После этого код, относящийся к циклу for, должен быть разделен 4 пробелами.
+#  Вот как Python понимает, какой блок кода принадлежит циклу for.
+# prices = [3, 5, 2, 8]
+#
+# prod = 1
+# for p in prices:
+#     prod = prod * p
+#
+# print(prod)
+
+# TODO: Ranges (Диапазоны)
+#  Если вам нужно запустить цикл for заданное количество раз, вы можете использовать диапазон.
+#  Что такое диапазон? Это функция, которая используется для создания последовательностей.
+#  Например, следующий диапазон создает последовательность чисел от 0 до 10:
+#  Параметры определяют начало и конец последовательности.
+#  Обратите внимание, что конечный параметр не включается в результирующую последовательность,
+#  в то время как начальный параметр включается.
+# print(list(range(0, 10)))
+
+# TODO: Ranges and Loops (Диапазоны и циклы)
+#  Когда у нас есть диапазон, мы можем использовать цикл for для обхода этого диапазона.
+#  Например, следующий код выведет «hello!» 5 раз:
+#  Циклы for с диапазонами позволяют выполнять блок кода определенное количество раз.
+#  Мы будем использовать эту технику на следующем уроке, выполняя оптимизацию портфеля!
+# for i in range(0, 5):
+#     print("hello!")
+
+# TODO: Portfolio Optimization (Оптимизация портфеля)
+#  Мы научились рассчитывать основные метрики для анализа и оценки портфеля акций.
+#  Теперь мы можем использовать мощь Python для оптимизации портфолио!
+#  Оптимизация портфеля — это метод распределения активов таким образом,
+#  чтобы он имел максимальную доходность и минимальный риск.
+#  Это можно сделать, найдя распределение, которое приводит к максимальному коэффициенту Шарпа.
+#  Самый простой способ найти наилучшее распределение — проверить множество случайных распределений и найти то,
+#  которое имеет лучший коэффициент Шарпа.
+#  Этот процесс случайного угадывания известен как моделирование методом Монте-Карло.
+
+# TODO: Portfolio Optimization (Оптимизация портфеля)
+#  Для начала давайте определим исходные акции, загрузим данные об их ценах и рассчитаем ежедневную доходность.
+#     p_weights = []
+#     p_returns = []
+#     p_risk = []
+#     p_sharpe = []
+#  Нам нужно сохранить веса, доходность и коэффициенты Шарпа для каждого портфеля,
+#  который мы будем проверять, чтобы затем найти лучший.
+#  Мы определим списки для хранения этих значений для каждого портфеля.
+#  [] определяем пустой список.
+# import yfinance as yf
+# import numpy as np
+# import pandas as pd
+#
+# p_weights = []
+# p_returns = []
+# p_risk = []
+# p_sharpe = []
+#
+# stocks = ['AAPL', 'AMZN', 'MSFT', 'TSLA']
+#
+# data = yf.download(stocks, start='2022-10-01')
+#
+# # daily returns (ежедневный доход)
+# data = data['Close']
+# x = data.pct_change()
+# print(x)
+# TODO: Portfolio Optimization (Оптимизация портфеля)
+#  Мы собираемся случайным образом присвоить вес каждой акции в нашем портфеле,
+#  а затем вычислить показатели для этого портфеля, включая коэффициент Шарпа.
+#  Для генерации случайных весов мы будем использовать случайную функцию NumPy:
+#  Мы делим полученные веса на их сумму, чтобы нормализовать их, чтобы сумма случайных весов всегда равнялась 1.
+#  Запуск приведенного ниже кода будет генерировать случайные веса, сумма которых равна 1.
+# wts = np.random.uniform(size=len(x.columns))
+# wts = wts / np.sum(wts)
+#
+# wts = np.random.uniform(size=4)
+# wts = wts / np.sum(wts)
+#
+# print(wts)
+# TODO: Portfolio Optimization (Оптимизация портфеля)
+#  Теперь нам нужно запустить цикл for, сгенерировать случайные веса и рассчитать доходность,
+#  волатильность и коэффициент Шарпа портфеля.
+#  Мы уже научились рассчитывать эти метрики, так что вот код:
+#  Цикл for выполняется 500 раз.
+#  На каждой итерации мы вычисляем метрики и сохраняем их в соответствующих списках с помощью функции append().
+#  Мы использовали 500, чтобы оптимизировать время запуска кода на нашей игровой площадке.
+#  В других сценариях вы могли бы создать тысячи портфелей, чтобы получить лучший результат.
+#  Код кажется длинным и сложным, однако он просто вычисляет метрики по их формулам,
+#  которые мы видели ранее, и сохраняет их в списках.
+# count = 500
+# for k in range(0, count):
+#     wts = np.random.uniform(size=len(x.columns))
+#     wts = wts / np.sum(wts)
+#     p_weights.append(wts)
+#
+#     # returns (доходности)
+#     mean_ret = (x.mean() * wts).sum() * 252
+#     p_returns.append(mean_ret)
+#
+#     # volatility (волатильность)
+#     ret = (x * wts).sum(axis=1)
+#     annual_std = np.std(ret) * np.sqrt(252)
+#     p_risk.append(annual_std)
+#
+#     # Sharpe ratio (Коэффициент Шарпа)
+#     sharpe = (np.mean(ret) / np.std(ret)) * np.sqrt(252)
+#     p_sharpe.append(sharpe)
+# TODO: Portfolio Optimization (Оптимизация портфеля)
+#  Теперь у нас есть метрики для 500 портфолио!
+#  Давайте найдем индекс портфеля с максимальным коэффициентом Шарпа,
+#  используя функцию Numpy argmax(), и выведем максимальный коэффициент Шарпа и веса:
+# import yfinance as yf
+# import numpy as np
+# import pandas as pd
+#
+# stocks = ['AAPL', 'AMZN', 'MSFT', 'TSLA']
+#
+# data = yf.download(stocks, start='2022-10-01')
+#
+# # daily returns
+# data = data['Close']
+# x = data.pct_change()
+#
+# p_weights = []
+# p_returns = []
+# p_risk = []
+# p_sharpe = []
+#
+# count = 500
+# for k in range(0, count):
+#     wts = np.random.uniform(size=len(x.columns))
+#     wts = wts / np.sum(wts)
+#     p_weights.append(wts)
+#
+#     # returns (доходности)
+#     mean_ret = (x.mean() * wts).sum() * 252
+#     p_returns.append(mean_ret)
+#
+#     # volatility (волатильность)
+#     ret = (x * wts).sum(axis=1)
+#     annual_std = np.std(ret) * np.sqrt(252)
+#     p_risk.append(annual_std)
+#
+#     # Sharpe ratio (Коэффициент Шарпа)
+#     sharpe = (np.mean(ret) / np.std(ret)) * np.sqrt(252)
+#     p_sharpe.append(sharpe)
+#
+# max_ind = np.argmax(p_sharpe)
+#
+# # Max Sharpe ratio (Максимальный коэффициент Шарпа))
+# print(p_sharpe[max_ind])
+#
+# # weights (Веса)
+# print(p_weights[max_ind])
+# TODO: Этот портфель приводит к максимальному коэффициенту Шарпа.
+#  Давайте нарисуем гистограмму, визуализирующую веса:
+#  Вы можете получать несколько разные результаты при каждом запуске кода,
+#  так как веса каждый раз генерируются случайным образом.
+# import yfinance as yf
+# import numpy as np
+# import pandas as pd
+# import matplotlib.pyplot as plt
+#
+# stocks = ['AAPL', 'AMZN', 'MSFT', 'TSLA']
+#
+# data = yf.download(stocks, start='2022-10-01')
+#
+# # daily returns
+# data = data['Close']
+# x = data.pct_change()
+#
+# p_weights = []
+# p_returns = []
+# p_risk = []
+# p_sharpe = []
+#
+# count = 500
+# for k in range(0, count):
+#     wts = np.random.uniform(size=len(x.columns))
+#     wts = wts / np.sum(wts)
+#     p_weights.append(wts)
+#
+#     # returns
+#     mean_ret = (x.mean() * wts).sum() * 252
+#     p_returns.append(mean_ret)
+#
+#     # volatility
+#     ret = (x * wts).sum(axis=1)
+#     annual_std = np.std(ret) * np.sqrt(252)
+#     p_risk.append(annual_std)
+#
+#     # Sharpe ratio
+#     sharpe = (np.mean(ret) / np.std(ret)) * np.sqrt(252)
+#     p_sharpe.append(sharpe)
+#
+# max_ind = np.argmax(p_sharpe)
+#
+# s = pd.Series(p_weights[max_ind], index=x.columns)
+# s.plot(kind='bar')
+#
+# plt.savefig('plot.png')
+
+# TODO: Portfolio Optimization (Оптимизация портфеля)
+#  Мы нашли лучшие веса портфолио!
+#  В качестве последнего шага давайте нанесем на график все 500 портфелей.
+#  График называется Efficient Frontier и показывает доходность по оси Y и волатильность по оси X.
+#  Мы можем создать график с помощью функции scatter(), указав волатильность и списки возврата в качестве параметров:
+#  Мы использовали дополнительные параметры, чтобы сделать график более красивым,
+#  и добавили цветную полосу для коэффициента Шарпа. Мы также добавили на график красную звездочку,
+#  показывающую наиболее эффективный портфель с лучшим коэффициентом Шарпа.
+#  Диаграмма Efficient Frontier показывает доход, который мы можем получить при заданной волатильности,
+#  или волатильность, которую мы получаем при определенном доходе.
 import yfinance as yf
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
-data = yf.Ticker('BTC-USD')
-price = data.history(period='2y')
-x = price['Close'].pct_change()
-returns = (x + 1).cumprod()
-returns.plot()
+stocks = ['AAPL', 'AMZN', 'MSFT', 'TSLA']
+
+data = yf.download(stocks, start='2018-01-01')
+
+# daily returns
+data = data['Close']
+x = data.pct_change()
+
+p_weights = []
+p_returns = []
+p_risk = []
+p_sharpe = []
+
+count = 500
+for k in range(0, count):
+    wts = np.random.uniform(size=len(x.columns))
+    wts = wts / np.sum(wts)
+    p_weights.append(wts)
+
+    # returns
+    mean_ret = (x.mean() * wts).sum() * 252
+    p_returns.append(mean_ret)
+
+    # volatility
+    ret = (x * wts).sum(axis=1)
+    annual_std = np.std(ret) * np.sqrt(252)
+    p_risk.append(annual_std)
+
+    # Sharpe ratio
+    sharpe = (np.mean(ret) / np.std(ret)) * np.sqrt(252)
+    p_sharpe.append(sharpe)
+
+max_ind = np.argmax(p_sharpe)
+
+plt.scatter(p_risk, p_returns, c=p_sharpe, cmap='plasma')
+plt.colorbar(label='Sharpe Ratio')
+
+plt.scatter(p_risk[max_ind], p_returns[max_ind], color='r', marker='*', s=500)
+plt.show()
+
 plt.savefig('plot.png')
-print(price)
