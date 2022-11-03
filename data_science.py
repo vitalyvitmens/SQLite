@@ -701,14 +701,14 @@
 #  В первой строке есть два числа 1.5 и 1, поэтому сумма равна 1.5 + 1 = 2.5,
 #  а среднее значение равно 2.5/2 = 1.25.
 #  Затем для второй строки вычисляется среднее значение как (2 + 2.9)/2 = 4.9/2 = 2.45.
-import numpy as np
-
-row, col = [int(x) for x in input().split()]
-
-list = [float(j) for i in range(row) for j in input().split()]
-array = np.array(list).reshape((row, col))
-
-print(array.mean(axis=1).round(2))
+# import numpy as np
+#
+# row, col = [int(x) for x in input().split()]
+#
+# list = [float(j) for i in range(row) for j in input().split()]
+# array = np.array(list).reshape((row, col))
+#
+# print(array.mean(axis=1).round(2))
 
 # import numpy as np
 #
@@ -722,3 +722,431 @@ print(array.mean(axis=1).round(2))
 # arr = arr.astype(np.float16)  # преобразование типа данных в float
 #
 # print(arr.mean(axis=1).round(2))   # имеющее среднее значение по строкам с осью = 1
+
+# TODO: Pandas vs. Numpy (Панды против Нампи)
+#  Что, если мы хотим проверить данные об Аврааме Линкольне в 'height_age_arr',
+#  но не можем вспомнить его целочисленное положение.
+#  Есть ли удобный способ получить доступ к данным, проиндексировав имя президента,
+#  например:
+# print(height_age_arr['Abraham Lincoln'])
+# TODO: К сожалению, мы получим сообщение об ошибке. Однако это можно сделать в пандах.
+#  Библиотека pandas построена на основе numpy, что означает, что многие features, методы и функции являются общими.
+#  По соглашению импортируйте библиотеку под коротким именем «pd»:
+# import pandas as pd
+# TODO: В следующих уроках мы увидим, что pandas позволяет нам получать доступ к данным, напрямую индексируя имя.
+#  Поскольку numpy ndarrays однородны, pandas ослабляет это требование
+#  и допускает различные dtypes в своих структурах данных.
+
+# TODO: Series Серии
+#  Серия — это один из строительных блоков в пандах.
+#  Pandas Series — это одномерный помеченный массив, который может содержать данные любого типа
+#  (целое число, строка, число с плавающей запятой, объекты Python и т.д.), подобно столбцу в электронной таблице Excel.
+#  Метки осей вместе называются индексом. Если нам дадут мешок с буквами a, b и c, и мы посчитаем,
+#  сколько букв каждой из них у нас есть, мы обнаружим, что есть 1 a, 2 b и 3 c.
+#  Мы могли бы создать серию, указав список счетчиков и соответствующие им метки:
+# import pandas as pd
+#
+# print(pd.Series([1, 2, 3], index=['a', 'b', 'c']))  # with index
+# # TODO: В качестве альтернативы значения могут быть массивом numpy:
+# import numpy as np
+# import pandas as pd
+#
+# print(pd.Series(np.array([1, 2, 3]), index=['a', 'b', 'c']))  # from a 1darray
+# TODO: Или мы могли бы использовать словарь для указания индекса с ключами:
+# import pandas as pd
+#
+# print(pd.Series({'a': 1, 'b': 2, 'c': 3}))  # from a dict
+# TODO: Если мы не укажем индекс, по умолчанию индексом будут целые позиции, начинающиеся с 0.
+#  В серии мы можем получить доступ к значению напрямую по его индексу:
+# import pandas as pd
+#
+# series = pd.Series({'a': 1, 'b': 2, 'c': 3})
+# print(series['a'])
+# print(series[:])
+# TODO: Доступ к значению по его индексу, а не по целочисленной позиции, удобен,
+#  когда набор данных состоит из тысяч, если не миллионов строк.
+#  Series — это строительный блок для DataFrame, который мы представим далее.
+#  Думайте о Series как о пустом 1darray с именами индексов или строк.
+
+# TODO: DataFrames (кадры данных)
+#  В науке о данных данные обычно более чем одномерны и относятся к разным типам данных;
+#  таким образом, Серии недостаточно. DataFrames — это 2darrays с метками строк и столбцов.
+#  Один из способов создать DataFrame с нуля — передать dict.
+#  Например, на этой неделе мы продали 3 бутылки красного вина Адаму, 6 — Бобу и 5 — Чарльзу.
+#  Мы продали 5 бутылок белого вина Адаму, 0 бутылок Бобу и 10 бутылок Чарльзу.
+#  Мы можем организовать данные в DataFrame, создав dict «wine_dict» с количеством бутылок каждого типа вина, которое
+#  мы продали, а затем передать его вместе с именами клиентов в качестве индекса для создания DataFrame «продажи».
+#  См. фото: wine_dict.jpg
+# import pandas as pd
+#
+# wine_dict = {
+#     'red_wine': [3, 6, 5],
+#     'white_wine': [5, 0, 10]
+# }
+# sales = pd.DataFrame(wine_dict, index=["adam", "bob", "charles"])
+# print(sales)
+# TODO: Думайте о DataFrame как о коллекции Series.
+#  Здесь продажи состоят из двух серий, одна из которых называется «red_wine»,
+#  а другая — «white_wine», поэтому мы можем получить доступ к каждой серии, вызвав ее имя:
+# import pandas as pd
+#
+# wine_dict = {
+#     'red_wine': [3, 6, 5],
+#     'white_wine': [5, 0, 10]
+# }
+# sales = pd.DataFrame(wine_dict, index=["adam", "bob", "charles"])
+# print(sales['white_wine'])
+# TODO: Мы увидим другие способы индексации в DataFrames в последующих частях.
+#  Если мы не укажем индекс, DataFrame сгенерирует целочисленный индекс, начиная с 0.
+
+# TODO: Inspect a DataFrame - Shape and Size (Проверка DataFrame — форма и размер)
+#  Давайте взглянем на новый DataFrame, там помимо роста и возраста президентов есть информация о порядке,
+#  именах и партиях. DataFrame Presidents_df считывается из CSV-файла следующим образом.
+#  Обратите внимание, что index установлен для имен президентов.
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+# TODO: Подобно numpy, чтобы получить размеры DataFrame, используйте .shape
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.shape)
+# TODO: В этом DataFrame 45 строк и 4 столбца.
+#  Чтобы получить количество строк, мы можем получить доступ к первому элементу в кортеже.
+#  Чтобы получить количество столбцов, мы можем получить доступ ко второму элементу в кортеже.
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.shape[0])
+# print(presidents_df.shape[1])
+# # print(presidents_df)
+# TODO: Size также работает с DataFrame, возвращая целое число, представляющее количество элементов в этом объекте.
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.size)
+# TODO: Здесь оба метода. .shape и .size работают так же, как и с numpy ndarrays.
+
+# TODO: Inspect a DataFrame - Head and Tail (Осмотрите DataFrame — голова и хвост)
+#  Вместо того, чтобы смотреть на весь набор данных, мы можем просто взглянуть.
+#  Чтобы увидеть первые несколько строк в DataFrame, используйте .head() ;
+#  если мы не указываем n (количество строк), по умолчанию отображаются первые пять строк.
+#  Здесь мы хотим увидеть верхние 3 строки.
+#  См. фото: presidents_df_head.jpg
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.head(n=3))
+# TODO: В Presidents_df индексом является имя президента, всего четыре столбца: порядок, возраст, рост и партия.
+#  Точно так же, если мы хотим увидеть последние несколько строк,
+#  мы можем использовать .tail(), по умолчанию также пять строк.
+#  См. фото: presidents_df_tail.jpg
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.tail())
+# TODO: Функция .head полезна для быстрой проверки наличия в объекте данных правильного типа.
+
+# TODO: Inspect a DataFrame - Info (Проверка DataFrame — информация)
+#  Используйте .info(), чтобы получить обзор DataFrame.
+#  Его выходные данные включают индекс, имена столбцов, количество ненулевых значений, dtypes и использование памяти.
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# presidents_df.info()
+# TODO: Тип dtype для порядка, возраста и роста — целые числа, а партия — объект.
+#  Количество ненулевых значений в каждом столбце совпадает с количеством строк,
+#  что указывает на отсутствие пропущенных значений.
+#  В дополнение к форме и размеру, как показано в numpy,
+#  функции pandas предоставляют дополнительные функции для изучения данных.
+
+# TODO: Rows with .loc (Строки с .loc)
+#  Вместо того, чтобы запоминать целочисленные позиции для определения
+#  порядка, возраста, роста и партии Авраама Линкольна,
+#  с помощью DataFrame мы можем получить к нему доступ по имени, используя .loc
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.loc['Abraham Lincoln'])
+# # TODO: Результатом является серия панд формы (4,).
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(type(presidents_df.loc['Abraham Lincoln']))
+# print(presidents_df.loc['Abraham Lincoln'].shape)
+# TODO: Мы также можем разрезать по индексу.
+#  Скажем, мы заинтересованы в сборе информации обо всех президентах от Авраама Линкольна до Улисса С. Гранта:
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.loc['Abraham Lincoln':'Ulysses S. Grant'])
+# TODO: Результатом является новый DataFrame, подмножество 'presidents_df'.
+#  .loc[] позволяет нам выбирать данные по метке или по условному оператору.
+
+# TODO: Rows with .loc (Строки с .loc)
+#  В качестве альтернативы, если мы знаем целочисленную позицию (позиции),
+#  мы можем использовать .iloc для доступа к строке (строкам).
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.iloc[44])
+# TODO: Чтобы собрать информацию от 16-го по 18-й президентов, мы можем:
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.iloc[15:18])
+# TODO: И .loc[], и .iloc[] могут использоваться с булевым массивом для подмножества данных.
+
+# TODO: Columns (Столбцы)
+#  Мы можем получить весь столбец из Presidents_df по имени.
+#  Сначала мы получаем доступ ко всем именам столбцов:
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.columns)
+# TODO: Который возвращает объект индекса, содержащий все имена столбцов.
+#  Затем мы можем получить доступ к столбцу 'height':
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df['height'])
+# print(presidents_df['height'].shape)
+# TODO: Который возвращает серию, содержащую рост всех президентов США.
+#  Чтобы выбрать несколько столбцов, мы передаем имена в списке, в результате чего создается DataFrame.
+#  Помните, мы можем использовать .head() для доступа к первым трем строкам, как показано ниже:
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df[['height', 'age']].head(n=3))
+# TODO: Таким образом, мы фокусируемся только на интересующих столбцах.
+#  При доступе к одному столбцу одна скобка приводит к ряду (одномерному),
+#  а двойные скобки приводят к DataFrame (многомерному).
+
+# TODO: More with .loc (Больше о .loc)
+#  Если мы хотим получить доступ к столбцу 'order', 'age' и 'height',
+#  мы можем сделать это с помощью .loc . .loc позволяет нам получить доступ к любому из столбцов.
+#  Например, если мы хотим получить доступ к столбцам от порядка до роста для первых трех президентов:
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.loc[:, 'order':'height'].head(n=3))
+# TODO: Индекс в pandas делает извлечение информации из строк или столбцов удобным и простым,
+#  особенно когда набор данных большой или столбцов много.
+#  Поэтому нам не нужно запоминать целые позиции каждой строки или столбца.
+
+# TODO: Min / Max / Mean (Мин./макс./среднее)
+#  Нецелесообразно распечатывать весь набор данных с большим размером выборки.
+#  Вместо этого мы хотим обобщить и охарактеризовать выборочные данные, используя только несколько значений.
+#  Сводная статистика включает меры местоположения и меры распространения.
+#  Меры местоположения — это величины, которые представляют собой среднее значение переменной,
+#  а меры разброса показывают, насколько схожи или различны значения переменной.
+#  Меры местоположения — минимум, максимум, среднее. Меры разброса — диапазон, дисперсия, стандартное отклонение.
+#  Простейшие сводные статистические данные, которые являются мерами местоположения,
+#  включают минимальное, наименьшее число:
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.min())
+# TODO: максимум, наибольшее число:
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.max())
+# # TODO: и mean, среднее:
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.mean())
+# print(presidents_df['age'].mean())
+# print(presidents_df['height'].mean())
+# TODO: Напомним, что среднее арифметическое — это сумма элементов, деленная на количество элементов,
+#  в python 3.x деление целых чисел приводит к числу с плавающей запятой. Когда минимум и максимум известны,
+#  мы можем определить диапазон, меру распространения. Например, рост всех президентов США колеблется от 163 до 193 см.
+#  Среднее значение говорит нам, где сосредоточены данные.
+#  Например, средний возраст в начале президентского срока составляет 54,71 года.
+#  Обратите внимание, что метод mean() может работать только с числовыми значениями, поэтому столбец «party» был опущен.
+#  Эти методы работают и с сериями.
+#  Например, 'presidents_df['age'].mean()' также дает результат 54,71.
+
+# TODO: Quantiles (квантили)
+#  Квантиль - это точка отсечения, которая делит диапазон данных
+#  на непрерывные интервалы с равным количеством наблюдений.
+#  Медиана — это единственная точка отсечения в 2-квантили,
+#  так что 50% данных ниже медианы, а другая половина выше нее.
+#  Квартили позволяют быстро разделить набор данных на четыре группы,
+#  что позволяет легко увидеть, к какой из четырех групп относится конкретная точка данных.
+#  первый квартиль (первые 25% данных),
+#  следующий квартиль - 25% данных между первым квартилем и медианой,
+#  следующий квартиль - 25% данных между медианой и третьим квартилем,
+#  последний квартиль - 25% данных между третьим квартилем и максимумом.
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df['height'].quantile([0.25, 0.5, 0.75, 1]))
+# print(presidents_df[['order', 'age', 'height']].quantile([0.25, 0.5, 0.75, 1]))
+# TODO: Здесь 25% президентов начали свое президентство в возрасте 51 года или моложе,
+#  а половина — в возрасте 55 лет или моложе.
+#  Среднее значение и медиана обычно не совпадают,
+#  если только данные не являются идеально симметричными.
+#  Среднее значение — это среднее значение всех чисел, сложенных вместе и разделенное на количество добавленных чисел.
+#  Медиана — это значение, отделяющее верхнюю половину от нижней половины выборки данных.
+#  В возрастных данных среднее значение близко к медиане, это означает, что данные могут быть симметричными.
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df[['age', 'height']].mean())
+# print(presidents_df[['age', 'height']].median())
+# print(presidents_df[['age', 'height']].quantile(0.5))
+# TODO: И .quantile(0.5), и .median() приводят к одному и тому же результату.
+
+# import pandas as pd
+#
+# a = pd.Series([1, 2, 4, 2, 4, 1])
+# print(a.median())
+# print(a.quantile(0.5))
+
+# TODO: Variance and Standard Deviation (Дисперсия и стандартное отклонение)
+#  В теории вероятностей и статистике дисперсия - это среднеквадратичное отклонение каждой точки данных
+#  от среднего значения всего набора данных.
+#  Вы можете думать об этом как о том, насколько далеко набор чисел разбросан от их среднего значения.
+#  Стандартное отклонение (std) представляет собой квадратный корень из дисперсии.
+#  Высокое стандартное значение указывает на большой спред,
+#  а низкое стандартное значение указывает на малый спред или на то,
+#  что большинство точек близко к среднему значению.
+#  В примере ниже, данные состоят из всех констант 2, вариации нет,
+#  поэтому Дисперсия равна 0,0, так же как и ее стандартное отклонение:
+# import pandas as pd
+#
+# const = pd.Series([2, 2, 2])
+#
+# print(dat.mean())
+# print(const.var())
+# print(const.std())
+# TODO: Рассмотрим другой пример:
+# [2, 3, 4]
+# TODO: Среднее значение [2,3,4] равно (2+3+4)/3 = 3.0,
+#  а его изменение равно (2-3.0)**2 + (3-3.0)**2 + (4-3.0)**2 = 1+0+1 = 2.
+#  Обратите внимание, что в Python .var() вернет дисперсию, деленную на N-1,
+#  где N — длина данных, тогда результат будет 2/(3.0-1) = 1.
+# import pandas as pd
+#
+# dat = pd.Series([2, 3, 4])
+#
+# print(dat.mean())
+# print(dat.var())
+# print(dat.std())
+# TODO: И std - это просто квадратный корень из дисперсии:
+# import pandas as pd
+#
+# dat = pd.Series([-4, 3, 10])
+# # dat = pd.Series([-50, 0, 50])
+#
+# print(dat.mean())
+# print(dat.var())
+# print(dat.std())
+# TODO: Для возрастов президентов:
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df['age'].mean())
+# print(presidents_df['age'].var())
+# print(presidents_df['age'].std())
+# TODO: Мы можем применить std ко всему DataFrame, чтобы получить стандартное отклонение по столбцам.
+#  Для того, что бы убрать ошибку Python при выводе в консоль: numeric_only=True
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.mean(numeric_only=True))
+# print(presidents_df.var(numeric_only=True))
+# print(presidents_df.std(numeric_only=True))
+#
+# print(presidents_df.min(numeric_only=True))
+# print(presidents_df.max(numeric_only=True))
+# print(presidents_df.quantile([0.25, 0.5, 0.75, 1.0], numeric_only=True))
+# TODO: Таким же образом мы можем применить min, max, quantile и var ко всему DataFrame.
+
+# TODO: describe() (описывать())
+#  describe() выводит почти всю сводную статистику, упомянутую ранее, за исключением дисперсии.
+#  Кроме того, он подсчитывает все ненулевые значения каждого столбца.
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df['age'].describe())
+# print(presidents_df.describe())
+# TODO: Из вывода мы видим, что существует 45 ненулевых точек данных
+#  о возрасте со средним значением 55 и стандартным значением 6,60.
+#  Возраст варьируется от 42 до 70 лет со средним значением 55 лет.
+#  Его первый и третий квартили составляют 51 и 58 лет соответственно.
+#  Теперь у нас есть общее описание всех возрастных данных.
+#  В дополнение к применению к ряду, describe() можно применить к DataFrame с несколькими столбцами.
+#  Как показывает количество (= 45), ни в одном из трех столбцов нет нулевых значений.
+#  order — это просто индекс от 1 до 45. Интересно, что и возраст, и рост
+#  лежат в интервале примерно одинаковой длины: 70–42 = 28 для возраста, а 193–163 = 30 для роста.
+#  Кроме того, обе функции имеют аналогичные стандартные отклонения, что указывает на аналогичный разброс данных.
+#  .describe() игнорирует нулевые значения, такие как `NaN` (не число), и генерирует описательную статистику,
+#  которая обобщает центральную тенденцию (т.е. среднее значение),
+#  дисперсию (т.е. стандартное отклонение) и форму (т.е. мин., max и квантили) распределения набора данных.
+
+# TODO: Categorical Variable (Категориальная переменная)
+#  Четвертый столбец party был опущен в выводе .describe(), потому что это категориальная переменная.
+#  Категориальная переменная — это та, которая принимает одно значение из ограниченного набора категорий.
+#  Не имеет смысла рассчитывать среднее значение демократических, республиканских, федералистских и других партий.
+#  Мы можем проверить уникальные значения и соответствующую частоту, используя .value_counts():
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df['party'].value_counts())
+# TODO: Мы также можем вызвать .describe(), чтобы увидеть,
+#  что существует 45 ненулевых значений, 7 уникальных партий,
+#  наиболее часто встречающаяся партия — республиканская, всего 19 президентов принадлежат к этой партии.
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df['party'].describe())
+# TODO: Сводная статистика предоставляет нам большой объем информации, изложенной максимально просто.
+#  Мера местоположения, медиана, является более надежной, чем среднее, для непрерывных переменных,
+#  поскольку последнее чувствительно к выбросам, например, чрезвычайно большим значениям.
+
+# TODO: Groupby (Группа по)
+#  Сводная статистика по всему набору данных обеспечивает хорошее общее представление,
+#  но часто нас интересуют некоторые вычисления, зависящие от данной метки или категории.
+#  Например, каков средний рост условной партии президентов? Чтобы найти значение на основе условия,
+#  мы можем использовать операцию groupby. Подумайте о группе, выполнив три шага: разделить, применить и объединить.
+#  Шаг разделения разбивает DataFrame на несколько DataFrame на основе значения указанного ключа;
+#  шаг применения заключается в выполнении операции внутри каждого меньшего DataFrame;
+#  последний шаг объединяет части обратно в более крупный DataFrame.
+# presidents_df.groupby('party')
+# TODO: .groupby("party") возвращает объект DataFrameGroupBy, а не набор DataFrames.
+#  Чтобы получить результат, примените агрегат (.mean()) к этому объекту DataFrameGroupBy:
+import pandas as pd
+
+presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+
+print(presidents_df.groupby('party').mean())
+# TODO: Метод mean() является одной из многих возможностей, вы можете применить любую функцию агрегации pandas
+#  или numpy или любую операцию DataFrame, как мы демонстрируем в этом курсе.
