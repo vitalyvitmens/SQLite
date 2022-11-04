@@ -202,7 +202,7 @@
 #            182, 188, 175, 179, 183, 193, 182, 183, 177, 185, 188, 188, 182, 185, 191]
 #
 # heights_arr = np.array(heights)
-# print(heights_arr[2])
+# print(heights_arr)
 # TODO: В 2darray есть две оси, ось 0 и 1.
 #  Ось 0 проходит вниз по строкам, тогда как ось 1 проходит горизонтально по столбцам.
 #  Напомним, что в 2dary heights_and_ages_arr его размеры равны (2, 45).
@@ -1132,21 +1132,385 @@
 #  Мера местоположения, медиана, является более надежной, чем среднее, для непрерывных переменных,
 #  поскольку последнее чувствительно к выбросам, например, чрезвычайно большим значениям.
 
-# TODO: Groupby (Группа по)
+# TODO: Groupby (Сгруппировать по)
 #  Сводная статистика по всему набору данных обеспечивает хорошее общее представление,
 #  но часто нас интересуют некоторые вычисления, зависящие от данной метки или категории.
 #  Например, каков средний рост условной партии президентов? Чтобы найти значение на основе условия,
 #  мы можем использовать операцию groupby. Подумайте о группе, выполнив три шага: разделить, применить и объединить.
-#  Шаг разделения разбивает DataFrame на несколько DataFrame на основе значения указанного ключа;
-#  шаг применения заключается в выполнении операции внутри каждого меньшего DataFrame;
-#  последний шаг объединяет части обратно в более крупный DataFrame.
+#  1 шаг: разделение - разбивает DataFrame на несколько DataFrame на основе значения указанного ключа;
+#  2 шаг: применение - заключается в выполнении операции внутри каждого меньшего DataFrame;
+#  3 шаг: объединяет части обратно в более крупный DataFrame.
 # presidents_df.groupby('party')
 # TODO: .groupby("party") возвращает объект DataFrameGroupBy, а не набор DataFrames.
-#  Чтобы получить результат, примените агрегат (.mean()) к этому объекту DataFrameGroupBy:
-import pandas as pd
-
-presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
-
-print(presidents_df.groupby('party').mean())
+#  Чтобы получить результат, примените агрегат .mean()) к этому объекту DataFrameGroupBy:
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.groupby('party').median())
+# print(presidents_df.groupby('party').quantile([0.5], numeric_only=True))
+# print(presidents_df.groupby('party').mean())
 # TODO: Метод mean() является одной из многих возможностей, вы можете применить любую функцию агрегации pandas
 #  или numpy или любую операцию DataFrame, как мы демонстрируем в этом курсе.
+
+# TODO: Aggregation (Агрегация)
+#  Мы также можем выполнять несколько операций над объектом groupby, используя метод .agg().
+#  Он принимает строку, функцию или их список. Например, мы хотели бы получить минимальное,
+#  медианное и максимальное значения высоты, сгруппированные по партиям:
+# import pandas as pd
+# import numpy as np
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.groupby('party')['height'].agg([min, np.median, 'max']))
+# # print(presidents_df.groupby('party')['height'].quantile([0, 0.5, 1.0], numeric_only=True))
+# TODO: Из вывода мы видим, что рост демократических президентов колеблется от 168 см до 193 см, при медиане 180 см.
+#  Часто нас интересуют разные сводные статистические данные для нескольких столбцов.
+#  Например, мы хотели бы проверить медиану и среднее значение роста,
+#  а также минимальное и максимальное значение для возрастов, сгруппированных по партиям.
+#  В этом случае мы можем передать dict с ключом - указывающим имя столбца, и значением - указывающим функции:
+# import pandas as pd
+# import numpy as np
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df.groupby('party').agg({'height': [np.median, np.mean], 'age': [min, max]}).round())
+# TODO: Использование groupby и agg дает нам гибкость и, следовательно,
+#  возможность рассматривать различные точки зрения на переменную или столбец, обусловленные категориями.
+
+# TODO: ЗАДАЧА: Data Science - Reshape (Наука о данных — изменение формы)
+#  Имея список чисел и количество строк (r), преобразовать список в двумерный массив.
+#  Обратите внимание, что r делит длину списка поровну.
+#  Формат ввода Первая строка: целое число (r), указывающее количество строк двумерного массива
+#  Следующая строка: числа, разделенные пробелом
+#  Формат вывода Пустой двумерный массив значений, округленных до второго десятичного знака.
+#  Sample Input:
+#  2
+#  1.2 0 0.5 -1
+#  Sample Output:
+#  [[ 1.2 0. ]
+#  [ 0.5 -1. ]]
+#  Объяснение:
+#  Требуемое количество строк равно 2, и нам дан список из 4 чисел; в результате массив 2d должен быть 2 x 2.
+#  Таким образом, первая строка - это первые два числа, а вторая строка содержит следующие два числа в данном списке.
+# import numpy as np
+#
+# r = int(input())
+# lst = [float(x) for x in input().split()]
+# arr = np.array(lst).reshape(r, int(len(lst) / r))
+# print(arr.round(2))
+
+# TODO: Matplotlib (Матплотлиб)
+#  "Одна картинка стоит тысячи слов" - звучит правдоподобно в науке о данных.
+#  Визуализация данных может выявлять неочевидные закономерности и более эффективно передавать информацию.
+#  В этой части мы рассмотрим библиотеку Matplotlib, один из самых популярных инструментов визуализации данных,
+#  работающий с массивами numpy, а также с сериями pandas и DataFrames.
+#  По соглашению мы импортируем библиотеку под более коротким именем:
+# import matplotlib as mpl
+# TODO: В частности, для остальной части курса будет использоваться модуль matplotlib.pyplot,
+#  набор командных функций, которые заставляют matplotlib работать как MATLAB:
+# import matplotlib.pyplot as plt
+# TODO: Стиль можно изменить с классического на ggplot, имитируя эстетический стиль, используемый в пакете R ggplot2.
+# plt.style.use('ggplot')
+# TODO: matplotlib.pyplot — это набор функций, которые позволяют строить графики в Python так же, как в MATLAB.
+#  Каждая функция вносит некоторые изменения в фигуру, например, создает фигуру, создает область построения на фигуре,
+#  рисует линии, аннотирует графики метками и т. д., как мы увидим в следующих уроках.
+
+# TODO: Basics (Основы)
+#  Для всех графиков matplotlib сначала создайте фигуру и объект осей; чтобы показать график, вызовите «plt.show()».
+#  Фигура содержит все объекты, включая оси, графику, тексты и метки.
+#  Оси представляют собой ограничивающую рамку с галочками и метками. Думайте об осях как об отдельном сюжете.
+# import matplotlib.pyplot as plt
+#
+# plt.style.use('ggplot')
+# fig = plt.figure()
+# ax = plt.axes()
+# plt.savefig('fig.png')
+# plt.show()
+# TODO: matplotlib.pyplot предоставляет множество функций настройки, как мы увидим в следующих уроках.
+
+# TODO: Line Plot (Линейный график)
+#  Давайте начнем с красивой волновой функции, синусоидальной функции, sin(x), где x находится в диапазоне от 0 до 10.
+#  Нам нужно сгенерировать последовательность вдоль оси x, равномерно распределенный массив, через linspace()
+# import numpy as np
+#
+# x = np.linspace(0, 10, 1000)  # x - это 1000 равномерно расположенных чисел от 0 до 10
+# TODO: Вторая строка генерирует равномерно расположенную последовательность из 1000 чисел от 0 до 10. Вы можете видеть,
+#  как приливы поднимаются и опускаются с течением времени, а высота приливов определяется функцией sin.
+# y = np.sin(x)
+# TODO: Для построения, как и прежде, мы сначала создаем фигуру и объекты осей.
+# import matplotlib.pyplot as plt
+#
+# fig = plt.figure()
+# ax = plt.axes()
+# TODO: Теперь мы делаем график непосредственно из осей, "ax.plot()"; по умолчанию он генерирует объект Line2D.
+#  Чтобы показать график, нам нужно вызвать show().
+# import numpy as np
+# import matplotlib.pyplot as plt
+#
+# plt.style.use('ggplot')
+# x = np.linspace(0, 10, 1000)  # x - это 1000 равномерно расположенных чисел от 0 до 10
+# y = np.sin(x)
+# fig = plt.figure()
+# ax = plt.axes()
+# ax.plot(x, y)
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: В качестве альтернативы мы можем использовать интерфейс pylab
+#  и позволить фигуре и осям создаваться для нас в фоновом режиме.
+# import numpy as np
+# import matplotlib.pyplot as plt
+#
+# plt.style.use('ggplot')
+# x = np.linspace(0, 10, 1000)  # x - это 1000 равномерно расположенных чисел от 0 до 10
+# y = np.sin(x)
+# fig = plt.figure()  # fig - можно тоже убрать как и оси (фигура и оси создадутся в фоновом режиме)
+# plt.plot(x, y)
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Линейный график отображает данные вдоль числовой линии, что является полезным инструментом
+#  для отслеживания изменений за короткие и длительные периоды времени.
+
+# TODO: Labels and Titles (Ярлыки и названия)
+#  Одним из важнейших компонентов каждой фигуры является название фигуры.
+#  Задача заголовка — точно сообщить, о чем идет речь.
+#  Кроме того, для осей нужны заголовки или, что чаще называют, метки осей.
+#  Метки осей поясняют, что представляют собой нанесенные на график значения данных.
+#  Мы можем указать метки осей x, y и заголовок, используя:
+#  - plt.xlabel()
+#  - plt.ylabel()
+#  - plt.title()
+# import numpy as np
+# import matplotlib.pyplot as plt
+#
+# plt.style.use('ggplot')
+# x = np.linspace(0, 10, 1000)  # 1d массив длиной 1000
+# y = np.sin(x)
+#
+# plt.plot(x, y)
+# # plt.xlim(0, 7)
+# # plt.ylim(-2, 2)
+# plt.xlabel('Ось X')
+# plt.ylabel('Ось Y')
+# plt.title('Функция sin(x)')
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Также можно установить пределы осей x, y - используя:
+#  - plt.xlim()
+#  - plt.ylim()
+
+# TODO: Multiple Lines (Несколько линий)
+#  Обычно существуют различные наборы данных схожего характера, и мы хотели бы сравнить их и увидеть различия.
+#  Мы можем нанести несколько линий на одну и ту же фигуру.
+#  Скажем, функция sin фиксирует приливы на восточном побережье,
+#  а функция cos одновременно фиксирует приливы на западном побережье,
+#  мы можем изобразить их обе на одном рисунке, вызвав функцию .plot() несколько раз.
+# import numpy as np
+# import matplotlib.pyplot as plt
+#
+# plt.style.use('ggplot')
+# x = np.linspace(0, 10, 1000)  # 1d массив длиной 1000
+# # y = np.sin(x)
+# plt.plot(x, np.sin(x))
+# plt.plot(x, np.cos(x))
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Для различения линий можно указать цвета и стили линий:
+# import numpy as np
+# import matplotlib.pyplot as plt
+#
+# plt.style.use('ggplot')
+# x = np.linspace(0, 10, 1000)  # 1d массив длиной 1000
+# plt.plot(x, np.sin(x), color='k')
+# plt.plot(x, np.cos(x), color='r', linestyle='--')
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Обратите внимание, что мы указали основные цвета, используя одну букву, то есть k для черного и r для красного.
+#  Еще примеры включают b для синего, g для зеленого, c для голубого и т. д.
+#  Подробнее об использовании цветов в matplotlib см. в его документации .
+#  Иногда бывает полезно визуально сравнить различные наборы данных на одном и том же рисунке,
+#  и matplotlib упрощает эту задачу!
+
+# TODO: Legend (Легенда)
+#  При наличии нескольких линий на одной оси часто бывает полезно создать легенду графика, обозначающую каждую линию.
+#  Мы можем использовать метод plt.legend() в сочетании с указанием меток в plt.plot().
+# import numpy as np
+# import matplotlib.pyplot as plt
+#
+# plt.style.use('ggplot')
+# x = np.linspace(0, 10, 1000)  # 1d массив длиной 1000
+# y = np.sin(x)
+# plt.plot(x, np.sin(x), 'k:', label='sin(x)')
+# plt.plot(x, np.cos(x), 'r--', label='cos(x)')
+# plt.legend()
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Обратите внимание, здесь мы используем «k:», чтобы указать,
+#  что линия функции sin должна быть черной (обозначается k) и пунктирной (обозначается :).
+#  Стиль линии и цветовые коды можно объединить в один аргумент, не являющийся ключевым словом, в функции plt.plot().
+#  Цвет, стиль линии (например, сплошная, пунктирная и т.д.),
+#  а также положение, размер и стиль меток можно изменить с помощью необязательных аргументов функции.
+#  Для получения более подробной информации проверьте строку документации каждой функции и документацию matplotlib.
+#  https://matplotlib.org/3.1.3/tutorials/index.html#colors
+
+# TODO: Scatter Plot (Точечная диаграмма)
+#  Другим простым типом графика является точечный график, вместо того, чтобы соединять точки отрезками,
+#  точки представлены по отдельности точкой или другой формой.
+#  Передайте 'o' в plt.plot() или используйте plt.scatter(), чтобы показать соотношение роста и возраста:
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+# plt.style.use('ggplot')
+# plt.scatter(presidents_df['height'], presidents_df['age'])
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Поэтому мы создали точечный график, демонстрирующий корреляцию между ростом и возрастом президентов.
+#  Обратите внимание, что Matplotlib выводит для нас соответствующие диапазоны из данных как по оси x, так и по оси y.
+#  По умолчанию каждая точка данных представляет собой полный круг, и имеется хороший набор других фигур.
+#  Например: мы можем передать '<', чтобы нарисовать треугольник,
+#  указывающий влево, кроме того, мы указываем синий цвет:
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+# plt.style.use('ggplot')
+# plt.scatter(presidents_df['height'], presidents_df['age'], marker='<', color='b')
+# plt.xlabel('height')
+# plt.ylabel('age')
+# plt.title('U.S. presidents')
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Полный список символов см. в документации по matplotlib:
+#  https://matplotlib.org/stable/api/markers_api.html
+#  Точечная диаграмма - полезный инструмент для отображения взаимосвязи между двумя функциями;
+#  тогда как линейный график уделяет больше внимания изменению между точками,
+#  поскольку его наклон отображает скорость изменения.
+
+# TODO: Plotting with Pandas (Графика с пандами)
+#  Отличительной особенностью pandas является то, что он хорошо интегрируется с matplotlib,
+#  поэтому мы можем строить графики непосредственно из DataFrames и Series.
+#  Мы указываем тип графика как «scatter», «height» по оси x и «age» по оси y, а затем даем ему название:
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+# plt.style.use('ggplot')
+# presidents_df.plot(kind='scatter',
+#                    x='height',
+#                    y='age',
+#                    title='U.S. presidents')
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Затем мы создали точечную диаграмму из DataFrame с метками осей и заголовком.
+#  Поскольку мы указали оси x, y - с именами столбцов из DataFrame, метки также были аннотированы на осях.
+
+# TODO: Histogram (Гистограмма)
+#  Гистограмма — это диаграмма, состоящая из прямоугольников, ширина которых равна интервалу,
+#  а площадь пропорциональна частоте изменения переменной.
+#  Например, на приведенной ниже гистограмме имеется пять бинов одинаковой длины
+#  ([163, 169), [169, 175), [175, 181), [181, 187) и [187, 193)), то есть: 3 президента ростом от 163 до 169 см и т.д.
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+# plt.style.use('ggplot')
+# presidents_df['height'].plot(kind='hist',
+#                              title='height',
+#                              bins=5)
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: plt.hist(presidents_df['height'], bins=5) создаст тот же график, что и выше.
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+# plt.style.use('ggplot')
+# plt.hist(presidents_df['height'], bins=5, color='b')
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Кроме того, plt.hist() выводит 1darray с частотой и конечными точками бина.
+#  Здесь мы видим, что это распределение с асимметрией влево
+#  (хвост распределения с левой стороны длиннее, чем с правой),
+#  что указывает на то, что среднее значение (180,0 см) немного ниже медианы (182,0 см).
+#  Распределение не совсем симметрично.
+#  Гистограмма показывает базовое частотное распределение набора непрерывных данных,
+#  позволяя проверять данные на предмет их формы, выбросов, асимметрии и т.д.
+
+# TODO: Boxplot (Блочная диаграмма)
+#  Помните вывод .describe()?
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+#
+# print(presidents_df['height'].describe())
+# TODO: Соответствующая диаграмма показана ниже.
+#  Синее поле указывает межквартильный диапазон (IQR, между первым квартилем и третьим),
+#  другими словами, 50% данных попадают в этот диапазон. Красная полоса показывает медиану,
+#  а нижние и верхние черные усы — минимум и максимум.
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+# plt.style.use('classic')
+# presidents_df.boxplot(column='height', color='b')
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: См. рисунок: Boxplot.png (и разберись почему в PyCharm не отражаются данные графики)
+#  Поскольку красная полоса, медиана, разрезает прямоугольник на неравные части,
+#  это означает, что данные о высоте искажены.
+#  График «коробка с усами» не показывает частоту и не отображает каждую индивидуальную статистику,
+#  но четко показывает, где находится середина данных и не искажены ли данные.
+
+# TODO: Bar Plot (Бар Участок)
+#  Гистограммы показывают распределение данных по нескольким группам.
+#  Например, гистограмма может отображать распределение президентов по партиям.
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+#
+# presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
+# party_cnt = presidents_df['party'].value_counts()
+#
+# plt.style.use('ggplot')
+# party_cnt.plot(kind='bar')
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Bar plots обычно путают с гистограммами. Гистограмма представляет числовые данные,
+#  тогда как bar plots показывает категориальные данные.
+#  Гистограмма рисуется таким образом, что между столбцами нет промежутка, в отличие от bar plots.
+#  Создание графиков непосредственно из серии pandas или DataFrame — это мощно.
+#  Это удобно, когда мы изучаем анализ данных в науке о данных.
+
+# TODO: ЗАДАЧА: Data Science - Missing Numbers (Наука о данных — пропущенные числа)
+#  Вменение пропущенных значений. В реальном мире вам часто придется обрабатывать пропущенные значения.
+#  Один из способов вменения (т.е. заполнения) числового столбца состоит в том,
+#  чтобы заменить нулевые значения его средним значением.
+#  Учитывая список чисел, включая некоторые пропущенные значения, превратить его в серию pandas,
+#  заменить пропущенные значения средним значением и, наконец, вернуть ряд.
+#  Формат ввода: Список чисел, включающий одну или несколько строк «nan», указывающих на отсутствующее значение.
+#  Формат вывода: Список вмененных значений, в котором все значения округлены до первого десятичного знака.
+#  Sample Input:
+#  3 4 5 3 4 4 nan
+#  Sample Output:
+#  0 3.0
+#  1 4.0
+#  2 5.0
+#  3 3.0
+#  4 4.0
+#  5 4.0
+#  6 3.8
+#  dtype: float64
+#  Объяснение: Среднее значение 3, 4, 5, 3, 4 и 4 равно 3,8, поэтому мы заменяем отсутствующее значение средним.
+import numpy as np
+import pandas as pd
+
+lst = [float(x) if x != 'nan' else np.NaN for x in input().split()]
+pd = pd.Series(np.array(lst))
+print(pd.fillna(pd.mean().round(1)))
