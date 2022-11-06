@@ -1453,13 +1453,12 @@
 #  Синее поле указывает межквартильный диапазон (IQR, между первым квартилем и третьим),
 #  другими словами, 50% данных попадают в этот диапазон. Красная полоса показывает медиану,
 #  а нижние и верхние черные усы — минимум и максимум.
-# import numpy as np
 # import matplotlib.pyplot as plt
 # import pandas as pd
 #
 # presidents_df = pd.read_csv('https://sololearn.com/uploads/files/president_heights_party.csv', index_col='name')
 # plt.style.use('classic')
-# presidents_df.boxplot(column='height', color='b')
+# presidents_df.boxplot(column='height')
 # plt.savefig("plot.png")
 # plt.show()
 # TODO: См. рисунок: Boxplot.png (и разберись почему в PyCharm не отражаются данные графики)
@@ -1508,9 +1507,1332 @@
 #  6 3.8
 #  dtype: float64
 #  Объяснение: Среднее значение 3, 4, 5, 3, 4 и 4 равно 3,8, поэтому мы заменяем отсутствующее значение средним.
-import numpy as np
+# import numpy as np
+# import pandas as pd
+#
+# lst = [float(x) if x != 'nan' else np.NaN for x in input().split()]
+# series = pd.Series(np.array(lst))
+# series_not_nan = series.fillna(series.mean())
+# print(series_not_nan.round(1))
+# # series_with_nan = series.fillna(series)
+# # print(series_with_nan.round(1))
+
+# TODO: What is Machine Learning? (Что такое машинное обучение?)
+#  Машинное обучение, подмножество науки о данных, представляет собой научное исследование вычислительных алгоритмов
+#  и статистических моделей для выполнения конкретных задач с помощью шаблонов и выводов вместо явных инструкций.
+#  Машинное обучение можно описать как набор инструментов для построения моделей на основе данных.
+#  Специалисты по данным исследуют данные, выбирают и строят модели (машина),
+#  настраивают параметры таким образом, чтобы модель соответствовала наблюдениям (обучение),
+#  а затем используют модель для прогнозирования и понимания аспектов новых невидимых данных.
+#  Машинное обучение — это набор инструментов, используемых для построения моделей на основе данных.
+#  Построение моделей для понимания данных и прогнозирования —
+#  важная часть работы специалиста по обработке и анализу данных.
+
+# TODO: Supervised and Unsupervised Learning (Контролируемое и неконтролируемое обучение)
+#  В машинном обучении мы говорим о контролируемом и неконтролируемом обучении.
+#  Обучение с учителем — это когда у нас есть известная цель (также называемая меткой) на основе
+#  прошлых данных (например, предсказание цены, по которой будет продаваться дом),
+#  а обучение без учителя — это когда нет известного прошлого ответа (например,
+#  определение темы, обсуждаемые в обзорах ресторанов).
+#  В этом модуле мы рассмотрим линейную регрессию, алгоритм машинного обучения с учителем.
+#  В следующих модулях мы также рассмотрим другой алгоритм машинного обучения с учителем, классификацию,
+#  а также алгоритм машинного обучения без учителя, кластеризацию.
+#  И проблемы регрессии, и проблемы классификации являются проблемами обучения с учителем.
+
+# TODO: Scikit-learn
+#  Scikit-learn, одна из самых известных библиотек машинного обучения на Python для машинного обучения,
+#  реализует большое количество часто используемых алгоритмов.
+#  Независимо от типа алгоритма синтаксис следует одному и тому же рабочему процессу:
+#  импорт > создание экземпляра > подгонка > прогнозирование.
+#  Как только основное использование и синтаксис Scikit-learn понятны для одной модели,
+#  переход на новый алгоритм становится простым.
+#  Таким образом, до конца курса мы будем работать с scikit-learn
+#  для создания моделей машинного обучения в различных вариантах использования.
+#  В этом модуле мы узнаем, как прогнозировать цены на жилье в Бостоне, США, с помощью линейной регрессии.
+#  В дополнение к набору алгоритмов scikit-learn также предоставляет несколько небольших наборов данных,
+#  используемых сообществом машинного обучения для сравнения алгоритмов с данными, поступающими из реального мира,
+#  такими как набор данных о ценах на жилье в Бостоне, который мы будем использовать в этом модуле,
+#  набор данных радужной оболочки для задачи классификации в следующем и т.д.
+
+# TODO: Linear Regression (Линейная регрессия)
+#  Начнем с линейной регрессии, простой модели обучения с учителем.
+#  Линейная регрессия математически соответствует прямой линии данных:
+#      y = b + m * x
+#  где:
+#  b — точка пересечения
+#  m — наклон
+#  x — признак или вход
+#  y — метка или выход.
+#  Наша задача — найти такие m и b, чтобы ошибки были минимальными.
+#  См. Рис: 1.png
+#  См. Рис: 2.png
+#  Чтобы визуализировать концепцию, давайте начнем с пяти точек (1.5, 2.8), (2, 5.3), (2.5, 5.5), (3, 7), (3.5, 8.8):
+#  См. Рис: 3.png
+#  Мы хотели бы провести линию через эти данные точек, однако, даже на глаз, не существует линии,
+#  проходящей через все пять точек, поэтому мы сделаем все, что в наших силах.
+#  Что это значит? Какая из трех линий, показанных ниже, по вашему мнению, лучше всего соответствует данным?
+#  Зеленая линия — это y = 10 + (-2) * X, синяя линия — это y = 5,5 + 0 * X, а красная линия — это y = 1 + 2 * X:
+#  См. Рис: 4.png
+#  Красная линия! Почему? Потому что он лучше всего отражает линейную зависимость между X и Y и ближе всего к точкам.
+#  Математически расстояние между подобранной линией и точками данных вычисляется по остаткам,
+#  обозначенным пунктирной черной вертикальной линией на графике ниже:
+#  См. Рис: 5.png
+#  Таким образом, линейная регрессия, по сути, находит линию,
+#  где она минимизирует сумму квадратов остатков, которые мы обсудим позже.
+#  Модели линейной регрессии популярны, потому что они могут быстро выполнять подгонку и легко интерпретируются.
+#  Прогнозирование непрерывного значения с помощью линейной регрессии — хорошая отправная точка.
+
+# TODO: Boston Housing Dataset (Набор данных о жилье в Бостоне)
+#  Набор данных о жилье в Бостоне — это наш образец набора данных,
+#  в котором представлены медианные значения домов в разных районах Бостона.
+#  Наряду с медианными значениями дома в 1000 долларов США (MEDV), преступностью (CRIM),
+#  концентрацией оксидов азота (NOX), средним количеством комнат (RM),
+#  процентом населения с более низким статусом (LSTAT) и другими признаками.
+#  Наша цель — спрогнозировать медианную цену дома (MEDV), цель в этом сценарии,
+#  используя некоторые предоставленные функции.
+#  Данные создаются в scikit-learn, и мы будем использовать load_boston
+#  для загрузки объекта, содержащего всю информацию.
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# TODO: Для более простых манипуляций позже мы создаем pandas DataFrame из numpy ndarrays,
+#  хранящихся в boston_dataset.data, следующим образом:
+# import pandas as pd
+#
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# TODO: Как следует из названия, boston_dataset.feature_names содержит имена для всех функций.
+#  Затем мы добавляем цель в DataFrame:
+# boston['MEDV'] = boston_dataset.target
+# TODO: Давайте проверим набор данных в «бостонском» DataFrame.
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# print(boston.shape)
+# TODO: Есть 506 записей и 14 столбцов, включая 13 функций и цель.
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# print(boston.columns)
+# TODO: Дополнительные сведения о наборе данных о ценах на жилье в Бостоне
+#  см. в руководстве пользователя в документации scikit-learn.
+
+# TODO: Head (Глава)
+#  Это полезно для быстрого тестирования, содержит ли DataFrame данные правильного типа.
+#  Чтобы увидеть первые несколько строк DataFrame, используйте .head(n),
+#  где вы можете указать n для количества выбираемых строк.
+#  Если n опущено, по умолчанию выбираются первые 5 строк.
+#  Для проверки первых 5 строк используем boston.head(),
+#  для простоты отображения выбираем столбцы CHAS, RM, AGE, RAD и MEDV:
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# print(boston[['CHAS', 'RM', 'AGE', 'RAD', 'MEDV']].head())
+# # print(boston[['CHAS', 'RM', 'AGE', 'RAD', 'MEDV']].head(n=5))
+# TODO: После сканирования значений CHAS и RAD кажутся целыми числами, а не числами с плавающей запятой.
+#  Согласно описанию данных, CHAS определяет, граничит ли участок собственности с рекой (=1) или нет (=0);
+#  RAD — индекс доступности радиальных магистралей.
+#  Часто наборы данных загружаются из файлов других форматов (например, csv, text),
+#  рекомендуется проверить несколько первых и последних строк фрейма данных и убедиться,
+#  что данные имеют согласованный формат, используя head и tail соответственно.
+
+# TODO: Summary Statistics (Сводные статистические данные)
+#  Напомним, что распечатывать весь набор данных с большим объемом выборки нецелесообразно.
+#  Вместо этого мы хотим обобщить и охарактеризовать выборочные данные, используя только несколько значений.
+#  Чтобы проверить сводную статистику набора данных (округлите до второго десятичного знака для лучшего отображения):
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# print(boston.describe().round(2))
+# print(boston[['RM', 'AGE']].describe().round(2))
+# print(boston.describe(include='all').round(2))
+# TODO: Двоичный CHAS имеет среднее значение 0,07, а его 3-й квартиль равен 0.
+#  Это указывает на то, что большинство значений в CHAS равны 0.
+#  Среднее количество комнат на жилище колеблется от 3.56 до 8.78, при среднем значении 6,28 и медиане 6,21.
+#  Распределение RM кажется симметричным.
+#  Если DataFrame содержит больше, чем просто числовые значения,
+#  по умолчанию describe() выводит описательную статистику для числовых столбцов.
+#  Чтобы отобразить сводную статистику по всем столбцам, укажите в методе include = 'all'.
+
+# TODO: Visualization (Визуализация)
+#  Сводная статистика дает общее представление о каждой функции и цели,
+#  но визуализация раскрывает информацию более четко.
+#  Хорошей практикой является визуализация и проверка столбца распределения за столбцом.
+#  Здесь мы смотрим на CHAS и RM, чтобы проверить наши выводы из предыдущей части.
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+#
+# boston = pd.DataFrame(boston_dataset.data, columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+# boston.hist(column='CHAS')
+# plt.savefig("plot1.png")
+# plt.show()
+# TODO: CHAS принимает только два значения, 0 и 1, причем большинство из них нулевые.
+#  Это согласуется с тем, что сообщает describe(); в частности, третий квартиль CHAS равен 0.
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+#
+# boston = pd.DataFrame(boston_dataset.data, columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+# boston.hist(column='RM', bins=20)
+# plt.savefig("plot1.png")
+# plt.show()
+# TODO: Распределение RM кажется нормальным и симметричным.
+#  Симметрия согласуется с тем, что мы наблюдали из выходных данных describe(),
+#  поскольку среднее значение RM 6,28 близко к его медиане 6,21.
+#  Информативная визуализация данных не только раскрывает идеи,
+#  но и бесценна для передачи результатов заинтересованным сторонам.
+
+# TODO: Correlation Matrix (Корреляционная матрица)
+#  Чтобы понять взаимосвязь между функциями (столбцами),
+#  корреляционная матрица очень полезна при исследовательском анализе данных.
+#  Корреляция измеряет линейные отношения между переменными.
+#  Мы можем построить матрицу корреляции, чтобы показать коэффициенты корреляции между переменными.
+#  Он симметричен, где каждый элемент представляет собой коэффициент корреляции в диапазоне от -1 до 1.
+#  Значение около 1 (соответственно -1) указывает на сильную положительную
+#  (соответственно отрицательную) корреляцию между переменными.
+#  Мы можем создать корреляционную матрицу, используя функцию «corr»:
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# corr_matrix = boston.corr().round(2)
+# print(corr_matrix)
+# TODO: Последняя строка или столбец используются для определения характеристик, наиболее тесно связанных
+#  с целевым показателем MEDV (средняя стоимость домов, занимаемых владельцами, в 1000 долларов).
+#  LSTAT (процент населения с более низким статусом) наиболее отрицательно коррелирует с целевым значением (-0,74),
+#  что означает, что по мере снижения процента более низкого статуса средняя стоимость дома увеличивается;
+#  в то время как RM (среднее количество комнат в жилище) наиболее положительно коррелирует с MEDV (0,70),
+#  что означает, что стоимость дома увеличивается с увеличением количества комнат.
+#  Понимание данных с помощью исследовательского анализа данных является важным шагом перед построением модели.
+#  От размера выборки и распределения до корреляции между функциями и целью — мы получаем больше информации
+#  на каждом этапе, помогая в выборе функций и алгоритмов.
+
+# TODO: Data Preparation - Feature Selection (Подготовка данных — выбор признаков)
+#  На предыдущем уроке мы заметили, что RM и MEDV положительно коррелируют.
+#  Вспомните, что точечная диаграмма — полезный инструмент для отображения взаимосвязи между двумя функциями;
+#  давайте посмотрим на график рассеяния:
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+#
+# boston = pd.DataFrame(boston_dataset.data, columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+# boston.plot(kind='scatter',
+#             x='RM',
+#             y='MEDV',
+#             figsize=(8, 6))
+# plt.savefig("plot1.png")
+# plt.show()
+# TODO: Мы указываем тип графика, передавая строку 'scatter' в аргумент type,
+#  определяем метки для x и y соответственно и устанавливаем размер фигуры через кортеж (ширину, высоту) в дюймах.
+#  Цена увеличивается по мере линейного увеличения стоимости RM.
+#  Есть несколько выбросов, которые кажутся выходящими за рамки общей картины.
+#  Например, одна точка в центре справа соответствует дому почти с 9 комнатами,
+#  но медианная стоимость чуть выше 20 тысяч долларов.
+#  Дома с аналогичными значениями обычно имеют около 6 комнат.
+#  Кроме того, кажется, что у данных есть потолок; то есть максимальное медианное значение ограничено 50.
+#  С другой стороны, цены имеют тенденцию снижаться с увеличением LSTAT; и тренд не такой линейный.
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+#
+# boston = pd.DataFrame(boston_dataset.data, columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+# boston.plot(kind='scatter',
+#             x='LSTAT',
+#             y='MEDV',
+#             figsize=(8, 6))
+# plt.savefig("plot1.png")
+# plt.show()
+# TODO: Из этих двух функций RM кажется лучшим выбором для прогнозирования MEDV.
+#  Таким образом, мы начинаем с одномерной линейной регрессии: MEDV = b + m * RM.
+#  В scikit-learn для моделей требуется двумерная матрица признаков (X, 2darray или pandas DataFrame)
+#  и одномерный целевой массив (Y). Здесь мы определяем матрицу признаков как столбец RM в Бостоне и назначаем его X.
+#  Обратите внимание на двойные квадратные скобки вокруг «RM» в приведенном ниже коде, чтобы убедиться,
+#  что результат остается DataFrame, двумерной структурой данных:
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# print(X.shape)
+# TODO: Точно так же мы определяем нашу цель как столбец MEDV в Бостоне и назначаем его в переменной с именем Y:
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# Y = boston['MEDV']
+# print(Y.shape)
+# TODO: Напомним, что одинарная скобка выводит Pandas Series, а двойная скобка выводит Pandas DataFrame,
+#  и модель ожидает, что матрица признаков X будет 2darray.
+#  Выбор признаков используется по нескольким причинам, включая упрощение моделей,
+#  чтобы их было легче интерпретировать, сокращение времени обучения, уменьшение переобучения и т.д.
+
+# TODO: Instantiating the Model (Создание экземпляра модели)
+#  В scikit-learn каждый класс модели представлен классом в python.
+#  Класс модели — это не то же самое, что экземпляр модели.
+#  Напомним, что экземпляр — это отдельный объект определенного класса.
+#  Таким образом, мы сначала импортируем класс линейной регрессии, затем создаем экземпляр модели,
+#  то есть создаем экземпляр класса LinearRegression:
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# print(model)
+# TODO: Теперь модель создана, но еще не применена к данным.
+#  Scikit-learn делает различие между выбором модели и применением модели к данным очень четко.
+
+# TODO: Train-Test Split (Поезд-тестовый сплит)
+#  Затем мы разделяем данные на наборы для обучения и тестирования.
+#  Почему? Чтобы оценить производительность модели на новых невидимых данных.
+#  Мы обучаем модель, используя обучающий набор, и сохраняем тестовый набор для оценки.
+#  Хорошее эмпирическое правило — разбивать данные 70/30,
+#  то есть 70% данных используются для обучения, а 30% — для тестирования.
+#  Мы используем функцию train_test_split внутри модуля scikit-learn model_selection,
+#  чтобы разделить данные на два случайных подмножества.
+#  Установите random_state, чтобы результаты были воспроизводимыми.
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y,
+#                                                     test_size=0.3,
+#                                                     random_state=1)
+# TODO: Проверяем размеры, чтобы обеспечить одинаковое количество рядов.
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# print(X_train.shape)
+# print(Y_train.shape)
+# print(X_test.shape)
+# print(Y_test.shape)
+# TODO: Чтобы получить объективную оценку прогностической способности модели,
+#  важно, чтобы данные тестирования не отображались в построенной модели.
+
+# TODO: Fitting the Model (Подгонка модели)
+#  Короче говоря, примерка равна тренировке.
+#  Он подгоняет модель к обучающим данным и находит коэффициенты, указанные в модели линейной регрессии,
+#  т.е. точку пересечения и наклон. После обучения модель можно использовать для прогнозирования.
+#  Теперь давайте применим модель к данным. Помните, что мы сохраняем данные тестирования,
+#  чтобы сообщать о производительности модели, и используем только обучающий набор для построения модели.
+#  Синтаксис:
+#      model.fit(X_train, Y_train)
+# TODO: Команда fit() запускает вычисления, и результаты сохраняются в объекте модели.
+#  Подгонка — это то, насколько хорошо модель машинного обучения соотносится с данными, на которых она была обучена.
+
+# TODO: Parameter Estimates (Оценки параметров)
+#  Модель линейной регрессии была подобрана, что означает, что оба параметра,
+#  точка пересечения и наклон, были изучены. Кто они такие?
+#  В Scikit-learn по соглашению все параметры модели имеют завершающие символы подчеркивания, например,
+#  для доступа к оценочному пересечению из модели, округленному до 2-го десятичного знака для лучшего отображения:
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+# print(model.intercept_.round(2))
+# TODO: Точно так же расчетный коэффициент признака RM равен:
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+# print(model.coef_.round(2))
+# TODO: Два параметра представляют точку пересечения и наклон линии, подходящей к данным.
+#  Наша подогнанная модель MEDV = -30,57 + 8,46 * RM.
+#  При увеличении RM на одну единицу средняя цена дома вырастет на 8460 долларов.
+#  Полный код, соответствующий модели:
+# from sklearn.linear_model import LinearRegression
+# from sklearn.model_selection import train_test_split
+# import pandas as pd
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+# print(model.intercept_.round(2))
+# print(model.coef_.round(2))
+# TODO: Ты сделал это! Вы только что построили первую модель линейной регрессии в scikit-learn:
+#  от импорта класса до создания экземпляра модели, чтобы подогнать модель к данным, и готово!
+
+# TODO: Prediction (Прогноз)
+#  После обучения модели контролируемое машинное обучение будет оценивать тестовые данные
+#  на основе предыдущих прогнозов для невидимых данных. Мы можем сделать прогноз, используя метод predict().
+#  Когда среднее количество комнат в доме составляет 6.5,
+#  модель прогнозирует стоимость дома в размере 24 426,06 долларов США.
+# import pandas as pd
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+#
+# import numpy as np
+#
+# new_RM = np.array([6.5]).reshape(-1, 1)  # убедитесь, что это 2D
+# print(model.predict(new_RM))
+# TODO: Обратите внимание, что ввод должен быть двумерным, в этом случае будет работать либо 2darray, либо DataFrame.
+#  Это значение такое же, как если бы мы подставили линию b + m*x,
+#  где b — предполагаемое пересечение с моделью, а m — предполагаемый наклон.
+# import pandas as pd
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+#
+# import numpy as np
+#
+# new_RM = np.array([6.5]).reshape(-1, 1)  # убедитесь, что это 2D
+# print(model.intercept_ + model.coef_ * 6.5)
+# TODO: Кроме того, мы можем передать тестовый набор и получить прогнозы для всех домов.
+# import pandas as pd
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+#
+# y_test_predicted = model.predict(X_test)
+# print(y_test_predicted.shape)
+# print(type(y_test_predicted))
+# TODO: Результатом является 1darray, такой же формы, как Y_test.
+# import pandas as pd
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+#
+# print(Y_test.shape)
+# TODO: Метод predict() оценивает медианную стоимость дома, вычисляя model.intercept_ + model.coef_*RM.
+
+# TODO: Residuals (Остатки)
+#  Насколько хорош наш прогноз? Мы можем проверить производительность модели,
+#  визуально сравнив подобранную линию и истинные наблюдения в тестовом наборе.
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+# from sklearn.datasets import load_boston
+# from sklearn.linear_model import LinearRegression
+#
+# from sklearn.model_selection import train_test_split
+#
+# model = LinearRegression()
+# boston_dataset = load_boston()
+#
+# boston = pd.DataFrame(boston_dataset.data, columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# model.fit(X_train, Y_train)
+#
+# y_test_predicted = model.predict(X_test)
+#
+# plt.scatter(X_test, Y_test,
+#             label='testing data')
+# plt.plot(X_test, y_test_predicted,
+#          label='prediction', linewidth=3)
+# plt.xlabel('RM')
+# plt.ylabel('MEDV')
+# plt.legend(loc='upper left')
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Некоторые точки лежат на линии, а некоторые - в стороне от нее.
+#  Мы можем измерить расстояние между точкой и линией вдоль вертикальной линии,
+#  и это расстояние называется остатком или ошибкой.
+#  Остаток - это разница между наблюдаемым значением цели и прогнозируемым значением.
+#  Чем ближе невязка к 0, тем лучше работает наша модель.
+#  Мы можем рассчитать остаток и представить его в виде диаграммы рассеяния.
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+# from sklearn.datasets import load_boston
+# from sklearn.linear_model import LinearRegression
+#
+# from sklearn.model_selection import train_test_split
+#
+# model = LinearRegression()
+# boston_dataset = load_boston()
+#
+# boston = pd.DataFrame(boston_dataset.data, columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# model.fit(X_train, Y_train)
+#
+# y_test_predicted = model.predict(X_test)
+#
+# residuals = Y_test - y_test_predicted
+#
+# # plot the residuals
+# plt.scatter(X_test, residuals)
+# # plot a horizontal line at y = 0
+# plt.hlines(y=0,
+#            xmin=X_test.min(), xmax=X_test.max(),
+#            linestyle='--')
+# # set xlim
+# plt.xlim((4, 9))
+# plt.xlabel('RM')
+# plt.ylabel('residuals')
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Остатки разбросаны по горизонтальной линии, y = 0, без определенного рисунка.
+#  Это кажущееся случайным распределение является признаком того, что модель работает.
+#  В идеале остатки должны быть расположены симметрично и случайным образом вокруг горизонтальной оси;
+#  если остаточный график показывает некоторую закономерность, линейную или нелинейную,
+#  это указывает на то, что наша модель может быть улучшена.
+#  Остаточные графики могут выявить систематическую ошибку модели,
+#  а статистические показатели указывают на соответствие.
+
+# TODO: Mean Squared Error (Среднеквадратическая ошибка)
+#  Ранее мы узнали, что когда каждый остаток близок к 0, это предполагает хорошее соответствие.
+#  Например, первые пять остатков в нашей модели:
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+#
+# y_test_predicted = model.predict(X_test)
+#
+# residuals = Y_test - y_test_predicted
+# print(residuals[:5])
+# TODO: Это отдельные точки данных, а как насчет производительности модели для всех точек данных?
+#  Нам нужен способ агрегировать остатки и просто указать одно число в качестве метрики.
+#  Естественно взять среднее значение всех остатков:
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+#
+# y_test_predicted = model.predict(X_test)
+#
+# residuals = Y_test - y_test_predicted
+# print(residuals.mean())
+# TODO: -0,24 довольно близко к 0, но есть проблема: остатки могут быть как положительными,
+#  так и отрицательными, поэтому получение среднего значения отменяет их. Это не точная метрика.
+#  Чтобы решить эту проблему, мы возьмем квадрат каждого остатка, а затем возьмем среднее значение квадратов.
+#  Это называется среднеквадратичной ошибкой (MSE):
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+#
+# y_test_predicted = model.predict(X_test)
+#
+# residuals = Y_test - y_test_predicted
+# print((residuals ** 2).mean())
+# TODO: Мы также можем использовать метод mean_squared_error()
+#  в модуле метрик scikit-learn для вывода того же результата:
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+#
+# y_test_predicted = model.predict(X_test)
+#
+# residuals = Y_test - y_test_predicted
+#
+# from sklearn.metrics import mean_squared_error
+#
+# print(mean_squared_error(Y_test, y_test_predicted))
+# TODO: В целом, чем меньше MSE, тем лучше, но абсолютного порога «хорошо» или «плохо» не существует.
+#  Мы можем определить его на основе зависимой переменной, т.е. MEDV в наборе тестов.
+#  Y_test колеблется от 6.3 до 50 с дисперсией 92.26. По сравнению с общей дисперсией, MSE 36.52 — это неплохо.
+#  Чтобы шкала ошибок совпадала со шкалой целей, часто используется среднеквадратическая ошибка (RMSE).
+#  Это квадратный корень из MSE.
+
+# TODO: R-squared (R-квадрат)
+#  Другой распространенный показатель для оценки производительности модели называется R-квадрат;
+#  можно рассчитать через model.score():
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+#
+# y_test_predicted = model.predict(X_test)
+#
+# residuals = Y_test - y_test_predicted
+#
+# from sklearn.metrics import mean_squared_error
+#
+# print(model.score(X_test, Y_test))
+# TODO: Это доля общей вариации, объясняемая моделью.
+#  Здесь около 60% изменчивости данных тестирования объясняется нашей моделью.
+#  Общая вариация рассчитывается как сумма квадратов разницы между ответом
+#  и средним значением ответа, в примере данных тестирования:
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+#
+# y_test_predicted = model.predict(X_test)
+#
+# residuals = Y_test - y_test_predicted
+#
+# from sklearn.metrics import mean_squared_error
+#
+# print(((Y_test - Y_test.mean()) ** 2).sum())
+# TODO: Принимая во внимание, что вариация, которую модель не может зафиксировать,
+#  вычисляется как сумма квадратов остатков:
+# import pandas as pd
+#
+# from sklearn.datasets import load_boston
+#
+# boston_dataset = load_boston()
+# ## build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=1)
+#
+# from sklearn.linear_model import LinearRegression
+#
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+#
+# y_test_predicted = model.predict(X_test)
+#
+# residuals = Y_test - y_test_predicted
+#
+# from sklearn.metrics import mean_squared_error
+#
+# print((residuals ** 2).sum())
+# TODO: Тогда доля общего отклонения от данных равна:
+# print(1 - 5550.6166390874705 / 13931.482039473683)
+# TODO: Идеальная модель объясняет все различия в данных.
+#  Примечание R-квадрат находится в диапазоне от 0 до 100 %:
+#  0 % указывает, что модель не объясняет ни одной из изменчивости данных отклика вокруг своего среднего значения,
+#  а 100 % указывает, что модель объясняет все это.
+#  Оценка значений R-квадрата в сочетании с остаточными графиками дает количественную оценку производительности модели.
+
+# TODO: Overview (Обзор)
+#  Напомним, LSTAT (% более низкого статуса среди населения) наиболее отрицательно коррелирует с ценой на жилье.
+#  Мы можем добавить эту функцию и построить модель многомерной линейной регрессии,
+#  в которой цена дома линейно зависит как от RM, так и от LSTAT: MEDV = b0 + b1 * RM + b2 * LSTAT - то же самое,
+#  за исключением части подготовки данных, теперь мы имеем дело с двумя функциями:
+# import pandas as pd
+# from sklearn.datasets import load_boston
+# import matplotlib.pyplot as plt
+# from sklearn.model_selection import train_test_split
+# from sklearn.linear_model import LinearRegression
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y,
+#                                                     test_size=0.3,
+#                                                     random_state=1)
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+# y_test_predicted = model.predict(X_test)
+# # data preparation
+# X2 = boston[['RM', 'LSTAT']]
+# Y = boston['MEDV']
+# # train test split
+# # same random_state to ensure the same splits
+# X2_train, X2_test, Y_train, Y_test = train_test_split(X2, Y,
+#                                                       test_size=0.3,
+#                                                       random_state=1)
+# model2 = LinearRegression()
+# print(model2.fit(X2_train, Y_train))
+# TODO: Мы можем получить доступ к параметрам после установки модели2.
+# import pandas as pd
+# from sklearn.datasets import load_boston
+# import matplotlib.pyplot as plt
+# from sklearn.model_selection import train_test_split
+# from sklearn.linear_model import LinearRegression
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y,
+#                                                     test_size=0.3,
+#                                                     random_state=1)
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+# y_test_predicted = model.predict(X_test)
+# # data preparation
+# X2 = boston[['RM', 'LSTAT']]
+# Y = boston['MEDV']
+# # train test split
+# # same random_state to ensure the same splits
+# X2_train, X2_test, Y_train, Y_test = train_test_split(X2, Y,
+#                                                       test_size=0.3,
+#                                                       random_state=1)
+# model2 = LinearRegression()
+# model2.fit(X2_train, Y_train)
+# print(model2.intercept_)
+# print(model2.coef_)
+# TODO: Обратите внимание, что коэффициенты хранятся в 1darray формы (2,).
+#  Тогда вторая модель MEDV = 5,32 + 4,13 * RM + (-0,68) * LSTAT.
+#  Разрешение на прогнозы:
+# import pandas as pd
+# from sklearn.datasets import load_boston
+# import matplotlib.pyplot as plt
+# from sklearn.model_selection import train_test_split
+# from sklearn.linear_model import LinearRegression
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y,
+#                                                     test_size=0.3,
+#                                                     random_state=1)
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+# y_test_predicted = model.predict(X_test)
+# # data preparation
+# X2 = boston[['RM', 'LSTAT']]
+# Y = boston['MEDV']
+# # train test split
+# # same random_state to ensure the same splits
+# X2_train, X2_test, Y_train, Y_test = train_test_split(X2, Y,
+#                                                       test_size=0.3,
+#                                                       random_state=1)
+# model2 = LinearRegression()
+# model2.fit(X2_train, Y_train)
+# print(model2.intercept_)
+# print(model2.coef_)
+# TODO: Расширение от одномерной до многомерной линейной регрессии в scikit-learn не вызывает затруднений.
+#  Реализация модели, подгонка и прогнозы идентичны, единственное отличие заключается в подготовке данных.
+
+# TODO: ЗАДАЧА: Overview (Обзор)
+#  Завершите код для обучения модели многомерной линейной регрессии для прогнозирования MEDV на основе функций:
+#  - RM    (количество комнат в доме)
+#  - LSTAT (% более низкого статуса среди населения)
+#  - CRIM  (уровень преступности на душу населения по городам)
+# import pandas as pd
+# from sklearn.datasets import load_boston
+# from sklearn.model_selection import train_test_split
+# from sklearn.linear_model import LinearRegression
+#
+# boston_dataset = load_boston()
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+#
+# X3 = boston[['RM', 'LSTAT', 'CRIM']]
+# Y = boston['MEDV']
+# X3_train, X3_test, Y_train, Y_test = train_test_split(X3, Y, test_size=0.3, random_state=1)
+# model3 = LinearRegression()
+# model3.fit(X3_train, Y_train)
+# print(model3.intercept_)
+# print(model3.coef_)
+
+# TODO: Comparing Models (Сравнение моделей)
+#  Какая модель лучше? Простым показателем для линейной регрессии является
+#  среднеквадратическая ошибка (MSE) для данных тестирования.
+#  Лучшие модели имеют более низкие MSE.
+#  Напомним, что MSE первой модели на тестовых данных:
+# import pandas as pd
+# from sklearn.datasets import load_boston
+# import matplotlib.pyplot as plt
+# from sklearn.model_selection import train_test_split
+# from sklearn.linear_model import LinearRegression
+# from sklearn.metrics import mean_squared_error
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y,
+#                                                     test_size=0.3,
+#                                                     random_state=1)
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+# y_test_predicted = model.predict(X_test)
+# # data preparation
+# X2 = boston[['RM', 'LSTAT']]
+# Y = boston['MEDV']
+# # train test split
+# # same random_state to ensure the same splits
+# X2_train, X2_test, Y_train, Y_test = train_test_split(X2, Y,
+#                                                       test_size=0.3,
+#                                                       random_state=1)
+# model2 = LinearRegression()
+# model2.fit(X2_train, Y_train)
+# y_test_predicted2 = model2.predict(X2_test)
+# print(mean_squared_error(Y_test, y_test_predicted).round(2))
+# TODO: MSE второй модели:
+# import pandas as pd
+# from sklearn.datasets import load_boston
+# import matplotlib.pyplot as plt
+# from sklearn.model_selection import train_test_split
+# from sklearn.linear_model import LinearRegression
+# from sklearn.metrics import mean_squared_error
+#
+# boston_dataset = load_boston()
+# # build a DataFrame
+# boston = pd.DataFrame(boston_dataset.data,
+#                       columns=boston_dataset.feature_names)
+# boston['MEDV'] = boston_dataset.target
+# X = boston[['RM']]
+# Y = boston['MEDV']
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(X, Y,
+#                                                     test_size=0.3,
+#                                                     random_state=1)
+# model = LinearRegression()
+# model.fit(X_train, Y_train)
+# y_test_predicted = model.predict(X_test)
+# # data preparation
+# X2 = boston[['RM', 'LSTAT']]
+# Y = boston['MEDV']
+# # train test split
+# # same random_state to ensure the same splits
+# X2_train, X2_test, Y_train, Y_test = train_test_split(X2, Y,
+#                                                       test_size=0.3,
+#                                                       random_state=1)
+# model2 = LinearRegression()
+# model2.fit(X2_train, Y_train)
+# y_test_predicted2 = model2.predict(X2_test)
+# print(mean_squared_error(Y_test, y_test_predicted2).round(2))
+# TODO: Вторая модель имеет более низкий MSE, а именно снижение на 21% (36,52-28,93)/36,52 = 21%);
+#  таким образом, она лучше прогнозирует среднюю стоимость домов, чем одномерная модель.
+#  Как правило, чем больше функций включает модель, тем ниже будет MSE.
+#  Тем не менее, будьте осторожны с включением слишком большого количества функций.
+#  Некоторые функции могут быть случайным шумом, что ухудшает интерпретируемость модели.
+
+# TODO: ЗАДАЧА: Data Science - Ordinary Squares (Наука о данных — обычные квадраты)
+#  Обычные наименьшие квадраты для линейной регрессии.
+#  Обычный метод наименьших квадратов (OLS) — это метод оценки параметров β в простой линейной регрессии,
+#  Xβ = y, где X — матрица признаков, а y — зависимая переменная (или цель),
+#  путем минимизации суммы квадратов различия между наблюдаемой зависимой переменной
+#  в данном наборе данных и предсказанной линейной функцией.
+#  Математически решение дается формулой на изображении, где верхний индекс T означает транспонирование матрицы,
+#  а верхний индекс -1 означает, что это обратная матрица.
+#  Задача Учитывая матрицу признаков двумерного массива X и вектор y, вернуть вектор коэффициентов;
+#  см. Рис: formula_1.png.
+#  Формат ввода Первая строка: два целых числа, разделенных пробелами,
+#  первая указывает строки матрицы признаков X (n), а вторая указывает столбцы X (p)
+#  Следующие n строк: значения строки в матрице признаков
+#  Последняя строка: значения p of target y
+#  Output Format (Формат вывода): Пустой массив 1d значений, округленных до второго десятичного знака.
+#  Sample Input:
+#  2 2
+#  1 0
+#  0 2
+#  2 3
+#  Sample Output:
+#  [2. , 1.5]
+#  Объяснение: Матрица признаков X имеет n = 2 строки и p = 2 признака.
+#  Следуя решению OLS, замените X на np.array([[1.0.], [0.2.]] и y на np.array([2.3.]) соответственно,
+#  выполнив умножение матриц с помощью инструментов в numpy приводит к np.array([2. 1.5]).
+# import numpy as np
+#
+# n, p = [int(x) for x in input().split()]
+# X = []
+# for i in range(n):
+#     X.append([float(x) for x in input().split()])
+#
+# y = [float(x) for x in input().split()]
+#
+# X = np.array(X).reshape(n, p)
+# y = np.array(y)
+# b = np.linalg.pinv(X) @ y.transpose()
+# print(np.around(b, decimals=2))
+
+# TODO: Discrete Values (Дискретные значения)
+#  В последнем модуле мы построили модель линейной регрессии для прогнозирования непрерывного значения,
+#  медианной стоимости дома в Бостоне. В этом модуле мы будем работать над задачами классификации,
+#  задачей которых является предсказание дискретного значения.
+#  Дискретные данные могут иметь только определенные значения,
+#  в то время как непрерывные данные могут принимать любое значение.
+#  Примеры задач классификации с использованием дискретных значений данных:
+#  • предсказать, является ли рак молочной железы доброкачественным или злокачественным, по набору признаков
+#  • классифицировать изображение как изображение кошек, собак или лошадей
+#  • предсказать, является ли электронное письмо спамом или нет от указанного адреса электронной почты.
+#  В каждом из примеров метки имеют категориальное образования, представляют конечное число классов.
+#  Дискретные значения данных могут быть числовыми, например количество учеников в классе,
+#  или категориальными, например красным, синим или желтым.
+
+# TODO: Binary and Multi-class Classification (Бинарная и многоклассовая классификация)
+#  Существует два типа классификации: бинарная и мультиклассовая.
+#  Если есть два класса для прогнозирования, это проблема бинарной классификации,
+#  например, доброкачественная или злокачественная опухоль.
+#  Когда классов больше двух, задача представляет собой проблему множественной классификации.
+#  Например, классификация видов ириса, которые могут быть разноцветными, virqinica или setosa,
+#  на основе характеристик их чашелистиков и лепестков. Общие алгоритмы классификации включают логистическую регрессию,
+#  k ближайших соседей, деревья решений, наивный байесовский алгоритм, машины опорных векторов, нейронные сети и т.д.
+#  Здесь мы узнаем, как использовать k ближайших соседей для классификации видов ирисов.
+#  Проблемы контролируемого обучения сгруппированы в задачи регрессии и классификации.
+#  Обе задачи имеют целью построение функции отображения входных переменных (X) в выходную переменную (y).
+#  Разница в том, что выходная переменная непрерывна в регрессии и категорична для классификации.
+
+# TODO: Iris Dataset (Набор данных Ирис)
+#  Знаменитая база данных радужной оболочки, впервые использованная сэром Р.А. Фишером,
+#  является, пожалуй, самым известным набором данных, который можно найти в литературе по распознаванию образов.
+#  Существует 150 растений ириса, каждое из которых имеет 4 числовых атрибута:
+#  - длина чашелистика в см
+#  - ширина чашелистика в см
+#  - длина лепестка в см
+#  - ширина лепестка в см.
+#  Задача состоит в том, чтобы предсказать каждое растение как: ирис-сетозу или ирис-разноцветный или
+#  ирис-виргиника на основе этих 4 признаков.
+#  См. Рис: iris.png
+# TODO: Набор данных хранится в файле csv,
+#  мы можем загрузить его как DataFrame, используя read_csv() в библиотеке pandas:
+# import pandas as pd
+#
+# iris = pd.read_csv('./data/iris.csv')
+# TODO: Теперь проверьте размеры и первые несколько строк:
+# import pandas as pd
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# print(iris.shape)
+# TODO: Мы используем функцию .head() для просмотра первых 5 строк:
+# print(iris.head())
+# TODO: Идентификатор столбца — это индекс строки, не очень информативный,
+#  поэтому мы можем удалить его из набора данных с помощью функции drop():
+# iris.drop('id', axis=1, inplace=True)
+# print(iris.head())
+# TODO: Когда мы изучаем алгоритмы машинного обучения, использование простых данных с хорошим поведением,
+#  таких как набор данных цветка ириса, сокращает кривую обучения и упрощает понимание и отладку.
+
+# TODO: Summary Statistics (Суммарная Статистика)
+#  Посмотрите сводную статистику:
+# import pandas as pd
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# print(iris.describe())
+# # print(iris.describe(include='all'))
+# # print(iris[['petal_len', 'petal_wd']].describe())
+
+# TODO: Все четыре функции являются числовыми, каждая из которых имеет разные диапазоны.
+#  Ни в одном из столбцов нет пропущенных значений. Следовательно, это чистый набор данных.
+#  Диапазоны атрибутов по-прежнему имеют одинаковую величину, поэтому мы пропустим стандартизацию.
+#  Однако стандартизация атрибутов таким образом, чтобы каждый из них имел среднее значение, равное нулю,
+#  и стандартное отклонение, равное единице, может быть важным этапом предварительной обработки
+#  для многих алгоритмов машинного обучения. Это также называется масштабированием функций;
+#  см. важность масштабирования функций для получения более подробной информации:
+#  https://scikit-learn.org/stable/auto_examples/preprocessing/plot_scaling_importance.html
+
+# TODO: Class Distribution (Распределение классов)
+#  Набор данных содержит 3 класса по 50 экземпляров в каждом.
+#  Мы можем проверить это:
+# import pandas as pd
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# print(iris.groupby('species').size())
+# TODO: Или просто используйте value_counts():
+# import pandas as pd
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# print(iris['species'].value_counts())
+# TODO: Метод value_counts() — отличная утилита для быстрого понимания распределения данных.
+#  При использовании с категориальными данными он подсчитывает количество уникальных значений в интересующем столбце.
+#  Iris — это сбалансированный набор данных, поскольку точки данных для каждого класса равномерно распределены.
+#  Примером несбалансированного набора данных является мошенничество.
+#  Как правило, лишь небольшой процент от общего числа транзакций является фактическим мошенничеством,
+#  примерно 1 из 1000. И когда набор данных несбалансирован, будет использоваться немного другой анализ.
+#  Поэтому важно понимать, являются ли данные сбалансированными или несбалансированными.
+#  Несбалансированный набор данных — это набор, в котором классы в данных представлены неравномерно.
+#  Чтобы узнать больше о несбалансированных данных, перейдите по этой ссылке:
+#  https://machinelearningmastery.com/tactics-to-combat-imbalanced-classes-in-your-machine-learning-dataset/
+
+# TODO: Univariate Plot (Одномерный сюжет)
+#  Чтобы лучше понять каждый атрибут, начните с одномерных графиков, то есть графиков каждой отдельной переменной.
+# import pandas as pd
+# from matplotlib import pyplot as plt
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris[['sepal_len', 'sepal_wd', 'petal_len', 'petal_wd']].hist()
+# plt.show()
+# TODO: Это дает нам гораздо более четкое представление о распределении входной переменной, показывая,
+#  что и длина чашелистика, и ширина чашелистика имеют нормальное (гауссово) распределение.
+#  То есть распределение имеет красивый симметричный колоколообразный вид. Однако длина лепестков не нормальная.
+#  Его график показывает две моды, один пик происходит около 0, а другой около 5.
+#  Меньше закономерностей наблюдалось для ширины лепестка.
+#  Гистограммы представляют собой гистограммы, отображающие количество или относительную частоту значений,
+#  попадающих в разные интервалы или диапазоны классов.
+#  Есть больше одномерных сводных графиков, включая графики плотности и ящичные диаграммы.
+
+# TODO: Multivariate Plot (Многомерный сюжет)
+#  Чтобы увидеть взаимодействие между атрибутами, мы используем точечные диаграммы.
+#  Однако трудно увидеть, есть ли какая-либо группировка без каких-либо указаний на истинный вид цветка,
+#  который представляет точка данных.
+#  Поэтому мы определяем цветовой код для каждого вида, чтобы различать виды визуально:
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# # build a dict mapping species to an integer code
+# inv_name_dict = {'iris-setosa': 0,
+#                  'iris-versicolor': 1,
+#                  'iris-virginica': 2}
+#
+# # build integer color code 0/1/2
+# colors = [inv_name_dict[item] for item in iris['species']]
+# # scatter plot
+# scatter = plt.scatter(iris['sepal_len'], iris['sepal_wd'], c=colors)
+# plt.xlabel('sepal length (cm)')
+# plt.ylabel('sepal width (cm)')
+# # add legend
+# plt.legend(handles=scatter.legend_elements()[0],
+#            labels=inv_name_dict.keys())
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Используя функции sepal_length и sepal_width, мы можем отличить iris-setosa от других;
+#  отделить радужную оболочку от радужной оболочки виргинской сложнее из-за перекрытия,
+#  как видно по зеленым и желтым точкам данных.
+#  Точно так же между длиной и шириной лепестка:
+import matplotlib.pyplot as plt
 import pandas as pd
 
-lst = [float(x) if x != 'nan' else np.NaN for x in input().split()]
-pd = pd.Series(np.array(lst))
-print(pd.fillna(pd.mean().round(1)))
+iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+
+# build a dict mapping species to an integer code
+inv_name_dict = {'iris-setosa': 0,
+                 'iris-versicolor': 1,
+                 'iris-virginica': 2}
+
+# build integer color code 0/1/2
+colors = [inv_name_dict[item] for item in iris['species']]
+# scatter plot
+scatter = plt.scatter(iris['petal_len'], iris['petal_wd'], c=colors)
+plt.xlabel('petal length (cm)')
+plt.ylabel('petal width (cm)')
+# add legend
+plt.legend(handles=scatter.legend_elements()[0],
+           labels=inv_name_dict.keys())
+plt.savefig("plot.png")
+plt.show()
+# TODO: Интересно, что длина и ширина лепестка сильно коррелированы,
+#  и эти два признака очень полезны для идентификации различных видов ирисов.
+#  Примечательно, что граница между iris-versicolor и iris-virginica остается немного размытой,
+#  что указывает на трудности для некоторых классификаторов.
+#  При обучении стоит помнить, какие функции мы должны использовать.
+#  Чтобы увидеть диаграммы разброса всех пар функций, используйте pandas.plotting.scatter_matrix() .
+#  Помимо гистограмм отдельных переменных по диагонали, он покажет графики рассеяния всех пар атрибутов,
+#  чтобы помочь определить структурированные отношения между функциями.
+
+# TODO: K nearest neighbors (K ближайших соседей)
+#  K ближайших соседей (knn) — это контролируемая модель машинного обучения, которая берет точку данных,
+#  просматривает k ближайших помеченных точек данных и присваивает метку большинством голосов.
+#  Здесь мы видим, что изменение k может повлиять на результат модели. В knn k является гиперпараметром.
+#  Гиперпараметр в машинном обучении — это параметр, значение которого задается до начала процесса обучения.
+#  Позже мы узнаем, как настроить гиперпараметр.
+#  Например, на Рис: picture_1.png есть два класса: синие квадраты и красные треугольники.
+#  Какую метку мы должны присвоить зеленой точке с неизвестной меткой на основе алгоритма 3nn,
+#  т.е. когда k равно 3? Из 3 ближайших точек данных от зеленой точки (сплошной круг)
+#  две представляют собой красные треугольники, а одна — синий квадрат, поэтому прогнозируется,
+#  что зеленая точка будет красным треугольником. Если k равно 5 (круг со штрихпунктирной линией),
+#  то он классифицируется как синий квадрат (3 синих квадрата против 2 красных треугольников, синих квадратов больше).
+#  В scikit-learn алгоритм k ближайших соседей реализован в модуле sklearn.neighbors:
+from sklearn.neighbors import KNeighborsClassifier
+# TODO: См. Рис: picture_2.png: Рассмотрим в нашем наборе данных по радужной оболочке три ближайших соседа данных,
+#  отмеченных красной стрелкой, как показано ниже: Все ближайшие соседи — iris-setosa (т.е. фиолетовые точки данных);
+#  таким образом, к 3-nn заостренный элемент данных также должен быть помечен как iris-setosa.
+# TODO: K ближайших соседей также можно использовать для задач регрессии. Разница заключается в предсказании.
+#  Вместо большинства голосов knn для регрессии делает прогноз, используя средние метки k ближайших точек данных.
