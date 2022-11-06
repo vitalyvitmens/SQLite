@@ -2787,27 +2787,27 @@
 #  отделить радужную оболочку от радужной оболочки виргинской сложнее из-за перекрытия,
 #  как видно по зеленым и желтым точкам данных.
 #  Точно так же между длиной и шириной лепестка:
-import matplotlib.pyplot as plt
-import pandas as pd
-
-iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
-
-# build a dict mapping species to an integer code
-inv_name_dict = {'iris-setosa': 0,
-                 'iris-versicolor': 1,
-                 'iris-virginica': 2}
-
-# build integer color code 0/1/2
-colors = [inv_name_dict[item] for item in iris['species']]
-# scatter plot
-scatter = plt.scatter(iris['petal_len'], iris['petal_wd'], c=colors)
-plt.xlabel('petal length (cm)')
-plt.ylabel('petal width (cm)')
-# add legend
-plt.legend(handles=scatter.legend_elements()[0],
-           labels=inv_name_dict.keys())
-plt.savefig("plot.png")
-plt.show()
+# import matplotlib.pyplot as plt
+# import pandas as pd
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# # build a dict mapping species to an integer code
+# inv_name_dict = {'iris-setosa': 0,
+#                  'iris-versicolor': 1,
+#                  'iris-virginica': 2}
+#
+# # build integer color code 0/1/2
+# colors = [inv_name_dict[item] for item in iris['species']]
+# # scatter plot
+# scatter = plt.scatter(iris['petal_len'], iris['petal_wd'], c=colors)
+# plt.xlabel('petal length (cm)')
+# plt.ylabel('petal width (cm)')
+# # add legend
+# plt.legend(handles=scatter.legend_elements()[0],
+#            labels=inv_name_dict.keys())
+# plt.savefig("plot.png")
+# plt.show()
 # TODO: Интересно, что длина и ширина лепестка сильно коррелированы,
 #  и эти два признака очень полезны для идентификации различных видов ирисов.
 #  Примечательно, что граница между iris-versicolor и iris-virginica остается немного размытой,
@@ -2831,8 +2831,1288 @@ plt.show()
 #  то он классифицируется как синий квадрат (3 синих квадрата против 2 красных треугольников, синих квадратов больше).
 #  В scikit-learn алгоритм k ближайших соседей реализован в модуле sklearn.neighbors:
 from sklearn.neighbors import KNeighborsClassifier
+
 # TODO: См. Рис: picture_2.png: Рассмотрим в нашем наборе данных по радужной оболочке три ближайших соседа данных,
 #  отмеченных красной стрелкой, как показано ниже: Все ближайшие соседи — iris-setosa (т.е. фиолетовые точки данных);
 #  таким образом, к 3-nn заостренный элемент данных также должен быть помечен как iris-setosa.
 # TODO: K ближайших соседей также можно использовать для задач регрессии. Разница заключается в предсказании.
 #  Вместо большинства голосов knn для регрессии делает прогноз, используя средние метки k ближайших точек данных.
+
+# TODO: Data Preparation (Подготовка данных)
+#  Ранее мы определили, что длина и ширина лепестков являются наиболее полезными признаками
+#  для разделения видов; затем мы определяем функции и метки следующим образом:
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+# TODO: Напомним, что для оценки производительности модели мы делаем это на данных,
+#  которые невидимы при построении модели. В результате мы отложили некоторую часть данных
+#  в качестве тестового набора для имитации неизвестных данных, которые будут представлены модели в будущем.
+#  Как и в предыдущем модуле, мы используем train_test_split в sklearn.model_selection.
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+# TODO: Мы используем разделение 70-30, т. е. 70% данных предназначены для обучения, а 30% — для тестирования.
+#  Обратите внимание, что мы указали, что разделение было стратифицировано по метке (y).
+#  Это сделано для того, чтобы распределение меток оставалось одинаковым как в обучающем, так и в тестовом наборах:
+# import pandas as pd
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1, stratify=y)
+#
+# print(y_train.value_counts())
+# print(y_test.value_counts())
+# TODO: В классификациях часто выбирается стратифицированная выборка, чтобы гарантировать,
+#  что обучающие и тестовые наборы имеют примерно такой же процент выборок каждого целевого класса, как и полный набор.
+
+# TODO: Modeling (Моделирование)
+#  Теперь мы готовы построить и обучить модель knn. Сначала мы импортируем класс модели:
+from sklearn.neighbors import KNeighborsClassifier
+
+# TODO: Теперь создайте экземпляр knn из класса KNeighborsClassifier.
+# knn = KNeighborsClassifier(n_neighbors=5)
+# TODO: Обратите внимание, что единственный параметр, который нам нужно установить в этой задаче,
+#  — это n_neighbors или k, как в knn. Мы устанавливаем k равным 5 случайным выбором.
+#  Используйте данные X_train и y_train для обучения модели:
+# import pandas as pd
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# # instantiate
+# knn = KNeighborsClassifier(n_neighbors=5)
+# # fit
+# print(knn.fit(X_train, y_train))
+# TODO: Он выводит обученную модель. Мы используем большинство значений по умолчанию для параметров,
+#  например, metric = 'minkowski' и p = 2 вместе определяют, что расстояние является евклидовым расстоянием.
+#  Подробнее об использовании других параметров см. в документации scikit-learn:
+#  https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
+
+# TODO: Label Prediction (Предсказание метки
+#  Чтобы сделать прогноз в scikitlearn, мы можем вызвать метод predict().
+#  Мы пытаемся предсказать виды радужной оболочки, используя заданные функции в матрице признаков X.
+#  Давайте сделаем прогнозы на тестовом наборе данных и сохраним результат в pred для последующего просмотра:
+#      pred = knn.predict(X_test)
+# TODO:
+# import numpy as np
+# import pandas as pd
+#
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# # instantiate
+# knn = KNeighborsClassifier(n_neighbors=5)
+# # fit
+# knn.fit(X_train, y_train)
+#
+# pred = knn.predict(X_test)
+# print(pred[:5])
+# # print(*pred[:5], sep='\n')
+# TODO: Каждое предсказание представляет собой вид радужной оболочки и хранится в 1darray.
+#  predict() возвращает массив предсказанных меток класса для данных предиктора.
+
+# TODO: Probability Prediction (Прогнозирование вероятности)
+#  Из всех алгоритмов классификации, реализованных в scikitlearn, есть дополнительный метод predict_proba.
+#  Вместо разделения метки он выводит вероятность цели в виде массива.
+#  Давайте посмотрим, каковы предсказанные вероятности для 11-го и 12-го цветов:
+# import numpy as np
+# import pandas as pd
+#
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# # instantiate
+# knn = KNeighborsClassifier(n_neighbors=5)
+# # knn = KNeighborsClassifier()
+# # fit
+# knn.fit(X_train, y_train)
+#
+# pred = knn.predict(X_test)
+#
+# y_pred_prob = knn.predict_proba(X_test)
+# print(y_pred_prob[10:12])
+# TODO: Например, вероятность того, что 11-й цветок будет предсказан как:
+#  ирис-сетоза = 1,
+#  ирис-разноцветный = 0,
+#  ирис-виргиника = 0.
+#  Для следующего цветка существует 20-процентная вероятность того,
+#  что он будет классифицирован как ирис-сетоза. versicolor, но с вероятностью 80% это iris-virginica.
+#  Это говорит нам о том, что из пяти ближайших соседей 12-го цветка в тестовом наборе 1 — это ирис-разноцветный,
+#  остальные 4 — ирис-виргиника. Чтобы увидеть соответствующие прогнозы:
+# import numpy as np
+# import pandas as pd
+#
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# # instantiate
+# knn = KNeighborsClassifier(n_neighbors=5)
+# # fit
+# knn.fit(X_train, y_train)
+#
+# pred = knn.predict(X_test)
+#
+# y_pred_prob = knn.predict_proba(X_test)
+# print(pred[10:12])
+# TODO: В задачах классификации мягкое предсказание возвращает предсказанные вероятности точек данных,
+#  принадлежащих каждому из классов, в то время как жесткое предсказание выводит только метки.
+
+# TODO: Accuracy (Точность)
+#  В классификации наиболее простой метрикой является точность.
+#  Он вычисляет долю точек данных, предсказанные метки которых точно соответствуют наблюдаемым меткам.
+# import numpy as np
+# import pandas as pd
+#
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# # instantiate
+# knn = KNeighborsClassifier(n_neighbors=5)
+# # fit
+# knn.fit(X_train, y_train)
+#
+# y_pred = knn.predict(X_test)
+#
+# print((y_pred == y_test.values).sum())
+# print(y_test.size)
+# TODO: Классификатор допустил одну ошибку. Таким образом, точность составляет 44/45:
+# import numpy as np
+# import pandas as pd
+#
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# # instantiate
+# knn = KNeighborsClassifier(n_neighbors=5)
+# # fit
+# knn.fit(X_train, y_train)
+#
+# y_pred = knn.predict(X_test)
+#
+# print((y_pred == y_test.values).sum() / y_test.size)
+# print(y_pred)
+# print(y_test.values)
+# print(y_test.size)
+# TODO: Такой же как:
+# import numpy as np
+# import pandas as pd
+#
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# # instantiate
+# knn = KNeighborsClassifier(n_neighbors=5)
+# # fit
+# knn.fit(X_train, y_train)
+#
+# y_pred = knn.predict(X_test)
+#
+# print(knn.score(X_test, y_test))
+# TODO: В модуле sklearn.metrics функция accuracy_score(y_true, y_pred) выполняет тот же расчет.
+
+# TODO: Confusion Matrix (Матрица путаницы)
+#  Одна только точность классификации может ввести в заблуждение,
+#  если в каждом классе имеется неравное количество наблюдений или если в наборе данных более двух классов.
+#  Вычисление матрицы путаницы даст лучшее представление о том,
+#  что классификация работает правильно и какие типы ошибок она допускает.
+#  Что такое матрица путаницы? Это сводка количества правильных и неправильных прогнозов с разбивкой по каждому классу.
+#  При классификации радужной оболочки мы можем использовать confusion_matrix() в модуле sklearn.metrics:
+# import numpy as np
+# import pandas as pd
+#
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# # instantiate
+# knn = KNeighborsClassifier(n_neighbors=5)
+# # fit
+# knn.fit(X_train, y_train)
+#
+# y_pred = knn.predict(X_test)
+#
+# from sklearn.metrics import confusion_matrix
+#
+# print(confusion_matrix(y_test, y_pred))
+# TODO: Мы можем визуализировать матрицу путаницы:
+# import matplotlib.pyplot as plt
+# import pandas as pd
+# import numpy as np
+#
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# # instantiate
+# knn = KNeighborsClassifier(n_neighbors=5)
+# # fit
+# knn.fit(X_train, y_train)
+#
+# y_pred = knn.predict(X_test)
+#
+# from sklearn.metrics import confusion_matrix
+# from sklearn.metrics import plot_confusion_matrix
+#
+# plot_confusion_matrix(knn, X_test, y_test, cmap=plt.cm.Blues)
+# plt.savefig("plot.png")
+# TODO: Здесь мы указали метки по порядку. Каждый столбец матрицы соответствует предсказанному классу,
+#  а каждая строка соответствует реальному классу.
+#  Таким образом, строка суммируется с общим количеством экземпляров класса.
+#  Первый ряд соответствует собственно радужной оболочке; [15, 0, 0] указывает на то,
+#  что 15 видов радужной оболочки были предсказаны правильно, и ни один из них не был помечен неправильно;
+#  в то время как последняя строка [0, 1, 14] предполагает, что из 15 реальных ирисовиргинских,
+#  0 были предсказаны как ирисовики-сетоза, 1 предсказаны как ирисовики-разноцветные,
+#  а остальные 14 были правильно идентифицированы как ирисовиргиники.
+#  Это согласуется с нашим наблюдением во время исследовательского анализа данных,
+#  то есть между двумя видами было некоторое совпадение на диаграмме рассеяния,
+#  и отличить ирис-разноцветный от ирис-виргиника труднее, чем идентифицировать ирис-сетоза.
+#  Матрица путаницы — это таблица, которая часто используется для описания производительности модели классификации
+#  (или «классификатора») на наборе тестовых данных, для которых известны истинные значения.
+
+# TODO: ЗАДАЧА:
+#  Учитывая y_true и y_pred ниже, заполните пробелы в выводе.
+#  Обратите внимание, что метки предназначены для индексации матрицы.
+# import numpy as np
+#
+# y_true = np.array(['dog', 'cat', 'cat', 'dog', 'dog'])
+#
+# y_pred = np.array(['dog', 'cat', 'cat', 'cat', 'dog'])
+# from sklearn.metrics import confusion_matrix
+# from sklearn.metrics import plot_confusion_matrix
+#
+# confusion_matrix(y_true, y_pred, labels=['cat', 'dog'])
+# print(confusion_matrix(y_true, y_pred))
+
+# TODO: K-fold Cross Validation (K-кратная перекрестная проверка)
+#  Ранее перед подгонкой модели мы выполняли разбиение обучающих тестов,
+#  чтобы мы могли сообщать о производительности модели на тестовых данных.
+#  Это простой метод перекрестной проверки, также известный как метод удержания.
+#  Однако разбиение является случайным, поэтому производительность модели может зависеть от того,
+#  как разбиваются данные. Чтобы преодолеть это, мы вводим k-кратную перекрестную проверку.
+#  При k-кратной перекрестной проверке данные делятся на k подмножеств.
+#  Затем метод задержки повторяется k раз, так что каждый раз одно из k подмножеств используется
+#  в качестве тестового набора, а другие k-1 подмножества объединяются для обучения модели.
+#  Затем точность усредняется по k испытаниям, чтобы обеспечить общую эффективность модели.
+#  Таким образом, используются все точки данных; и есть больше показателей,
+#  поэтому мы не полагаемся на одни тестовые данные для оценки производительности модели.
+#  Самый простой способ использовать перекрестную проверку k-fold в scikit-learn — вызвать
+#  функцию cross_val_score для модели и набора данных:
+# from sklearn.model_selection import cross_val_score
+#
+# # create a new KNN model
+# knn_cv = KNeighborsClassifier(n_neighbors=3)
+# TODO: Обратите внимание, что сейчас мы устанавливаем модель 3nn.
+# # train model with 5-fold cv
+# cv_scores = cross_val_score(knn_cv, X, y, cv=5)
+# TODO: Каждый набор задержек содержит 20% исходных данных.
+# import numpy as np
+# import pandas as pd
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# from sklearn.model_selection import cross_val_score
+#
+# # create a new KNN model
+# knn_cv = KNeighborsClassifier(n_neighbors=3)
+# # train model with 5-fold cv
+# cv_scores = cross_val_score(knn_cv, X, y, cv=5)
+# # print each cv score (accuracy)
+# print(cv_scores)
+# TODO: Как показано, из-за случайных назначений точность на наборах задержек колеблется от 0,9 до 1.
+import numpy as np
+
+# import pandas as pd
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# from sklearn.model_selection import cross_val_score
+#
+# # create a new KNN model
+# knn_cv = KNeighborsClassifier(n_neighbors=3)
+# # train model with 5-fold cv
+# cv_scores = cross_val_score(knn_cv, X, y, cv=5)
+# # then average them
+# print(cv_scores.mean())
+# TODO: Мы не можем полагаться на одно отдельное разделение поезда и теста, мы сообщаем,
+#  что модель 3nn имеет точность 95,33% на основе 5-кратной перекрестной проверки.
+#  Как правило, предпочтение отдается 5-кратной или 10-кратной перекрестной проверке;
+#  но формального правила нет. По мере того, как k становится больше,
+#  разница в размере между обучающим набором и подмножествами повторной выборки становится меньше.
+#  По мере уменьшения этой разницы смещение метода становится меньше.
+
+# TODO: Grid Search (Поиск по сетке)
+#  Когда мы построили нашу первую модель knn, мы установили гиперпараметр k равным 5,
+#  а затем равным 3 в k-кратной перекрестной проверке; действительно случайный выбор.
+#  Какой лучший к? Поиск оптимального k называется настройкой гиперпараметра.
+#  Удобным инструментом является поиск по сетке. В scikit-learn мы используем GridSearchCV,
+#  который несколько раз обучает нашу модель диапазону значений, указанных в параметре param_grid,
+#  и вычисляет показатель перекрестной проверки, чтобы мы могли проверить,
+#  какие из наших значений для протестированного гиперпараметра показали наилучшие результаты.
+# from sklearn.model_selection import GridSearchCV
+#
+# # create new a knn model
+# knn2 = KNeighborsClassifier()
+# # create a dict of all values we want to test for n_neighbors
+# param_grid = {'n_neighbors': np.arange(2, 10)}
+# # use gridsearch to test all values for n_neighbors
+# knn_gscv = GridSearchCV(knn2, param_grid, cv=5)
+# # fit model to data
+# knn_gscv.fit(X, y)
+# TODO: Чтобы проверить самое эффективное значение n_neighbors:
+# import numpy as np
+# import pandas as pd
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# from sklearn.model_selection import GridSearchCV
+#
+# # create new a knn model
+# knn2 = KNeighborsClassifier()
+# # create a dict of all values we want to test for n_neighbors
+# param_grid = {'n_neighbors': np.arange(2, 10)}
+# # use gridsearch to test all values for n_neighbors
+# knn_gscv = GridSearchCV(knn2, param_grid, cv=5)
+# # fit model to data
+# knn_gscv.fit(X, y)
+# print(knn_gscv.best_params_)
+# TODO: Мы видим, что 4 — лучшее значение для n_neighbors. Какова точность модели, когда k равно 4?
+# import numpy as np
+# import pandas as pd
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# from sklearn.model_selection import GridSearchCV
+#
+# # create new a knn model
+# knn2 = KNeighborsClassifier()
+# # create a dict of all values we want to test for n_neighbors
+# param_grid = {'n_neighbors': np.arange(2, 10)}
+# # use gridsearch to test all values for n_neighbors
+# knn_gscv = GridSearchCV(knn2, param_grid, cv=5)
+# # fit model to data
+# knn_gscv.fit(X, y)
+# print(knn_gscv.best_score_)
+# TODO: Использование поиска по сетке для поиска оптимального гиперпараметра
+#  для нашей модели повышает точность модели более чем на 1%.
+#  Теперь мы готовы построить окончательную модель:
+# import numpy as np
+# import pandas as pd
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# from sklearn.model_selection import GridSearchCV
+#
+# # create new a knn model
+# knn2 = KNeighborsClassifier()
+# # create a dict of all values we want to test for n_neighbors
+# param_grid = {'n_neighbors': np.arange(2, 10)}
+# # use gridsearch to test all values for n_neighbors
+# knn_gscv = GridSearchCV(knn2, param_grid, cv=5)
+# # fit model to data
+# knn_gscv.fit(X, y)
+#
+# knn_final = KNeighborsClassifier(n_neighbors=knn_gscv.best_params_['n_neighbors'])
+# knn_final.fit(X, y)
+#
+# y_pred = knn_final.predict(X)
+# print(knn_final.score(X, y))
+# TODO: Мы можем сообщить, что наша окончательная модель, 4nn, имеет точность 97,3% в предсказании видов ириса!
+#  Методы k-кратной перекрестной проверки и настройки параметров с поиском по сетке применимы
+#  как к задачам классификации, так и к задачам регрессии.
+
+# TODO: Label Prediction with New Data (Предсказание метки с новыми данными)
+#  Теперь мы готовы развернуть модель knn_final.
+#  Возьмем некоторые измерения радужной оболочки и запишем,
+#  что длина и ширина чашелистика 5.84 см и 3.06 см соответственно,
+#  а длина и ширина лепестка 3.76 см и 1.20 см соответственно.
+#  Как мы делаем прогноз, используя построенную модель?
+#  Используйте model.predict
+#  Поскольку модель была обучена длине и ширине лепестков, эти данные нам понадобятся для прогноза.
+#  Давайте поместим длину и ширину лепестка в массив numpy:
+# new_data = np.array([3.76, 1.20])
+# TODO: Если мы скормим его модели:
+# import numpy as np
+# import pandas as pd
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# from sklearn.model_selection import GridSearchCV
+#
+# # create new a knn model
+# knn2 = KNeighborsClassifier()
+# # create a dict of all values we want to test for n_neighbors
+# param_grid = {'n_neighbors': np.arange(2, 10)}
+# # use gridsearch to test all values for n_neighbors
+# knn_gscv = GridSearchCV(knn2, param_grid, cv=5)
+# # fit model to data
+# knn_gscv.fit(X, y)
+#
+# knn_final = KNeighborsClassifier(n_neighbors=knn_gscv.best_params_['n_neighbors'])
+# knn_final.fit(X, y)
+#
+# new_data = np.array([3.76, 1.20])
+# knn_final.predict(np.array(new_data))
+# TODO: Подожди, что только что произошло? Когда мы обучали модель, данные представляли собой 2D DataFrame,
+#  поэтому модель ожидала 2D-массива, который может быть массивом numpy или pandas DataFrame.
+#  Теперь new_data — это одномерный массив, нам нужно сделать его двухмерным, как предлагалось в сообщении об ошибке:
+# new_data = new_data.reshape(1, -1)
+# TODO: Теперь мы готовы сделать прогноз метки:
+# import numpy as np
+# import pandas as pd
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# from sklearn.model_selection import GridSearchCV
+#
+# # create new a knn model
+# knn2 = KNeighborsClassifier()
+# # create a dict of all values we want to test for n_neighbors
+# param_grid = {'n_neighbors': np.arange(2, 10)}
+# # use gridsearch to test all values for n_neighbors
+# knn_gscv = GridSearchCV(knn2, param_grid, cv=5)
+# # fit model to data
+# knn_gscv.fit(X, y)
+#
+# knn_final = KNeighborsClassifier(n_neighbors=knn_gscv.best_params_['n_neighbors'])
+# knn_final.fit(X, y)
+#
+# new_data = np.array([[3.76, 1.20]])
+# # new_data = np.array([3.76, 1.20])
+# # new_data = new_data.reshape(1, -1)
+# print(knn_final.predict(new_data))
+# TODO: Наша модель предсказывает, что это 'iris-versicolor'.
+#  Model.predict также может принимать 2D-список.
+#  Например, knn_final.predict([[3.76, 1.2]]) выведет тот же результат, что и в уроке.
+
+# TODO: Probability Prediction with New Data (Прогноз вероятности с новыми данными)
+#  Давайте соберем больше данных: три растения ириса имеют одинаковую ширину лепестка 2.25 см,
+#  но различаются длиной лепестка: 5.03 см, 3.85 см и 1.77 см соответственно.
+#  Мы сохраняем новые данные в двумерный массив следующим образом:
+# new_data = np.array([[3.76, 1.2], [5.25, 1.2], [1.58, 1.2]])
+# TODO: Из предыдущей части мы узнали, что можем делать прогнозы, используя knn_final.predict():
+# import numpy as np
+# import pandas as pd
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# from sklearn.model_selection import GridSearchCV
+#
+# # create new a knn model
+# knn2 = KNeighborsClassifier()
+# # create a dict of all values we want to test for n_neighbors
+# param_grid = {'n_neighbors': np.arange(2, 10)}
+# # use gridsearch to test all values for n_neighbors
+# knn_gscv = GridSearchCV(knn2, param_grid, cv=5)
+# # fit model to data
+# knn_gscv.fit(X, y)
+#
+# knn_final = KNeighborsClassifier(n_neighbors=knn_gscv.best_params_['n_neighbors'])
+# knn_final.fit(X, y)
+#
+# new_data = np.array([[3.76, 1.2],
+#                      [5.25, 1.2],
+#                      [1.58, 1.2]])
+# print(knn_final.predict(new_data))
+# TODO: Напомним, что в классификациях чаще предсказывают вероятность того,
+#  что каждая точка данных будет присвоена каждой метке:
+# import numpy as np
+# import pandas as pd
+# from sklearn.model_selection import train_test_split
+# from sklearn.neighbors import KNeighborsClassifier
+#
+# iris = pd.read_csv('https://sololearn.com/uploads/files/iris.csv')
+#
+# iris.drop('id', axis=1, inplace=True)
+#
+# X = iris[['petal_len', 'petal_wd']]
+# y = iris['species']
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=1, stratify=y)
+#
+# from sklearn.model_selection import GridSearchCV
+#
+# # create new a knn model
+# knn2 = KNeighborsClassifier()
+# # create a dict of all values we want to test for n_neighbors
+# param_grid = {'n_neighbors': np.arange(2, 10)}
+# # use gridsearch to test all values for n_neighbors
+# knn_gscv = GridSearchCV(knn2, param_grid, cv=5)
+# # fit model to data
+# knn_gscv.fit(X, y)
+#
+# knn_final = KNeighborsClassifier(n_neighbors=knn_gscv.best_params_['n_neighbors'])
+# knn_final.fit(X, y)
+#
+# new_data = np.array([[3.76, 1.2],
+#                      [5.25, 1.2],
+#                      [1.58, 1.2]])
+# knn_final.predict(new_data)
+# print(knn_final.predict_proba(new_data))
+# TODO: Сумма каждой строки равна 1. Возьмите вторую радужную оболочку, наша модель предсказывает,
+#  что вероятность того, что радужная оболочка будет разноцветной, составляет 25%, а 75% - виргинская.
+#  Это согласуется с предсказанием на этикетке: virginica.
+#  Для алгоритмов классификации в scikit Learn функция Predict_proba берет новую точку данных
+#  и выводит вероятность для каждого класса в виде значения от 0 до 1.
+
+# TODO: ЗАДАЧА:
+#  Учитывая y_true и y_pred ниже, заполните пробелы в выводе.
+#  Обратите внимание, что метки предназначены для индексации матрицы.
+# import numpy as np
+#
+# from sklearn.metrics import confusion_matrix
+#
+# y_true = np.array(['cat', 'dog', 'dog', 'cat', 'fish', 'dog', 'fish'])
+# y_pred = np.array(['cat', 'cat', 'cat', 'cat', 'fish', 'dog', 'fish'])
+# confusion_matrix(y_true, y_pred, labels=['cat', 'dog', 'fish'])
+# print(confusion_matrix(y_true, y_pred))
+
+# TODO: ЗАДАЧА: Data Science - Binary Disorder (Наука о данных — бинарный беспорядок)
+#  Матрица путаницы бинарной классификации.
+#  Для бинарных классификаций матрица путаницы представляет собой матрицу два на два
+#  для визуализации производительности алгоритма. Каждая строка матрицы представляет экземпляры
+#  в прогнозируемом классе, а каждый столбец представляет экземпляры в реальном классе.
+#  Задача Имея два списка из 1 и 0 (1 представляет истинную метку, а 0 представляет собой ложную ложную)
+#  одинаковой длины, выведите 2 набора значений, каждая ячейка определяется следующим образом:
+#  Верхний правый: Прогнозируемый истинный, но фактически ложный (Ложноположительный)
+#  Внизу слева: Прогнозируемый ложный, но фактически верный (Ложноотрицательный)
+#  Нижний правый: Прогнозируемый ложный и фактически ложный (Истинно отрицательный)
+#  Формат ввода:
+#  Первая строка: список из 1 и 0, разделенных пробелом. Это настоящие двоичные метки.
+#  Вторая строка: список из 1 и 0, длина такая же, как и в первой строке.
+#  Они представляли предсказанные метки.
+#  Формат вывода:
+#  2darray numpy из двух строк и двух столбцов, первая строка содержит количество истинных срабатываний
+#  и ложных срабатываний, а вторая строка содержит количество ложных отрицаний и истинных отрицаний.
+#  Sample Input:
+#  1 1 0 0
+#  1 0 0 0
+#  Sample Output:
+#  [[1., 0.],
+#  [1., 2.]]
+#  Объяснение
+#  Среди реальных меток есть 2 истинных и 2 ложных.
+#  Одна истинная метка была правильно предсказана как истинная,
+#  а другая неправильно предсказана как ложная;
+#  то есть один истинно положительный и один ложноотрицательный.
+#  Из двух ложных ярлыков оба были предсказаны правильно;
+#  то есть ноль ложных положительных результатов и два истинных отрицательных результата.
+# import numpy as np
+#
+# y_true = np.array([int(x) for x in input().split()])
+# y_pred = np.array([int(x) for x in input().split()])
+#
+# tp = sum(y_true & y_pred)
+# fp = sum(~y_true & y_pred)
+# fn = sum(y_true & ~y_pred)
+# tn = len(y_true) - tp - fp - fn
+#
+# print(np.array([[tp, fp], [fn, tn]], dtype='float'))
+
+# TODO: Overview (Обзор)
+#  Кластеризация — это тип обучения без учителя, который позволяет нам находить группы похожих объектов,
+#  объекты, которые больше связаны друг с другом, чем с объектами в других группах.
+#  Это часто используется, когда у нас нет доступа к истине, другими словами, отсутствуют ярлыки.
+#  Примеры вариантов использования в бизнесе включают группировку документов,
+#  музыки и фильмов на основе их содержимого или поиск сегментов клиентов
+#  на основе покупательского поведения в качестве основы для механизмов рекомендаций.
+#  Цель кластеризации состоит в том, чтобы разделить данные на группы или кластеры
+#  с более схожими чертами друг с другом, чем с данными в других кластерах.
+
+# TODO: Different Types of Clustering Algorithms (Различные типы алгоритмов кластеризации)
+#  Известно более 100 алгоритмов кластеризации, 12 из них реализованы в scikit-learn, но немногие завоевали популярность
+#  В общем, существует четыре типа: модели на основе центроида — каждый кластер представлен одним средним вектором
+#  (например, k-means), модели на основе связности — построены на основе удаленной связности
+#  (например, иерархическая кластеризация) модели на основе распределения — построены с использованием
+#  статистических распределений (например, гауссовых смесей) Модели на основе плотности — кластеры определяются как
+#  плотные области (например, DBSCAN) сообщает химический анализ.
+#  Дополнительные сведения об алгоритмах кластеризации см. в документации.
+#  https://scikit-learn.org/stable/modules/clustering.html#overview-of-clustering-methods
+
+# TODO: K-means (К-средних)
+#  Одним из самых популярных алгоритмов кластеризации является k-means.
+#  Предполагая, что имеется n точек данных, алгоритм работает следующим образом:
+#  Шаг 1: инициализация — выбор k случайных точек в качестве центров кластеров, называемых центроидами.
+#  Шаг 2: присвоение кластеров — назначение каждой точки данных ее ближайшему центроиду
+#  на основе его расстояния до каждого центроида и это формирует k кластеров
+#  Шаг 3: обновление центроида - для каждого нового кластера вычислить его центроид,
+#  взяв среднее значение всех точек, присвоенных кластеру
+#  Шаг 4: повторять шаги 2 и 3 до тех пор, пока ни одно из назначений кластера не изменится
+#  или максимальное количество итераций
+#  Алгоритм k-средних реализован в модуле sklearn.cluster, для доступа к нему:
+# from sklearn.cluster import KMeans
+# TODO: Алгоритм приобрел большую популярность, потому что его легко реализовать
+#  и он хорошо масштабируется для больших наборов данных. Однако трудно предсказать количество кластеров,
+#  он может застрять в локальных оптимумах и может плохо работать, когда кластеры имеют разные размеры и плотность.
+
+# TODO: Distance Metric (Метрика расстояния)
+#  Как мы рассчитываем расстояние в алгоритме k-средних?
+#  Одним из способов является евклидово расстояние, прямая линия между двумя точками данных,
+#  См. Рис: DistanceMetricPicture_1.jpg.
+# TODO: Например, евклидово расстояние между точками x1 = (0, 1) и x2 = (2, 0) определяется как:
+#  См. Рис: DistanceMetricPicture_2.png
+# TODO: Или в numpy мы можем рассчитать расстояние следующим образом:
+# import numpy as np
+#
+# x1 = np.array([0, 1])
+# x2 = np.array([2, 0])
+# print(np.sqrt(((x1 - x2) ** 2).sum()))
+# # 2.23606797749979
+# print(np.sqrt(5))
+# # 2.23606797749979
+# TODO: Его можно расширить до более высоких измерений. В n-мерном пространстве есть две точки:
+#  См. Рис: DistanceMetricPicture_3.png
+# TODO: Тогда евклидово расстояние от p до q определяется формулой Пифагора:
+#  См. Рис: DistanceMetricPicture_4.png
+# TODO: Существуют и другие метрики расстояния, такие как манхэттенское расстояние, косинусное расстояние и т.д.
+#  Выбор метрики расстояния зависит от данных.
+
+# TODO: Wine Data (Винные данные)
+#  В этом модуле мы анализируем результат химического анализа вин, выращенных в конкретном регионе Италии.
+#  И цель состоит в том, чтобы попытаться сгруппировать похожие наблюдения вместе
+#  и определить количество возможных кластеров. Это помогло бы нам делать прогнозы и уменьшать размерность.
+#  Как мы увидим, у каждого вина есть 13 характеристик, и если бы мы могли сгруппировать все вина,
+#  скажем, в 3 группы, то это свело бы 13-мерное пространство к 3-мерному пространству.
+#  Более конкретно, мы можем представить каждую из наших исходных точек данных с точки зрения того,
+#  насколько далеко она находится от каждого из этих трех кластерных центров.
+#  В анализе сообщалось о количестве 13 компонентов из 178 вин: спирт, яблочная кислота,
+#  зольность, щелочность золы, магний, общее количество фенолов, флавоноиды, нефлаваноидные фенолы,
+#  проантоцианы, интенсивность цвета, оттенок, OD280/OD315 разбавленных вин и пролин.
+#  Данные загружаются в фрейм данных «вино».
+# import numpy as numpy
+# import pandas as pd
+# from sklearn.datasets import load_wine
+#
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+# print(wine.shape)
+# print(wine.columns)
+# TODO: Для простоты отображения мы показываем базовую статистику первых 3-х признаков:
+# import numpy as numpy
+# import pandas as pd
+# from sklearn.datasets import load_wine
+#
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+# print(wine.iloc[:, :3].describe())
+# # print(wine.info())
+# TODO: Пропущенных значений нет. Стоит отметить, что атрибуты не находятся в одном масштабе.
+#  Нам нужно будет масштабировать данные позже.
+#  Другой способ проверить имена столбцов и тип данных каждого столбца — использовать .info().
+
+# TODO: Plotting the Data (График данных)
+#  Сводная статистика предоставляет некоторую информацию,
+#  в то время как визуализация предлагает более прямое представление,
+#  показывающее распределение и взаимосвязь между функциями.
+#  Здесь мы вводим функцию построения графика для отображения гистограмм по диагонали
+#  и точечных диаграмм для каждой пары атрибутов вне диагонали, 'scatter_matrix',
+#  для простоты отображения покажем только две функции:
+# import matplotlib.pyplot as plt
+# import numpy as numpy
+# import pandas as pd
+# from pandas.plotting import scatter_matrix
+# from sklearn.datasets import load_wine
+#
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+# scatter_matrix(wine.iloc[:, [0, 5]])
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Поскольку мы не знаем достоверной информации, мы изучаем графики рассеяния,
+#  чтобы найти разумного кандидата на k, количество кластеров. Кажется, есть примерно три подгруппы.
+#  Помните, что для количества подгрупп нет правильных или неправильных ответов.
+#  В реальных данных мы редко находим четкие кластеры; но мы приходим к нашему лучшему обоснованному предположению.
+#  Например, на приведенной выше диаграмме рассеивания кажутся три подгруппы.
+#  Независимо от того, является ли это проблемой обучения с учителем или без учителя,
+#  исследовательский анализ данных (EDA) необходим и настоятельно рекомендуется перед тем,
+#  как погрузиться в моделирование.
+
+# TODO: Pre-processing: Standardization (Предварительная обработка: стандартизация)
+#  Изучив все пары графиков рассеяния, мы выбрали два признака, чтобы лучше проиллюстрировать алгоритм:
+#  алкоголь и общие_фенолы, график рассеивания которых также предлагает три подкластера.
+# X = wine[['alcohol', 'total_phenols']]
+# TODO: В отличие от любых моделей обучения с учителем, модели машинного обучения без учителя, как правило, не требуют
+#  разделения данных на обучающие и тестовые наборы, поскольку для проверки модели нет достоверной информации.
+#  Однако алгоритмы на основе центроидов требуют одного шага предварительной обработки,
+#  потому что k-средние лучше работают с данными, где каждый атрибут имеет одинаковые масштабы.
+#  Один из способов добиться этого — стандартизировать данные;
+#  математически: z = (x - среднее) / стандартное отклонение, где x — необработанные данные,
+#  среднее значение и стандартное отклонение — среднее значение и стандартное отклонение x,
+#  а z — масштабированное значение x, центрированное на 0 и имеющее единичное стандартное отклонение.
+#  StandardScaler под sklearn.preprocessing упрощает задачу:
+# from sklearn.preprocessing import StandardScaler
+#
+# # instantiate the scaler
+# scale = StandardScaler()
+# # compute the mean and std to be used later for scaling
+# scale.fit(X)
+# # StandardScaler(copy=True, with_mean=True, with_std=True)
+# TODO: Мы можем посмотреть на масштаб объекта, извлечь рассчитанное среднее и стандартное значение:
+# import pandas as pd
+# from sklearn.datasets import load_wine
+#
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+#
+# X = wine[['alcohol', 'total_phenols']]
+#
+# from sklearn.preprocessing import StandardScaler
+#
+# scale = StandardScaler()
+# scale.fit(X)
+#
+# print(scale.mean_)
+# print(scale.scale_)
+# TODO: Измерения спирта-сырца имеют среднее значение 13,00 и стандартное значение 0,81,
+#  в то время как общее количество фенолов находится на уровне 2,29 при стандартном значении 0,62.
+#  Затем мы можем подобрать данные для обучения и преобразовать их.
+# X_scaled = scale.transform(X)
+# TODO: Мы показываем исходные (красный) и масштабированные (синий) данные на графике,
+#  чтобы визуализировать эффект масштабирования. См. Рис: PreProcessingPicture.jpg
+#  После масштабирования данные центрируются вокруг (0, 0), а диапазоны по осям x и y примерно одинаковы, от -2.5 до 2.5
+# import pandas as pd
+# from sklearn.datasets import load_wine
+#
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+#
+# X = wine[['alcohol', 'total_phenols']]
+#
+# from sklearn.preprocessing import StandardScaler
+#
+# scale = StandardScaler()
+# scale.fit(X)
+#
+# X_scaled = scale.transform(X)
+# print(X_scaled.mean(axis=0))
+# print(X_scaled.std(axis=0))
+# TODO: Давайте проверим работоспособность, чтобы увидеть,
+#  центрирована ли каждая функция на 0 и имеет ли стандартное значение 1:
+#  Хорошей практикой является масштабирование функций перед обучением модели,
+#  если алгоритмы основаны на расстоянии.
+#  Дополнительные сведения см. в разделе «Важность масштабирования функций»:
+#  https://scikit-learn.org/stable/auto_examples/preprocessing/plot_scaling_importance.html
+
+# TODO: K-means Modeling (K-среднее моделирование)
+#  Точно так же, как линейная регрессия и k ближайших соседей или любые алгоритмы машинного обучения в scikit-learn,
+#  для моделирования мы следуем рабочему процессу создания/подгонки/предсказания. В KMeans есть и другие аргументы,
+#  такие как метод инициализации центроидов, критерии остановки и т.д., но мы фокусируемся на количестве кластеров,
+#  n_clusters, и позволяем другим параметрам принимать значения по умолчанию. Здесь мы указываем 3 кластера:
+# import pandas as pd
+#
+# from sklearn.datasets import load_wine
+# from sklearn.preprocessing import StandardScaler
+#
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+#
+# X = wine[['alcohol', 'total_phenols']]
+#
+# scale = StandardScaler()
+# scale.fit(X)
+# X_scaled = scale.transform(X)
+#
+# from sklearn.cluster import KMeans
+#
+# # instantiate the model
+# kmeans = KMeans(n_clusters=3)
+# # fit the model
+# kmeans.fit(X_scaled)
+# # make predictions
+# y_pred = kmeans.predict(X_scaled)
+# print(y_pred)
+# TODO: В кластере 0 60 вин, 65 в кластере 1 и 53 в кластере 2.
+#  Чтобы проверить координаты трех центроидов:
+# import pandas as pd
+#
+# from sklearn.datasets import load_wine
+# from sklearn.preprocessing import StandardScaler
+#
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+#
+# X = wine[['alcohol', 'total_phenols']]
+#
+# scale = StandardScaler()
+# scale.fit(X)
+# X_scaled = scale.transform(X)
+#
+# from sklearn.cluster import KMeans
+#
+# # instantiate the model
+# kmeans = KMeans(n_clusters=3)
+# # fit the model
+# kmeans.fit(X_scaled)
+# # make predictions
+# kmeans.predict(X_scaled)
+#
+# print(kmeans.cluster_centers_)
+# TODO: Лучший способ увидеть результаты — визуализировать их:
+# import pandas as pd
+# from sklearn.datasets import load_wine
+# from sklearn.preprocessing import StandardScaler
+#
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+#
+# X = wine[['alcohol', 'total_phenols']]
+#
+# scale = StandardScaler()
+# scale.fit(X)
+# X_scaled = scale.transform(X)
+#
+# from sklearn.cluster import KMeans
+#
+# # instantiate the model
+# kmeans = KMeans(n_clusters=3)
+# # fit the model
+# kmeans.fit(X_scaled)
+# # make predictions
+# y_pred = kmeans.predict(X_scaled)
+#
+# import matplotlib.pyplot as plt
+#
+# # plot the scaled data
+# plt.scatter(X_scaled[:, 0],
+#             X_scaled[:, 1],
+#             c=y_pred)
+# # identify the centroids
+# plt.scatter(kmeans.cluster_centers_[:, 0],
+#             kmeans.cluster_centers_[:, 1],
+#             marker="*",
+#             s=250,
+#             c=[0, 1, 2],
+#             edgecolors='k')
+# plt.xlabel('alcohol');
+# plt.ylabel('total phenols')
+# plt.title('k-means (k=3)')
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Звезды являются центроидами. K-means делит вина на три группы: слабоалкогольные,
+#  но с высоким содержанием фенолов (вверху справа зеленым цветом), с высоким содержанием алкоголя
+#  и высоким содержанием фенолов (вверху слева желтым цветом) и с низким содержанием фенолов (внизу фиолетовым цветом).
+#  Для любого нового вина с химическим отчетом об алкоголе и общем количестве фенолов мы теперь можем классифицировать
+#  его на основе его расстояния до каждого из центроидов. Предположим, что есть молодое вино с содержанием спирта 13
+#  и общим содержанием фенолов 2.5, давайте предскажем, к какому кластеру модель отнесет новое вино.
+#  Сначала нам нужно поместить новые данные в массив 2d:
+# X_new = np.array([[13, 2.5]])
+# TODO: Далее нам нужно стандартизировать новые данные:
+# X_new_scaled = scale.transform(X_new)
+# print(X_new_scaled)
+# [[-0.00076337  0.32829793]]
+# TODO: Теперь мы готовы предсказать кластер:
+# import pandas as pd
+# import numpy as np
+# from sklearn.datasets import load_wine
+# from sklearn.preprocessing import StandardScaler
+# from sklearn.cluster import KMeans
+#
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+#
+# X = wine[['alcohol', 'total_phenols']]
+#
+# scale = StandardScaler()
+# scale.fit(X)
+# X_scaled = scale.transform(X)
+#
+# # instantiate the model
+# kmeans = KMeans(n_clusters=3)
+# # fit the model
+# kmeans.fit(X_scaled)
+# # make predictions
+# kmeans.predict(X_scaled)
+#
+# X_new = np.array([[13, 2.5]])
+# X_new_scaled = scale.transform(X_new)
+#
+# print(kmeans.predict(X_new_scaled))
+# TODO: Действительно, среди трех центроидов новое вино ближе всего к кластеру 1,
+#  центроид которого находится в точке (0,07498401, -1,14070754).
+#  Ожидайте получать немного разные результаты каждый раз, когда вы запускаете код,
+#  поскольку порядок кластеров может измениться.
+#  Одним из основных недостатков k-средних является то, что случайное начальное предположение
+#  для центроидов может привести к плохой кластеризации, и алгоритм k-средних++ устраняет это препятствие,
+#  определяя процедуру для инициализации центроидов перед переходом к стандартному алгоритму k-средних.
+#  В scikit-learn механизм инициализации по умолчанию установлен на k-means++.
+
+# TODO: Optimal k: The Elbow Method (Оптимальное k: метод локтя)
+#  Можем ли мы разделить вина на две подгруппы?
+#  См. Рис: optimal_k_picture_1.png
+#  Нет проблем, как насчет четырех?
+#  См. Рис: optimal_k_picture_2.png
+#  Конечно! Как показано, k-средние будут счастливы разделить набор данных на любое целое число кластеров,
+#  начиная от 1, крайнего случая, когда все точки данных принадлежат одному большому кластеру, до n,
+#  еще одного предельного случая, когда каждая точка данных является своей собственной. кластер.
+#  Итак, какой из них мы должны выбрать, 2, или 3, или 4 для вин? Интуитивно задача k-средних
+#  разбивает n точек данных на k тесных наборов, так что точки данных находятся ближе друг к другу,
+#  чем к точкам данных в других кластерах. И герметичность может быть измерена как сумма квадратов расстояния
+#  от точки данных до ее ближайшего центроида или инерции.
+#  В scikit-learn он хранится как inertia_, например, когда k = 2, искажение равно 185:
+# import pandas as pd
+# import matplotlib.pyplot as plt
+# from sklearn.datasets import load_wine
+# from sklearn.preprocessing import StandardScaler
+# from sklearn.cluster import KMeans
+#
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+#
+# X = wine[['alcohol', 'total_phenols']]
+#
+# scale = StandardScaler()
+# scale.fit(X)
+# X_scaled = scale.transform(X)
+#
+# kmeans = KMeans(n_clusters=2)
+# kmeans.fit(X_scaled)
+# print(kmeans.inertia_)
+# TODO: Или, когда k равно 3, искажение уменьшается до 114.
+# import pandas as pd
+# import matplotlib.pyplot as plt
+# from sklearn.datasets import load_wine
+# from sklearn.preprocessing import StandardScaler
+# from sklearn.cluster import KMeans
+#
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+#
+# X = wine[['alcohol', 'total_phenols']]
+#
+# scale = StandardScaler()
+# scale.fit(X)
+# X_scaled = scale.transform(X)
+#
+# kmeans = KMeans(n_clusters=3)
+# kmeans.fit(X_scaled)
+# print(kmeans.inertia_)
+# TODO: Построим график инерции для разных значений k:
+# import pandas as pd
+# from sklearn.datasets import load_wine
+# from sklearn.preprocessing import StandardScaler
+# import numpy as np
+# import matplotlib.pyplot as plt
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+#
+# X = wine[['alcohol', 'total_phenols']]
+#
+# scale = StandardScaler()
+# scale.fit(X)
+# X_scaled = scale.transform(X)
+#
+#
+# from sklearn.cluster import KMeans
+# # calculate distortion for a range of number of cluster
+# inertia = []
+# for i in np.arange(1, 11):
+#     km = KMeans(
+#         n_clusters=i
+#     )
+#     km.fit(X_scaled)
+#     inertia.append(km.inertia_)
+#
+# # plot
+# plt.plot(np.arange(1, 11), inertia, marker='o')
+# plt.xlabel('Number of clusters')
+# plt.ylabel('Inertia')
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: См. Рис: optimal_k_picture_3.png
+# TODO: Как видно из графика, инерция уменьшается по мере увеличения количества кластеров.
+#  Оптимальное значение k должно быть таким, при котором инерция больше не уменьшается так быстро.
+# TODO: См. Рис: optimal_k_picture_4.png
+# TODO: Например, k=3 кажется оптимальным, так как при увеличении количества кластеров с 3 до 4
+#  уменьшение инерции значительно замедляется по сравнению с уменьшением от 2 до 3.
+#  Такой подход называется методом локтя (понимаете, почему ?).
+#  Это полезный графический инструмент для оценки оптимального k в k-средних.
+#  Одна единственная инерция сама по себе не подходит для определения оптимального k,
+#  потому что чем больше k, тем ниже будет инерция.
+
+# TODO: Modeling With More Features (Моделирование с дополнительными функциями)
+#  Ранее для построения моделей kmeans мы использовали два (из тринадцати) признака: спирт и общее количество фенолов.
+#  Выбор случайный, и результаты легко визуализировать. Однако можем ли мы использовать больше функций, например, все?
+#  Почему бы и нет? Давай попробуем.
+# X = wine
+# TODO: Не забудьте стандартизировать каждую функцию.
+# scale = StandardScaler()
+# scale.fit(X)
+# X_scaled = scale.transform(X)
+# TODO: Постройте инерцию для диапазона k, чтобы определить оптимальное значение k с помощью метода локтя:
+# import pandas as pd
+# from sklearn.datasets import load_wine
+# from sklearn.preprocessing import StandardScaler
+# import numpy as np
+# import matplotlib.pyplot as plt
+#
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+#
+# X = wine
+#
+# scale = StandardScaler()
+# scale.fit(X)
+# X_scaled = scale.transform(X)
+#
+# from sklearn.cluster import KMeans
+#
+# # calculate distortion for a range of number of cluster
+# inertia = []
+# for i in np.arange(1, 11):
+#     km = KMeans(
+#         n_clusters=i
+#     )
+#     km.fit(X_scaled)
+#     inertia.append(km.inertia_)
+# plt.plot(np.arange(1, 11), inertia, marker='o')
+# plt.xlabel('Number of clusters')
+# plt.ylabel('Inertia')
+# plt.title("all features")
+# plt.savefig("plot.png")
+# plt.show()
+# TODO: Точно так же мы замечаем, что инерция больше не уменьшается так быстро после k = 3.
+#  Затем мы завершаем модель, устанавливая n_clusters = 3 и получаем предсказания.
+# import numpy as np
+# import pandas as pd
+# from sklearn.datasets import load_wine
+# from sklearn.preprocessing import StandardScaler
+# from sklearn.cluster import KMeans
+#
+# data = load_wine()
+# wine = pd.DataFrame(data.data, columns=data.feature_names)
+#
+# X = wine
+#
+# scale = StandardScaler()
+# scale.fit(X)
+#
+# X_scaled = scale.transform(X)
+#
+# k_opt = 3
+# kmeans = KMeans(k_opt)
+# kmeans.fit(X_scaled)
+# y_pred = kmeans.predict(X_scaled)
+# print(y_pred)
+# TODO: По сравнению с прогнозами, использующими только две функции, две модели дают очень похожие результаты.
+#  Например, согласно прогнозам, первые 21 вино принадлежат к одному и тому же кластеру из обеих моделей,
+#  как и последние 19 вин. На самом деле, только 13 из 178 вин были сгруппированы по-разному в двух моделях.
+#  Естественно спросить, какая модель лучше? Напомним, что кластеризация — это метод обучения без присмотра,
+#  который указывает на то, что мы не знаем истинности меток. Таким образом, трудно, если вообще возможно, определить,
+#  что модель с двумя признаками более точна при группировании вин, чем модель со всеми 13 признаками, или наоборот.
+#  Какую модель, другими словами, какие функции выбрать, часто определяется внешней информацией.
+#  Например, отдел маркетинга хочет знать, нужна ли для продажи этих вин стратегия,
+#  ориентированная на конкретный континент.
+#  Теперь у нас есть доступ к демографической информации потребителей, и три кластера, выделенные из модели А,
+#  лучше соответствуют клиентам в Европе, Азии и Северной Америке соответственно, чем модель В;
+#  тогда модель А является победителем. Это слишком упрощенный пример, но суть вы поняли.
+#  На практике функции часто выбираются в сотрудничестве между учеными по данным и экспертами в предметной области.
+
+# TODO: ЗАДАЧА: Data Science - Pandas Pandas Pandas (Наука о данных — Панды Панды Панды)
+#  Поиск следующего центроида Кластеризация алгоритма обучения без учителя включает
+#  обновление центроида каждого кластера.
+#  Здесь мы находим следующие центроиды для заданных точек данных и начальных центроидов.
+#  Задача Предположим, что среди заданных двумерных точек данных есть два кластера,
+#  и две случайные точки (0, 0) и (2, 2) являются начальными центроидами кластера.
+#  Вычислите евклидово расстояние между каждой точкой данных и каждым из центроидов,
+#  назначьте каждую точку данных ближайшему центроиду, а затем рассчитайте новый центроид.
+#  Если есть связь, назначьте точку данных кластеру с центроидом (0, 0).
+#  Если ни одна из точек данных не была назначена данному центроиду, верните None.
+#  Формат ввода Первая строка: целое число, указывающее количество точек данных (n)
+#  Следующие n строк: два числовых значения в каждой строке для представления точки данных в двухмерном пространстве.
+#  Выходной формат Два списка для двух центроидов. Числа округляются до второго десятичного знака.
+#  Sample Input:
+#  3
+#  1 0
+#  0 .5
+#  4 0
+#  Sample Output:
+#  [0.5 0.25]
+#  [4. 0.]
+#  Объяснение:
+#  Есть 3 точки данных, и мы хотели бы выделить среди них два кластера.
+#  Начальные центроиды даны (0, 0) и (2, 2).
+#  Расстояния между первой точкой данных (1, 0) и каждым из центроидов составляют 1,0 и 2,24,
+#  округленные до второго десятичного знака. Первая точка данных ближе к (0, 0), поэтому назначается 0-й кластер.
+#  Точно так же точка данных (0, .5) ближе к (0, 0), чем к (2, 2), также отнесена к 0-му кластеру;
+#  в то время как (4, 0) ближе к (2, 2), поэтому относится к 1-му кластеру.
+#  Чтобы вычислить новые центроиды, возьмите среднее значение всех точек данных в 0-м и 1-м кластерах соответственно.
+#  Отсюда результаты [0,5 0,25] и [4. 0.].
+import math
+import numpy as np
+
+n = int(input())
+ce1 = [0, 0]
+ce2 = [2, 2]
+cl1 = np.empty([0, 2], float)
+cl2 = np.empty([0, 2], float)
+
+for i in range(n):
+    x = [float(j) for j in input().split()]
+    d21 = (np.array(ce1) - np.array(x)) ** 2
+    d1 = math.sqrt(d21.sum())
+    d2 = math.sqrt(((np.array(ce2) - np.array(x)) ** 2).sum())
+    if d1 <= d2:
+        cl1 = np.append(cl1, np.array([x]), axis=0)
+    else:
+        cl2 = np.append(cl2, np.array([x]), axis=0)
+if cl1.shape[0] != 0:
+    print(np.mean(cl1, axis=0).round(2))
+else:
+    print(None)
+if cl2.shape[0] != 0:
+    print(np.mean(cl2, axis=0).round(2))
+else:
+    print(None)
