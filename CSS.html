@@ -1,0 +1,252 @@
+<!--TODO: CSS-->
+<!-- Наш курс CSS научит вас управлять стилем и макетом веб-сайтов.-->
+<!-- Выполните серию упражнений и потренируйтесь, заполняя актуальные шаблоны CSS.-->
+
+<!--TODO: Welcome to CSS! (Добро пожаловать в CSS!)-->
+<!-- CSS - Cascading Style Sheets (Каскадные Таблицы Стилей).-->
+<!--  - Каскадирование относится к тому, как CSS применяет один стиль поверх другого.-->
+<!--  - Таблицы стилей контролируют внешний вид веб-документов.-->
+<!-- CSS и HTML работают рука об руку:-->
+<!--  - HTML определяет структуру страницы.-->
+<!--  - CSS определяет, как отображаются элементы HTML.-->
+<!-- Чтобы понять CSS, у вас уже должны быть базовые знания HTML.-->
+<!-- Если вы хотите изучать HTML, ознакомьтесь с нашим курсом HTML .-->
+
+<!--TODO: Why Use CSS? (Зачем использовать CSS?)-->
+<!-- CSS позволяет применять определенные стили к определенным элементам HTML. -->
+<!-- Основное преимущество CSS заключается в том, что он позволяет отделить стиль от содержимого. -->
+<!-- Используя только HTML, все стили и форматирование находятся в одном месте, -->
+<!-- что становится довольно сложно поддерживать по мере роста страницы.-->
+<!-- Все форматирование можно (и нужно ) удалить из документа HTML и сохранить в отдельном файле CSS.-->
+
+<!--TODO: Why Use CSS? (Зачем использовать CSS?)-->
+<!-- CSS позволяет применять определенные стили к определенным элементам HTML.-->
+<!-- Основное преимущество CSS заключается в том, что он позволяет отделить стиль от содержимого.-->
+<!-- Используя только HTML, все стили и форматирование находятся в одном месте,-->
+<!-- что становится довольно сложно поддерживать по мере роста страницы.-->
+<!-- Все форматирование можно (и нужно) удалить из документа HTML и сохранить в отдельном файле CSS.-->
+
+<!--TODO: Inline CSS (Встроенный CSS)-->
+<!-- Использование встроенного стиля — один из способов вставки таблицы стилей. -->
+<!-- При использовании встроенного стиля уникальный стиль применяется к одному элементу. -->
+<!-- Чтобы использовать встроенный стиль, добавьте атрибут стиля к соответствующему тегу. -->
+<!-- В приведенном ниже примере показано, как создать абзац с серым фоном и белым текстом:-->
+<!-- Атрибут стиля может содержать любое свойство CSS.-->
+<!--<p style="color:white; background-color:gray;">-->
+<!--    This is an example of inline styling.-->
+<!--</p>-->
+
+<!--TODO: Embedded/Internal CSS (Встроенный/внутренний CSS)-->
+<!-- Внутренние стили определяются в элементе <style> в разделе заголовка HTML-страницы.-->
+<!-- Например, следующий код стилизует все абзацы:-->
+<!-- Все абзацы имеют белый шрифт и серый фон:-->
+<!-- Внутренняя таблица стилей может использоваться, если одна страница имеет уникальный стиль.-->
+<!--<html>-->
+<!--   <head>-->
+<!--      <style>-->
+<!--      p {-->
+<!--         color:white;-->
+<!--         background-color:gray;-->
+<!--      }-->
+<!--      </style>-->
+<!--   </head>-->
+<!--   <body>-->
+<!--      <p>This is my first paragraph. </p>-->
+<!--      <p>This is my second paragraph. </p>-->
+<!--   </body>-->
+<!--</html>-->
+
+<!--TODO: External CSS (Внешний CSS)-->
+<!-- При использовании этого метода все правила оформления содержатся в одном текстовом файле,-->
+<!-- который сохраняется с расширением .css.-->
+<!-- Затем на этот файл CSS ссылаются в HTML с помощью тега <link>.-->
+<!-- Элемент <link> находится внутри раздела заголовка.-->
+<!-- Вот пример: HTML:-->
+<head>
+    <link rel="stylesheet" href="example.css">
+</head>
+<!--<body>-->
+<!--   <p>This is my first paragraph.</p>-->
+<!--   <p>This is my second paragraph. </p>-->
+<!--   <p>This is my third paragraph. </p>-->
+<!--</body>-->
+<!--TODO: См. file: example.css:-->
+<!-- Для определения href для файла CSS можно использовать как относительные, так и абсолютные пути. -->
+<!-- В нашем примере путь относительный, так как файл CSS находится в том же каталоге, что и файл HTML.-->
+
+<!--TODO: CSS Syntax (Синтаксис CSS)-->
+<!-- CSS состоит из правил стиля, которые браузер интерпретирует-->
+<!-- и затем применяет к соответствующим элементам в вашем документе.-->
+<!-- Правило стиля состоит из трех частей: selector (селектор), property (свойство) и value (значение).-->
+<!-- Например, цвет заголовка может быть определен как:-->
+<!-- Селектор указывает на элемент HTML, который вы хотите стилизовать.-->
+<!-- Блок объявлений содержит одно или несколько объявлений, разделенных точкой с запятой.-->
+<!-- Каждое объявление включает имя свойства и значение, разделенные двоеточием.-->
+<!--<head>-->
+<!--   <link rel="stylesheet" href="example.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>A Sample Heading</h1>-->
+<!--</body>-->
+
+<!--TODO: Type Selectors (Селекторы типа)-->
+<!-- Наиболее распространенными и простыми для понимания селекторами являются селекторы типов.-->
+<!-- Этот селектор предназначен для типов элементов на странице.-->
+<!-- Например, чтобы настроить таргетинг на все абзацы на странице:-->
+<!-- Объявление CSS всегда заканчивается точкой с запятой, -->
+<!-- а группы объявлений заключаются в фигурные скобки.-->
+<!--<p>This is a paragraph</p>-->
+
+<!--TODO: id and class Selectors (Селекторы идентификаторов и классов)-->
+<!-- Селекторы id позволяют вам стилизовать элемент HTML, который имеет атрибут id,-->
+<!-- независимо от их положения в дереве документа.-->
+<!-- Вот пример селектора идентификатора: HTML:-->
+<!--<div id="intro">-->
+<!--   <p> This paragraph is in the intro section.</p>-->
+<!--</div>-->
+<!--<p> This paragraph is not in the intro section.</p>-->
+<!--TODO: Чтобы выбрать элемент с определенным идентификатором,-->
+<!-- используйте символ решетки, а затем укажите идентификатор элемента.-->
+<!-- Селекторы классов работают аналогичным образом.-->
+<!-- Основное отличие состоит в том, что идентификаторы могут применяться только один раз на странице,-->
+<!-- а классы могут использоваться на странице столько раз, сколько необходимо.-->
+<!-- Чтобы выбрать элементы с определенным классом, используйте символ точки, за которым следует имя класса.-->
+<!-- НЕ НАЧИНАЙТЕ имя класса или идентификатора с цифры!-->
+<!-- В приведенном ниже примере оба абзаца, имеющие класс «first», будут затронуты CSS: HTML:-->
+<!--<div>-->
+<!--   <p class="first">This is a paragraph</p>-->
+<!--   <p> This is the second paragraph. </p>-->
+<!--</div>-->
+<!--<p class="first"> This is not in the intro section</p>-->
+<!--<p> The second paragraph is not in the intro section. </p>-->
+
+<!--TODO: Descendant Selectors (Селекторы потомков)-->
+<!-- Эти селекторы используются для выбора элементов, являющихся потомками другого элемента.-->
+<!-- При выборе уровней вы можете выбрать столько уровней глубины, сколько вам нужно.-->
+<!-- Например, чтобы настроить таргетинг только на элементы <em> в первом абзаце раздела «введение»: HTML:-->
+<!-- В результате будут затронуты только выбранные элементы:-->
+<!-- Селектор потомков соответствует всем элементам, которые являются потомками указанного элемента.-->
+<!--<div id="intro">-->
+<!--    <p class="first">This is a <em> paragraph.</em></p>-->
+<!--    <p> This is the second paragraph. </p>-->
+<!--</div>-->
+<!--<p class="first"> This is not in the intro section.</p>-->
+<!--<p> The second paragraph is not in the intro section. </p>-->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>My CV</title>
+        <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+	</head>
+	<body>
+        <!--Intro-->
+        <div class="intro">
+            <img src="https://www.gtiarmoredcars.com/wp-content/uploads/2021/02/62681-flat-icons-face-computer-design-avatar-icon.png" alt = "" height="100" width="100px" >
+            <div class="heading">Виталий Меншиков</div>
+            <div class="prof">Profession</div>
+            <div class="summary">Summary.</div>
+        </div>
+        <!--Contact Information-->
+        <div class="contactinfo">
+            <div class="icon">
+                <div class="fas fa-map-signs"></div>
+            </div>
+            <div class="data">
+                Address
+            </div>
+            <div class="icon">
+                <div class="fas fa-mobile-alt"></div>
+            </div>
+            <div class="data">
+                Phone number
+            </div>
+            <div class="icon">
+                <div class="fas fa-envelope"></div>
+            </div>
+            <div class="data">
+                Email
+            </div>
+        </div>
+        <!--Skills Section-->
+        <div class="subheading">Skills</div>
+        <div class="skills">
+            <ul>
+                <li>
+                    <div class="skill_name">
+                        Skill 1
+                    </div>
+                    <div class="skill_prog">
+                        <span style="width: 80%;"></span>
+                    </div>
+                    <div class="skill_per">80%</div>
+                </li>
+                <li>
+                    <div class="skill_name">
+                        Skill 2
+                    </div>
+                    <div class="skill_prog">
+                        <span style="width: 70%;"></span>
+                    </div>
+                    <div class="skill_per">70%</div>
+                </li>
+                <li>
+                    <div class="skill_name">
+                        Skill 3
+                    </div>
+                    <div class="skill_prog">
+                        <span style="width: 90%;"></span>
+                    </div>
+                    <div class="skill_per">90%</div>
+                </li>
+            </ul>
+        </div>
+        <!--Experience/Education-->
+        <div class="subheading">Experience</div>
+        <div class="explist">
+            <ul>
+                <li>
+                    <div class="date">Job 1 date</div>
+                    <div class="jobinfo">
+                        <div class="jobtitle">Job 1 Title</div>
+                    <div class ="jobdesc">Job 1 description</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="date">Job 2 date</div>
+                    <div class="jobinfo">
+                        <div class="jobtitle">Job 2 title</div>
+                    <div class ="jobdesc">Job 2 description</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--Social-->
+        <div class="subheading">Social</div>
+        <div class="social">
+            <a href="facebooklink" target="_blank">
+                <div class = "icon">
+                    <div class="fab fa-facebook-square">Facebook</div>
+                </div>
+            </a>
+             <a href="twitterlink" target="_blank">
+                 <div class = "icon">
+                     <span style="padding-left:10px;"></span>
+                     <div class="fab fa-twitter-square">Twitter</div>
+                 </div>
+             </a>
+             <a href="linkedInlink" target="_blank">
+                 <div class="icon">
+                     <span style="padding-left:10px;"></span>
+                     <div class="fab fa-linkedin">LinkedIn</div>
+                </div>
+             </a>
+            <a href="githublink" target="_blank">
+                <div class = "icon">
+                    <span style="padding-left:10px;"></span>
+                  <div class="fab fa-github">Github</div>
+                </div>
+             </a>
+        </div>
+	</body>
+</html>

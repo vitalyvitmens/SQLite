@@ -1,0 +1,28 @@
+#p {
+    color:white;
+    background-color:gray;
+}
+
+#h1 { color: orange; }
+
+#p {
+    color: red;
+    font-size:130%;
+}
+
+##intro {
+    color: white;
+    background-color: gray;
+}
+
+#.first {font-size: 200%;}
+
+#intro .first em {
+    color: pink;
+    background-color:gray;
+}
+
+
+.heading{
+    font-size: 35px;
+}
