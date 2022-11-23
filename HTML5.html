@@ -443,6 +443,91 @@
 <!--      dur="3s" fill="freeze" repeatCount="2"/>-->
 <!--    </rect>-->
 <!--</svg>-->
+
+<!--var svg_1 = document.getElementById("svg1"),-->
+<!--  evil = document.getElementById("evil"),-->
+<!--  happy = document.getElementById("happy");-->
+
+<!--let flag = true;-->
+
+<!--svg_1.addEventListener('click', function() {-->
+<!--  if (flag == true) {-->
+<!--    evil.beginElement();-->
+<!--    flag = false;-->
+<!--  } else {-->
+<!--    happy.beginElement();-->
+<!--    flag = true;-->
+<!--  }-->
+<!--});-->
+<!--</script>-->
+<!--<svg id="svg1" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" width="200" height="200" viewBox="0 0 30 40"  version="1.1">-->
+<!--  <circle cx="15" cy="20" r="10" fill="yellow"/>-->
+<!--  <circle cx="12" cy="17" r="1.5" fill="black"/>-->
+<!--  <circle cx="18" cy="17" r="1.5" fill="black"/>-->
+<!--  <path d="m 10,23 c 3.09,2.5 6.56,2.7 10,0" stroke="black" stroke-width="1" stroke-Linecap="round" fill="none">-->
+<!--      &lt;!&ndash; Анимация линии рта в грустное положение &ndash;&gt;-->
+<!--    <animate id="evil"-->
+<!--      attributeName="d"-->
+<!--      begin="indefinite"-->
+<!--      dur="0.5s"-->
+<!--      to=" m 10,23 c 4.02,-3.57 6.06,-3.4 10,0"-->
+<!--      fill="freeze"-->
+<!--      restart="whenNotActive" />-->
+
+<!--    &lt;!&ndash; Анимация линии рта в улыбку &ndash;&gt;-->
+<!--         <animate id="happy"-->
+<!--          attributeName="d"-->
+<!--          begin="indefinite"-->
+<!--          dur="0.5s"-->
+<!--          to="m 10,23 c 3.09,2.5 6.56,2.7 10,0"-->
+<!--          fill="freeze"-->
+<!--          restart="whenNotActive" />-->
+<!--  </path>-->
+<!--</svg>-->
+
+<!--<div class="section">-->
+<!--    <h3>-->
+<!--        <ins>Write me a message</ins>-->
+<!--    </h3>-->
+<!--<svg id="svg1" version="1.1"-->
+<!--     width="100" height="100" viewBox="0 0 100 100">-->
+<!--    <circle cx="50" cy="50" r="50" fill="gold"/>-->
+
+<!--    <g id="gr1">-->
+<!--        <path d="M 12 30 q 40 -12 25 -1" stroke="#000000" stroke-width="1" fill="#000000"/>-->
+<!--        <path d="M 88 30 q -40 -12 -25 -1" stroke="#000000" stroke-width="1" fill="#000000"/>-->
+<!--        <ellipse cx="70" cy="43" ry="12" rx="14" fill="#64B7FF">-->
+<!--            <animate-->
+<!--                    attributeName="ry"-->
+<!--                    dur="1s"-->
+<!--                    begin="svg1.click"-->
+<!--                    keyTimes=" 0;0.25;0.5;0.75;1"-->
+<!--                    values="10;0;5;0;10"-->
+<!--                    repeatCount="1"/>-->
+<!--        </ellipse>-->
+<!--        <ellipse cx="30" cy="43" ry="6" rx="8" fill="#000000"/>-->
+<!--        <ellipse cx="70" cy="43" ry="6" rx="8" fill="#000000">-->
+<!--            <animate-->
+<!--                    attributeName="ry"-->
+<!--                    dur="1s"-->
+<!--                    begin="svg1.click"-->
+<!--                    keyTimes=" 0;0.25;0.5;0.75;1"-->
+<!--                    values="10;0;5;0;10"-->
+<!--                    repeatCount="1"/>-->
+<!--        </ellipse>-->
+<!--        <path d="M 30 75 q 20 -20 40 0" stroke="#000000" stroke-width="5" fill="none">-->
+<!--            <animate-->
+<!--                    attributeName="d"-->
+<!--                    dur="1s"-->
+<!--                    begin="svg1.click"-->
+<!--                    keyTimes=" 0.25;0.25;0.5;0.75;1"-->
+<!--                    values="M 30 70 q 20 20 40 0"-->
+<!--                    repeatCount="1"/>-->
+<!--        </path>-->
+<!--    </g>-->
+<!--</svg>-->
+<!--</div>-->
+
 <!--TODO: attributeName: Указывает, какой атрибут будет затронут анимацией-->
 <!-- from (от): Указывает начальное значение атрибута-->
 <!-- to (до): Указывает конечное значение атрибута-->
@@ -682,9 +767,90 @@
 <!-- В HTML5 появился новый атрибут под названием placeholder. -->
 <!-- В элементах <input> и <textarea> этот атрибут предоставляет пользователю подсказку о том, -->
 <!-- какую информацию можно ввести в поле.-->
-<form>
-    <label for="email">Your e-mail address: </label>
-    <input type="text" name="email" placeholder="email@example.com" />
-</form>
+<!--<form>-->
+<!--    <label id="email">Your e-mail address: </label>-->
+<!--    <input type="text" name="email" placeholder="email@example.com" />-->
+<!--</form>-->
 <!--TODO: Атрибут автофокуса делает желаемый ввод фокусом при загрузке формы:-->
 <!-- Требуемый атрибут сообщает браузеру, что требуется ввод.-->
+<!--<form>-->
+<!--    <label id="email">Your e-mail address: </label>-->
+<!--    <input type="text" name="email" autofocus />-->
+<!--</form>-->
+
+<!--TODO: Forms with Required Fields (Формы с обязательными полями)-->
+<!-- Атрибут «required» используется, чтобы сделать входные элементы обязательными.-->
+<!-- Форма не будет отправлена без заполнения обязательных полей.-->
+<!-- Результат:-->
+<!--<form autocomplete="off">-->
+<!--    <label id="e-mail">Your e-mail address: </label>-->
+<!--    <input name="Email" type="text" required/>-->
+<!--    <input type="submit" value="Submit"/>-->
+<!--</form>-->
+<!--TODO: Атрибут autocomplete (автозаполнения указывает), должно ли автозаполнение формы или поля ввода быть включено или выключено.-->
+<!-- Когда автозаполнение включено, браузер автоматически дополняет значения на основе значений,-->
+<!-- которые пользователь ввел ранее.-->
+<!-- HTML5 added several new input types (В HTML5 добавлено несколько новых типов ввода):-->
+<!--  - color-->
+<!--  - date-->
+<!--  - datetime-->
+<!--  - datetime-local-->
+<!--  - email-->
+<!--  - month-->
+<!--  - number-->
+<!--  - range-->
+<!--  - search-->
+<!--  - tel-->
+<!--  - time-->
+<!--  - url-->
+<!--  - week-->
+<!-- New input attributes in HTML5 (Новые атрибуты ввода в HTML5):-->
+<!--  - autofocus-->
+<!--  - form-->
+<!--  - formaction-->
+<!--  - formenctype-->
+<!--  - formmethod-->
+<!--  - formnovalidate-->
+<!--  - formtarget-->
+<!--  - height and width-->
+<!--  - list-->
+<!--  - min and max-->
+<!--  - multiple-->
+<!--  - pattern (regexp)-->
+<!--  - placeholder-->
+<!--  - required-->
+<!--  - step-->
+<!-- Типы ввода, которые не поддерживаются старыми веб-браузерами, будут вести себя как текст.-->
+
+<!--Creating a Search Box (Создание окна поиска)-->
+<!--Новый тип ввода поиска можно использовать для создания поля поиска:-->
+<!--Вы должны помнить, чтобы установить имя для вашего ввода;-->
+<!--в противном случае ничего не будет отправлено.-->
+<!--<input id="mysearch" name="searchitem" type="search" />-->
+
+<!--TODO: Search Options (Параметры поиска)-->
+<!-- Тег <datalist> можно использовать для определения списка предопределенных опций для поля поиска:-->
+<!-- <option> определяет параметры в раскрывающемся списке, которые пользователь может выбрать.-->
+<!-- Идентификатор элемента списка данных должен совпадать с атрибутом списка поля ввода.-->
+<!--<input id="car" type="text" list="colors"/>-->
+<!--<datalist id="colors">-->
+<!--    <option value="Red">-->
+<!--    <option value="Green">-->
+<!--    <option value="Yellow">-->
+<!--</datalist>-->
+
+<!--TODO: Creating More Fields (Создание дополнительных полей)-->
+<!-- Некоторые другие новые типы ввода включают email, url и tel :-->
+<!-- Они особенно полезны при открытии страницы на современном мобильном устройстве,-->
+<!-- которое распознает типы ввода и открывает соответствующую клавиатуру, соответствующую типу поля:-->
+<!-- Эти новые типы упрощают структурирование и проверку HTML-форм.-->
+<!--<input id="email" name="email" type="email" placeholder="example@example.com"/>-->
+<!--<br/>-->
+<!--<input id="url" name="url" type="url" placeholder="example.com"/>-->
+<!--<br/>-->
+<!--<input id="tel" name="tel" type="tel" placeholder="555.555.1211"/>-->
+
+<!--<svg width="100" height="100">-->
+<!--    <line x1="50" y1="0" x2="50" y2="100" style="stroke:black"/>-->
+<!--    <line x1="0" y1="50" x2="100" y2="50" style="stroke:black"/>-->
+<!--</svg>-->
