@@ -133,121 +133,208 @@
 <!--<p class="first"> This is not in the intro section.</p>-->
 <!--<p> The second paragraph is not in the intro section. </p>-->
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My CV</title>
-    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-</head>
+<!--TODO: Comments (Комментарии)-->
+<!-- Комментарии используются для объяснения вашего кода и-->
+<!-- могут помочь вам при редактировании исходного кода позже.-->
+<!-- Комментарии игнорируются браузерами.-->
+<!-- Комментарий CSS выглядит так:-->
+<!-- Комментарии также могут занимать несколько строк.-->
+<!-- /* Comment goes here */-->
+<!--<p>This is some paragraph</p>-->
+
+<!--TODO: Cascade (Каскад)-->
+<!-- Окончательный вид веб-страницы зависит от различных правил оформления. -->
+<!-- Три основных источника информации о стилях, которые формируют каскад: -->
+<!--  - Таблица стилей, созданная автором страницы -->
+<!--  - Стили браузера по умолчанию -->
+<!--  - Стили, заданные пользователем-->
+<!-- CSS — это аббревиатура от Cascading Style Sheets.-->
+
+<!--TODO: Inheritance (Наследование)-->
+<!-- Наследование относится к тому, как свойства проходят через страницу. -->
+<!-- Дочерний элемент обычно принимает характеристики родительского элемента, если не указано иное. -->
+<!-- Например:-->
+<!-- Поскольку тег абзаца (child element (дочерний элемент)) -->
+<!-- находится внутри тега body (parent element (родительского элемента)), -->
+<!-- он принимает все стили, назначенные тегу body.-->
+<!--<html>-->
+<!--   <head>-->
+<!--      <style>-->
+<!--      body {-->
+<!--         color: red;-->
+<!--         font-family: Arial;-->
+<!--      }-->
+<!--     </style>-->
+<!--   </head>-->
+<!--   <body>-->
+<!--      <p>-->
+<!--      This is a text inside the paragraph.-->
+<!--      </p>-->
+<!--   </body>-->
+<!--</html>-->
+
+<!--
+<style>
+   body {color: green; }
+   .mydiv {color: red; }
+</style>
 <body>
-<!--Intro-->
-<div class="intro">
-    <img src="https://www.gtiarmoredcars.com/wp-content/uploads/2021/02/62681-flat-icons-face-computer-design-avatar-icon.png"
-         alt="" height="100" width="100px"/>
-    <div class="heading">Виталий Меншиков</div>
-    <div class="prof">Profession</div>
-    <div class="summary">Summary.</div>
-</div>
-<!--Contact Information-->
-<div class="contactinfo">
-    <div class="icon">
-        <div class="fas fa-map-signs"></div>
-    </div>
-    <div class="data">
-        Address
-    </div>
-    <div class="icon">
-        <div class="fas fa-mobile-alt"></div>
-    </div>
-    <div class="data">
-        Phone number
-    </div>
-    <div class="icon">
-        <div class="fas fa-envelope"></div>
-    </div>
-    <div class="data">
-        Email
-    </div>
-</div>
-<!--Skills Section-->
-<div class="subheading">Skills</div>
-<div class="skills">
-    <ul>
-        <li>
-            <div class="skill_name">
-                Skill 1
-            </div>
-            <div class="skill_prog">
-                <span style="width: 80%;"></span>
-            </div>
-            <div class="skill_per">80%</div>
-        </li>
-        <li>
-            <div class="skill_name">
-                Skill 2
-            </div>
-            <div class="skill_prog">
-                <span style="width: 70%;"></span>
-            </div>
-            <div class="skill_per">70%</div>
-        </li>
-        <li>
-            <div class="skill_name">
-                Skill 3
-            </div>
-            <div class="skill_prog">
-                <span style="width: 90%;"></span>
-            </div>
-            <div class="skill_per">90%</div>
-        </li>
-    </ul>
-</div>
-<!--Experience/Education-->
-<div class="subheading">Experience</div>
-<div class="explist">
-    <ul>
-        <li>
-            <div class="date">Job 1 date</div>
-            <div class="jobinfo">
-                <div class="jobtitle">Job 1 Title</div>
-                <div class="jobdesc">Job 1 description</div>
-            </div>
-        </li>
-        <li>
-            <div class="date">Job 2 date</div>
-            <div class="jobinfo">
-                <div class="jobtitle">Job 2 title</div>
-                <div class="jobdesc">Job 2 description</div>
-            </div>
-        </li>
-    </ul>
-</div>
-<!--Social-->
-<div class="subheading">Social</div>
-<div class="social">
-    <a href="facebooklink" target="_blank">
-        <div class="icon">
-            <div class="fab fa-facebook-square">Facebook</div>
-        </div>
-    </a>
-    <a href="twitterlink" target="_blank">
-        <div class="icon">
-            <span style="padding-left:10px;"></span>
-            <div class="fab fa-twitter-square">Twitter</div>
-        </div>
-    </a>
-    <a href="linkedInlink" target="_blank">
-        <div class="icon">
-            <span style="padding-left:10px;"></span>
-            <div class="fab fa-linkedin">LinkedIn</div>
-        </div>
-    </a>
-    <a href="githublink" target="_blank">
-        <div class="icon">
-            <span style="padding-left:10px;"></span>
-            <div class="fab fa-github">Github</div>
-        </div>
-    </a>
-</div>
+   <div class="mydiv">
+      <p>Some text</p>
+   </div>
 </body>
-</html>
+-->
+
+<!--TODO: The font-family Property (Свойство семейства шрифтов)-->
+<!-- Свойство font-family указывает шрифт для элемента.-->
+<!-- Существует два типа названий семейств шрифтов:-->
+<!--  - font family (семейство шрифтов): определенное семейство шрифтов (например, Times New Roman или Arial)-->
+<!--  - generic family (общее семейство): группа семейств шрифтов с похожим внешним видом (например, Serif или Monospace).-->
+<!-- стили шрифта: HTML:-->
+<!--    См. Рис: TheFontFamilyPropertyPicture.png-->
+<!-- Разделите каждое значение запятой, чтобы указать, что они являются альтернативными.-->
+<!-- Если название семейства шрифтов состоит из более чем одного слова,-->
+<!-- оно должно быть заключено в кавычки: «Times New Roman».-->
+<!--<p class="serif">-->
+<!--   This is a paragraph shown in serif font.-->
+<!--</p>-->
+<!--<p class="sansserif">-->
+<!--   This is a paragraph shown in sans-serif font.-->
+<!--</p>-->
+<!--<p class="monospace">-->
+<!--   This is a paragraph shown in monospace font.-->
+<!--</p>-->
+<!--<p class="cursive">-->
+<!--   This is a paragraph shown in cursive font.-->
+<!--</p>-->
+<!--<p class="fantasy">-->
+<!--   This is a paragraph shown in fantasy font.-->
+<!--</p>-->
+
+<!--TODO: The font-family Property (Свойство семейства шрифтов)-->
+<!-- Свойство font-family должно содержать несколько имен шрифтов в качестве «запасной» системы.-->
+<!-- При указании веб-шрифта в стиле CSS добавьте более одного имени шрифта, чтобы избежать непредвиденного поведения.-->
+<!-- Если на клиентском компьютере по какой-то причине нет выбранного вами, он попытается использовать следующий.-->
+<!-- Хорошей практикой является указание общего семейства шрифтов,-->
+<!-- чтобы позволить браузеру выбрать аналогичный шрифт в общем семействе, если другие шрифты недоступны.-->
+<!-- Если браузер не поддерживает шрифт Arial, он пробует следующие шрифты (Helvetica Neue, затем Helvetica).-->
+<!-- Если в браузере их нет, он попробует generic sans-serif (обычный шрифт без засечек).-->
+<!-- Не забудьте использовать кавычки, если имя шрифта состоит из более чем одного слова.-->
+<!-- body {-->
+<!--    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;-->
+<!-- }-->
+
+<!--TODO: The font-size Property (Свойство размера шрифта)-->
+<!-- Свойство font-size устанавливает размер шрифта.-->
+<!-- Один из способов установить размер шрифта в Интернете — использовать ключевые слова.-->
+<!-- Например: xx-small, small, medium, Large, Larger и т.д.-->
+<!-- HTML-код:-->
+<!-- Ключевые слова полезны, если вы не хотите, чтобы пользователь мог увеличить размер шрифта, -->
+<!-- потому что это отрицательно скажется на внешнем виде вашего сайта.-->
+<!--<p class="small">-->
+<!--   Paragraph text set to be small-->
+<!--</p>-->
+<!--<p class="medium">-->
+<!--   Paragraph text set to be medium-->
+<!--</p>-->
+<!--<p class="large">-->
+<!--   Paragraph text set to be large-->
+<!--</p>-->
+<!--<p class="xlarge">-->
+<!--   Paragraph text set to be very large-->
+<!--</p>-->
+
+<!--TODO: The font-size Property (Свойство размера шрифта)-->
+<!-- Вы также можете использовать числовые значения в пикселях или ems для управления размером шрифта.-->
+<!-- Установка размера шрифта в пикселях (px) — хороший выбор, когда вам нужна точность в пикселях,-->
+<!-- и это дает вам полный контроль над размером текста.-->
+<!-- Единица размера em — это еще один способ установить размер шрифта (em — относительная единица размера).-->
+<!-- Это позволяет всем основным браузерам изменять размер текста.-->
+<!-- Если вы не установили размер шрифта нигде на странице, то это размер браузера по умолчанию,-->
+<!-- который составляет 16 пикселей.-->
+<!-- Чтобы рассчитать размер em, просто используйте следующую формулу: em = пиксели / 16-->
+<!-- Например:-->
+<!-- Оба примера дадут одинаковый результат в браузере, потому что 20/16=1.25em-->
+<!-- Попробуйте разные комбинации размера текста и масштабирования страницы в различных браузерах, -->
+<!-- чтобы убедиться, что текст остается читаемым.-->
+<!--<h1>This is a heading</h1>-->
+
+<!--TODO: The font-style Property (Свойство стиля шрифта)-->
+<!-- Свойство font-style обычно используется для указания курсивного текста. -->
+<!-- HTML:-->
+<!-- Запустите код и посмотрите, как он работает!-->
+<!--<p class="italic">This is a paragraph in italic style.</p>-->
+
+<!--TODO: The font-style Property (Свойство стиля шрифта)-->
+<!-- Свойство font-style имеет три значения: normal, italic и oblique.-->
+<!-- Наклонное начертание очень похоже на курсив, но поддерживается в меньшей степени.-->
+<!-- HTML:-->
+<!-- HTML - тег <i> даст точно такой же результат, как и курсивное начертание.-->
+<!--<p class="normal">This paragraph is normal.</p>-->
+<!--<p class="italic">This paragraph is italic.</p>-->
+<!--<p class="oblique">This paragraph is oblique.</p>-->
+
+<!--TODO: The font-weight Property (Свойство font-weight)-->
+<!-- Вес шрифта определяет жирность или толщину текста.-->
+<!-- Можно установить следующие значения:-->
+<!-- - normal (обычный размер по умолчанию)-->
+<!-- - bold (жирный)-->
+<!-- - bolder (жирный)-->
+<!-- - lighter (светлый)-->
+<!-- HTML:-->
+<!--<p class="light">This is a font with a "lighter" weight.</p>-->
+<!--<p class="bold">This is a font with a "bold" weight.</p>-->
+<!--<p class="bolder">This is a font with a "bolder" weight.</p>-->
+
+<!--TODO: The font-weight Property (Свойство font-weight)-->
+<!-- Вы также можете определить вес шрифта с числом от 100 (тонкий) до 900 (толстый),-->
+<!-- в зависимости от того, насколько толстым должен быть текст.-->
+<!-- 400 соответствует обычному, а 700 соответствует жирному шрифту.-->
+<!-- HTML:-->
+<!-- HTML - тег <strong> также выделяет текст жирным шрифтом .-->
+<!--<p class="light">This is a font with a "lighter" weight.</p>-->
+<!--<p class="thick">This is a font with a "bold" weight.</p>-->
+<!--<p class="thicker">This is a font with a "700" weight.</p>-->
+
+<!--TODO: The font-variant Property (Свойство font-variant)-->
+<!-- Свойство CSS font-variant позволяет преобразовать ваш шрифт во все прописные.-->
+<!-- Значения могут быть установлены как normal, small-caps и inherit.-->
+<!-- HTML:-->
+<!-- Не каждый шрифт поддерживает вариант шрифта CSS, -->
+<!-- поэтому обязательно протестируйте его перед публикацией.-->
+<!--<p class="normal">Paragraph font variant set to normal.</p>-->
+<!--<p class="small">Paragraph font variant set to small-caps.</p>-->
+<!--<p class="inherit">Paragraph font variant set to inherit.</p>-->
+
+<!--TODO: The color Property (Свойство цвета)-->
+<!-- Свойство CSS color определяет цвет текста.-->
+<!-- Одним из способов указания цвета текста является использование названия цвета:-->
+<!-- например, красный, зеленый, синий и т. д.-->
+<!-- Вот пример изменения цвета вашего шрифта. HTML:-->
+<!--<p class="example">The text inside the paragraph is green.</p>-->
+<!--The text outside the paragraph is black (by default).-->
+
+<!--TODO: The color Property (Свойство цвета)-->
+<!-- Другой способ определения цветов — использование шестнадцатеричных значений и RGB.-->
+<!-- Шестнадцатеричная форма представляет собой знак решетки (#),-->
+<!-- за которым следует не более 6 шестнадцатеричных значений (0-F).-->
+<!-- RGB определяет отдельные значения для красного, зеленого и синего цветов.-->
+<!-- В приведенном ниже примере мы используем шестнадцатеричное значение,-->
+<!-- чтобы установить синий цвет заголовка, и форму RGB, чтобы сделать абзац красным.-->
+<!-- HTML:-->
+<!--<h1>This is a heading</h1>-->
+<!--<p class="example">This is a paragraph</p>-->
+
+<!--TODO: The text-align Property (Свойство text-align)-->
+<!-- Свойство text-align определяет горизонтальное выравнивание текста в элементе.-->
+<!-- По умолчанию текст на вашем сайте выравнивается по левому краю.-->
+<!-- Однако иногда вам может потребоваться другое выравнивание.-->
+<!-- значения свойства text-align следующие: left, right, center и justify.-->
+<!-- HTML:-->
+<!-- Когда для параметра text-align установлено значение «justify» (по ширине), -->
+<!-- каждая строка растягивается так, чтобы каждая строка имела одинаковую ширину, -->
+<!-- а левое и правое поля были прямыми (как в журналах и газетах).-->
+<!--<p class="left">This paragraph is aligned to <strong>left.</strong></p>-->
+<!--<p class="right">This paragraph is aligned to <strong>right.</strong></p>-->
+<!--<p class="center">This paragraph is aligned to <strong>center.</strong></p>-->
+

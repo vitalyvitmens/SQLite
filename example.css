@@ -1,28 +1,143 @@
-#p {
+/* Comment goes here */
+
+/* p {
     color:white;
     background-color:gray;
-}
+}*/
 
-#h1 { color: orange; }
+/* h1 { color: orange; }  */
 
-#p {
+/* p {
     color: red;
     font-size:130%;
-}
+}  */
 
-##intro {
+/* #intro {
     color: white;
     background-color: gray;
-}
+}  */
 
-#.first {font-size: 200%;}
+/* #.first {font-size: 200%;} */
 
-#intro .first em {
+/* #intro .first em {
     color: pink;
     background-color:gray;
+} */
+
+/* p {
+    color: green; */
+    /* This is a comment */
+/*     font-size: 150%;
+} */
+
+/*TODO: The font-family Property */
+/*p.serif {
+    font-family: "Times New Roman", Times, serif;
+}
+p.sansserif {
+    font-family: Helvetica, Arial, sans-serif;
+}
+p.monospace {
+    font-family: "Courier New", Courier, monospace;
+}
+p.cursive {
+    font-family: Florence, cursive;
+}
+p.fantasy {
+    font-family: Blippo, fantasy;
+}*/
+
+/*TODO: The font-size Property */
+/*p.small {
+    font-size: small;
+}
+p.medium {
+    font-size: medium;
+}
+p.large {
+    font-size: large;
+}
+p.xlarge {
+    font-size: x-large;
+}*/
+
+/*TODO: The font-size Property */
+/*h1 {
+    font-size: 20px;
 }
 
+h1 {
+    font-size: 1.25em;
+}*/
 
-.heading{
-    font-size: 35px;
+/*TODO: The font-style Property */
+/*p.italic {
+    font-style: italic;
+}*/
+
+/*TODO: The font-style Property */
+/*p.normal {
+    font-style: normal;
 }
+p.italic {
+    font-style: italic;
+}
+p.oblique {
+    font-style: oblique;
+}*/
+
+/*TODO: The font-weight Property */
+/*p.light {
+    font-weight: lighter;
+}
+p.bold {
+    font-weight: bold;
+}
+p.bolder {
+    font-weight: bolder;
+}*/
+
+/*TODO: The font-weight Property */
+/*p.light {
+    font-weight: lighter;
+}
+p.thick {
+    font-weight: bold;
+}
+p.thicker {
+    font-weight: 700;
+}*/
+
+/*TODO: The font-variant Property */
+/*p.normal {
+    font-variant: normal;
+}
+p.small {
+    font-variant: small-caps;
+p.inherit {
+    font-variant: inherit;
+}*/
+
+/*TODO: The color Property */
+/*p.example {
+    color: green;
+}*/
+
+/*TODO: The color Property */
+/*h1 {
+    color: #0000FF;
+}
+p.example {
+    color: rgb(255,0,0);
+}*/
+
+/*TODO: The text-align Property */
+/*p.left {
+    text-align: left;
+}
+p.right {
+    text-align: right;
+}
+p.center {
+    text-align: center;
+}*/

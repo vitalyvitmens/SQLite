@@ -1,0 +1,41 @@
+﻿.heading{
+    font-size: 35px;
+    font-weight: bolder;
+}
+
+.intro{
+    background-color: #0F1AFF;
+    color: white;
+}
+
+body{
+    font-family: 'Gill Sans', Calibri, 'Trebuchet MS', sans-serif
+}
+
+.prof{
+    font-size: 20px;
+    font-weight: lighter;
+
+}
+.contactinfo{
+    font-size: 15px
+}
+.subheading{
+    font-size: 20px;
+    font-weight: bolder;
+    color: #0F1AFF;
+}
+
+.icon{
+    color: #0F1AFF;
+}
+
+.date{
+    font-size: 16px;
+    color: #0F1AFF;
+    font-weight: bold;
+}
+
+.jobtitle{
+    font-weight: bold;
+}
