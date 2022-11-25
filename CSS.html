@@ -338,3 +338,195 @@
 <!--<p class="right">This paragraph is aligned to <strong>right.</strong></p>-->
 <!--<p class="center">This paragraph is aligned to <strong>center.</strong></p>-->
 
+<!--TODO: The vertical-align Property (Свойство вертикального выравнивания)-->
+<!-- Свойство vertical-align задает вертикальное выравнивание элемента.-->
+<!-- Обычно используются значения top, middle и bottom.-->
+<!-- В приведенном ниже примере показано, как вертикально выровнять текст между таблицей.-->
+<!--<table border="1" cellpadding="2" cellspacing="0" style="height: 150px;">-->
+<!--  <tr>-->
+<!--     <td class="top">Top</td>-->
+<!--     <td class="middle">Middle</td>-->
+<!--     <td class="bottom">Bottom</td>-->
+<!--  </tr>-->
+<!--  <tr>-->
+<!--     <td class="bottom">Bottom</td>-->
+<!--     <td class="middle">Middle</td>-->
+<!--     <td class="top">Top</td>-->
+<!--  </tr>-->
+<!--</table>-->
+
+<!--TODO: The vertical-align Property (Свойство вертикального выравнивания)-->
+<!-- Свойство вертикального выравнивания также принимает следующие значения:-->
+<!--  - baseline-->
+<!--  - sub-->
+<!--  - super-->
+<!--  - %-->
+<!--  - px (или pt, cm)-->
+<!-- Вместо значений px вы можете использовать значения pt (точки), cm (сантиметры) и % (проценты).-->
+<!-- Пример ниже показывает разницу между ними. -->
+<!--<p>This is an <span class="baseline">inline text</span> example.</p>-->
+<!--<p>This is a <span class="sub">sub line text</span> example.</p>-->
+<!--<p> This is a <span class="super">super line text</span> example.</p>-->
+<!--<p> This is a <span class="pixel">pixel</span> example.</p>-->
+
+<!--TODO: The vertical-align Property (Свойство вертикального выравнивания)-->
+<!-- Свойство вертикального выравнивания не действует одинаково для всех элементов.-->
+<!-- Например, некоторые дополнительные стили CSS необходимы для элементов div.-->
+<!-- отображение: встроенная таблица; и отображать: таблица-ячейка; правила стиля применяются для того,-->
+<!-- чтобы свойство вертикального выравнивания работало с элементами div.-->
+<!--<div class="main">-->
+<!--    <div class="paragraph">-->
+<!--    This text is aligned to the middle-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--TODO: The text-decoration Property (Свойство text-decoration)-->
+<!-- Свойство text-decoration указывает, как будет оформлен текст.-->
+<!-- Обычно используются следующие значения:-->
+<!--    none - Значение по умолчанию, это определяет обычный текст-->
+<!--    inherit - Наследует это свойство от своего родительского элемента-->
+<!--    overline - Рисует горизонтальную линию над текстом-->
+<!--    underline - Рисует горизонтальную линию под текстом-->
+<!--    line-through - рисует горизонтальную линию через текст (заменяет HTML-тег <s>)-->
+<!-- Пример ниже демонстрирует разницу между каждым значением.-->
+<!-- Вы можете комбинировать значения underline, overline или line-through в списке,-->
+<!-- разделенном пробелами, чтобы добавить несколько декоративных строк.-->
+<!--<p class="none">This is default style of the text (none).</p>-->
+<!--<p class="inherit">This text inherits the decoration of the parent.</p>-->
+<!--<p class="overline">This is overlined text.</p>-->
+<!--<p class="underline">This is underlined text.</p>-->
+<!--<p class="line-through">This is lined-through text. </p>-->
+
+<!--TODO: The text-decoration Property (Свойство text-decoration)-->
+<!-- Другое значение свойства text-decoration — blink,-->
+<!-- которое заставляет текст мигать.-->
+<!-- Синтаксис CSS выглядит следующим образом:-->
+<!-- text-decoration: blink;-->
+<!-- Это значение допустимо, но устарело, и большинство браузеров его игнорируют.-->
+
+<!--TODO: The text-indent Property (Свойство text-indent)-->
+<!-- Свойство text-indent указывает, сколько места по горизонтали должно-->
+<!-- оставаться перед началом первой строки текста.-->
+<!-- Значения свойств: length (px, pt, cm, em и т.д.), % и inherit.-->
+<!-- Допускаются отрицательные значения. -->
+<!-- Первая строка будет иметь отступ влево, если значение отрицательное.-->
+<!--<p>This is an example of-->
+<!--<strong>text-indent </strong> property.<br/>-->
+<!--First line of our text is indented to the right in 60px.<br/>-->
+<!--Besides pixels you can also use other measurement units,<br/>-->
+<!--like pt, cm, em, etc. </p>-->
+
+<!--TODO: The text-shadow Property (Свойство text-shadow)-->
+<!-- Свойство text-shadow добавляет тень к тексту.-->
+<!-- Оно принимает четыре значения:-->
+<!--  - первое значение определяет расстояние тени в направлении x (горизонтальное),-->
+<!--  - второе значение устанавливает расстояние в направлении y (вертикальное),-->
+<!--  - третье значение определяет размытие тени-->
+<!--  - четвертое значение устанавливает цвет-->
+<!-- В приведенном выше примере мы создали тень, используя следующие параметры:-->
+<!-- 5px – координата X-->
+<!-- 2px – координата Y-->
+<!-- 4px – радиус размытия-->
+<!-- grey – цвет тени -->
+<!-- Чтобы добавить к тексту более одной тени, добавьте список теней через запятую.-->
+<!--<h1>Text-shadow example</h1>-->
+
+<!--TODO: text-shadow with Blur Effect (text-shadow с эффектом размытия)-->
+<!-- При работе с тенями можно использовать любой цветовой формат, поддерживаемый CSS.-->
+<!-- Для смещений по осям x и y могут использоваться различные типы единиц измерения-->
+<!-- (такие как px, cm, mm, in, pc, pt и т.д.).-->
+<!-- Отрицательные значения также поддерживаются.-->
+<!-- В приведенном ниже примере создается синяя тень,-->
+<!-- - расположенная на два пикселя выше основного текста,-->
+<!-- - на один пиксель слева от него-->
+<!-- - с размытием 0.5em:-->
+<!-- Internet Explorer 9 и более ранние версии не поддерживают свойство text-shadow.-->
+<!--<h1>Text-shadow with blur effect</h1>-->
+
+<!--TODO: The text-transform Property (Свойство text-transform)-->
+<!-- CSS-свойство text-transform указывает, как использовать заглавные буквы в тексте элемента.-->
+<!-- Например, его можно использовать для отображения текста с заглавными буквами каждого слова.-->
+<!--<p class="capitalize">-->
+<!--    The value capitalize transforms the first-->
+<!--    character in each word to uppercase;-->
+<!--    all other characters remain unaffected.-->
+<!--</p>-->
+
+<!--TODO: text-transform Values (Значения преобразования текста)-->
+<!-- Используя свойство text-transform, вы можете сделать так,-->
+<!-- чтобы текст отображался в верхнем или нижнем регистре. -->
+<!-- Значение none вообще не даст никакого эффекта капитализации.-->
+<!--<p class="uppercase">This value transforms all characters to uppercase.</p>-->
+<!--<p class="lowercase">This value transforms all characters to lowercase.</p>-->
+
+<!--TODO: The letter-spacing Property (Свойство межбуквенного интервала)-->
+<!-- Свойство letter-spacing определяет расстояние между символами в тексте. -->
+<!-- Значения могут быть установлены следующим образом:-->
+<!-- - обычный определяет стиль по умолчанию без дополнительного пробела между символами-->
+<!-- - длина определяет дополнительный пробел между символами с использованием -->
+<!-- таких единиц измерения, как px, pt, см, мм и т. д.;-->
+<!-- - inherit наследует свойство от своего родительского элемента-->
+<!--<p class="normal">This paragraph has no additional letter-spacing applied.</p>-->
+<!--<p class="positive">This paragraph is letter-spaced at 4px.</p>-->
+<!--<p class="negative">This paragraph is letter-spaced at -1px.</p>-->
+
+<!--TODO: Using Negative Values (Использование отрицательных значений)-->
+<!-- Для определения дополнительного пробела между символами также разрешены отрицательные значения.-->
+<!-- Вот пример, демонстрирующий разницу между положительными и отрицательными значениями:-->
+<!-- Всегда проверяйте результат, чтобы убедиться, что текст читаем.-->
+<!--<p class="positive">This paragraph is letter-spaced at 4px.</p>-->
+<!--<p class="negative">This paragraph is letter-spaced at -1.5px</p>-->
+
+<!--TODO: The word-spacing Property (Свойство word-spacing)-->
+<!-- Свойство word-spacing задает расстояние между словами в тексте.-->
+<!-- Так же, как и свойство letter-spacing, вы можете установить значения word-spacing как:-->
+<!--  - normal-->
+<!--  - length-->
+<!--  - inherit -->
+<!-- Когда используется странный интервал и необходимо сохранить выделенный абзац-->
+<!-- с нормальным интервалом между словами, обычно используется нормальный вариант.-->
+<!--<p class="normal">This paragraph has no additional word-spacing applied.</p>-->
+<!--<p class="px">This paragraph is word-spaced at 30px.</p>-->
+
+<!--TODO: Measurement Units (Единицы измерения)-->
+<!-- Чтобы определить дополнительный пробел между словами,-->
+<!-- вы можете использовать положительные значения измерения,-->
+<!-- такие как px, pt, pc, cm, mm, inchs, em и ex .-->
+<!-- Допускаются и отрицательные значения.-->
+<!--<p class="positive">This paragraph is word-spaced at 20px.</p>-->
+<!--<p class="negative">This paragraph is word-spaced at -5px.</p>-->
+
+<!--TODO: The white-space Property (Свойство пробела)-->
+<!-- Свойство white-space указывает, как обрабатывается пробел внутри элемента.-->
+<!-- Значения могут быть установлены как normal, inherit, nowrap и т.д.-->
+<!-- Значение nowrap заставляет текст продолжаться на той же строке до тех пор,-->
+<!-- пока не встретится тег <br>, а также сворачивает все последовательности пробелов в один пробел.-->
+<!-- Текст будет продолжаться на той же строке, пока не встретится тег <br />.-->
+<!--<p>-->
+<!--This paragraph has         multiple spaces      and-->
+<!--a line break, but it will be ignored, as we used the nowrap value.-->
+<!--</p>-->
+
+<!--TODO: The white-space Values (Значения пробелов)-->
+<!-- Свойство white-space также поддерживает другие значения:-->
+<!-- pre (предварительный) - текст будет переноситься только на разрывы строк и пробелы-->
+<!-- pre-line (предварительная линия) - текст будет переноситься там,-->
+<!-- где есть разрыв в коде, но лишние пробелы по-прежнему игнорируются-->
+<!-- pre-wrap (предварительный перенос) - текст будет переноситься при необходимости и на разрывы строк-->
+<!-- Вот пример, в котором используются все три значения:-->
+<!-- Значение Pre-wrap ведет себя так же, как и значение pre,-->
+<!-- за исключением того, что оно добавляет дополнительные разрывы строк,-->
+<!-- чтобы текст не выходил за рамки элемента.-->
+<!--<p class="pre">-->
+<!--In the markup we have multiple            spaces-->
+<!--and a line break.-->
+<!--</p>-->
+<!--<p class="preline">-->
+<!--In the markup we have multiple            spaces-->
+<!--and a line break, but in the result multiple spaces are ignored.-->
+<!--</p>-->
+<!--<p class="prewrap">-->
+<!--In the markup we have              multiple-->
+<!--spaces and a line break.-->
+<!--</p>-->
+

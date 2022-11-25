@@ -1,10 +1,12 @@
 ﻿.heading{
     font-size: 35px;
     font-weight: bolder;
+    text-transform: uppercase;
+
 }
 
 .intro{
-    background-color: #0F1AFF;
+    background-color: #0000FF;
     color: white;
 }
 
@@ -23,19 +25,21 @@ body{
 .subheading{
     font-size: 20px;
     font-weight: bolder;
-    color: #0F1AFF;
+    color: #0000FF;
+    text-transform: uppercase;
 }
 
 .icon{
-    color: #0F1AFF;
+    color: #0000FF;
 }
 
 .date{
     font-size: 16px;
-    color: #0F1AFF;
+    color: #0000FF;
     font-weight: bold;
 }
 
 .jobtitle{
     font-weight: bold;
 }
+

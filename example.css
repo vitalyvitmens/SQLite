@@ -141,3 +141,142 @@ p.right {
 p.center {
     text-align: center;
 }*/
+
+/*TODO: The vertical-align Property */
+/*td.top {
+    vertical-align: top;
+}
+td.middle {
+    vertical-align: middle;
+}
+td.bottom {
+    vertical-align: bottom;
+}*/
+
+/*TODO: The vertical-align Property */
+/*span.baseline {
+    vertical-align: baseline;
+}
+span.sub {
+    vertical-align: sub;
+}
+span.super {
+    vertical-align: super;
+}
+span.pixel {
+    vertical-align: -10px;
+}*/
+
+/*TODO: The vertical-align Property */
+/*.main {
+    height: 150px; width: 400px;
+    background-color: LightSkyBlue;
+    display: inline-table;
+}
+.paragraph {
+    display: table-cell;
+    vertical-align: middle;
+}*/
+
+/*TODO: The text-decoration Property */
+/*p.none {
+    text-decoration: none;
+}
+p.inherit {
+    text-decoration: inherit;
+}
+p.overline {
+    text-decoration: overline;
+}
+p.underline {
+    text-decoration: underline;
+}
+p.line-through {
+    text-decoration: line-through;
+}*/
+
+/*TODO: The text-decoration Property */
+/*text-decoration: blink;*/
+
+/*TODO: The text-indent Property */
+/*p {
+    text-indent: 60px;
+}*/
+
+/*TODO: The text-shadow Property */
+/*h1 {
+    color: blue;
+    font-size: 30pt;
+    text-shadow: 5px 2px 4px grey;
+}*/
+
+/*TODO: text-shadow with Blur Effect */
+/*h1 {
+    font-size: 20pt;
+    text-shadow: rgba(0,0,255,1) -1px -2px 0.5em;
+}*/
+
+/*TODO: The text-transform Property */
+/*p.capitalize {
+    text-transform: capitalize;
+}*/
+
+/*TODO: text-transform Values */
+/*p.uppercase {
+    text-transform: uppercase;
+}
+p.lowercase {
+    text-transform: lowercase;
+}*/
+
+/*TODO: The letter-spacing Property */
+/*p.normal {
+    letter-spacing: normal;
+}
+p.positive {
+    letter-spacing: 4px;
+}
+p.negative {
+    letter-spacing: -1px;
+}*/
+
+/*TODO: Using Negative Values */
+/*p.positive {
+    letter-spacing: 4px;
+}
+p.negative {
+    letter-spacing: -1.5px;
+}*/
+
+/*TODO: The word-spacing Property */
+/*p.normal {
+    word-spacing: normal;
+}
+p.px {
+    word-spacing: 30px;
+}*/
+
+/*TODO: Measurement Units */
+/*p.positive {
+    word-spacing: 20px;
+}
+p.negative {
+    word-spacing: -5px;
+}*/
+
+/*TODO: The white-space Property */
+/*p {
+    white-space: nowrap;
+}*/
+
+/*TODO: The white-space Values */
+/*p.pre {
+    white-space: pre;
+}
+p.preline {
+    white-space: pre-line;
+}
+p.prewrap {
+    white-space: pre-wrap;
+}*/
+
