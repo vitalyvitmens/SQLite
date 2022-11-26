@@ -8,6 +8,9 @@
 .intro{
     background-color: #0000FF;
     color: white;
+    padding-left: 16px;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 body{
@@ -17,16 +20,26 @@ body{
 .prof{
     font-size: 20px;
     font-weight: lighter;
+}
 
-}
 .contactinfo{
-    font-size: 15px
+    font-size: 15px;
+    padding-left: 16px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: #eeeeee;
 }
+
 .subheading{
     font-size: 20px;
     font-weight: bolder;
     color: #0000FF;
     text-transform: uppercase;
+    padding-left: 16px;
+}
+
+.social{
+    padding-left: 16px;
 }
 
 .icon{
