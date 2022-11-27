@@ -56,3 +56,10 @@ body{
     font-weight: bold;
 }
 
+.skills ul li{
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: -15px;
+}
