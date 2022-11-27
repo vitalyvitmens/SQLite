@@ -494,6 +494,45 @@ table.fixed {
 }*/
 
 /*TODO: display:none */
-h1 {
+/*h1 {
     display: none;
+}*/
+
+/*TODO: The visibility Property */
+/*div.hidden {
+    visibility: hidden;
+}*/
+
+/*div.hidden {
+    display: none;
+}*/
+
+/*TODO: Positioning Elements */
+/*p.position_static {
+    position:static;
+    top: 30px;
+    right: 5px;
+    color: red;
+}*/
+
+/*TODO: Fixed Positioning */
+/*p.position_fixed {
+    position:fixed;
+    top: 30px;
+    right: 5px;
+    color: blue;
+}*/
+
+/*TODO: Relative Positioning */
+p {
+    width: 350px;
+    border: 1px black solid;
+    position: fixed;
+}
+span {
+    background: green;
+    color: white;
+    position: relative;
+    top: 150px;
+    left: 50px;
 }
