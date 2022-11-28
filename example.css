@@ -813,11 +813,94 @@ h1{
 }*/
 
 /*TODO: Using the @font-face Rule */
-@font-face {
+/*@font-face {
    font-family: Delicious;
    src: url('Delicious-Roman.ttf');
    src: url('Delicious-Roman.eot?#iefix');
 }
 h1{
    font-family: Delicious, sans-serif;
+}*/
+
+/*TODO: Creating Linear Gradients */
+/*div {
+    float: left;
+    width: 300px;
+    height: 100px;
+    margin: 4px;
+    color: #FFF;
+    background: linear-gradient(DeepSkyBlue, Black);
+}*/
+
+/*TODO: Color Stops */
+/*div {
+    float: left;
+    width: 300px;
+    height: 100px;
+    margin: 4px;
+    color: #FFF;
+    background: linear-gradient(blue, yellow, green, pink, white);
+}*/
+
+/*TODO: Color Stops */
+/*div {
+    float: left;
+    width: 300px;
+    height: 100px;
+    margin: 4px;
+    color: #FFF;
+    background: linear-gradient(blue 20%, yellow 30%, green 85%);
+}*/
+
+/*TODO: Direction of the Gradient */
+/*div.first {
+    float: left;
+    width: 300px;
+    height: 100px;
+    margin: 4px;
+    color: #FFF;
+    background:-webkit-linear-gradient(left, blue, green, white);
+    background:-moz-linear-gradient(left, blue, green, white);
+    background:-ms-linear-gradient(left, blue, green, white);
 }
+div.second {
+    float: left;
+    width: 300px;
+    height: 100px;
+    margin: 4px;
+    background:-webkit-linear-gradient(bottom, blue, green, white);
+    background:-moz-linear-gradient(bottom, blue, green, white);
+    background:-ms-linear-gradient(bottom, blue, green, white);
+}*/
+
+/*TODO: Angle of the Gradient */
+/*div.first {
+    float: left;
+    width: 300px;
+    height: 100px;
+    margin: 4px;
+    color: #FFF;
+    background: -webkit-linear-gradient(bottom left, blue, green, white);
+    background: -moz-linear-gradient(bottom left, blue, green, white);
+    background: -ms-linear-gradient(bottom left, blue, green, white);
+}
+div.second {
+    float: left;
+    width: 300px;
+    height: 100px;
+    margin: 4px;
+    background: -webkit-linear-gradient(100deg, blue, green, white);
+    background: -moz-linear-gradient(100deg, blue, green, white);
+    background: -ms-linear-gradient(100deg, blue, green, white);
+}*/
+
+/*TODO: Repeating a Linear-Gradient */
+div {
+    float: left;
+    width: 300px;
+    height: 100px;
+    margin: 4px;
+    color: #FFF;
+    background: repeating-linear-gradient(blue, green 20px);
+}
+
