@@ -27,7 +27,7 @@ body{
     padding-left: 16px;
     padding-top: 6px;
     padding-bottom: 6px;
-    background-color: #eeeeee;
+    background-color: #EEEEEE;
 }
 
 .subheading{
@@ -43,6 +43,8 @@ body{
 }
 
 .icon{
+    float: left;
+    margin-right: 10px;
     color: #0000FF;
 }
 
@@ -71,6 +73,17 @@ body{
 .skills ul li .skill_prog span{
     position: absolute;
     height: 100%;
-    background: #2F5A78;
+    background: #0000FF;
     padding-right: 50px;
+}
+
+.skill_name{
+    width: 4px;
+}
+.skill_per{
+    margin-right: 15px;
+}
+
+img{
+    float: right;
 }

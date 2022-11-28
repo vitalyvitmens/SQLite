@@ -524,7 +524,7 @@ table.fixed {
 }*/
 
 /*TODO: Relative Positioning */
-p {
+/*p {
     width: 350px;
     border: 1px black solid;
     position: fixed;
@@ -535,4 +535,289 @@ span {
     position: relative;
     top: 150px;
     left: 50px;
+}*/
+
+/*TODO: Relative Positioning */
+/*img {
+    float: right;
+}*/
+
+/*TODO: Elements Next to Each Other */
+/*img {
+    float: left;
+    width: 120px;
+    margin-right: 10px;
+}
+p {
+    width: 120px;
+    float: left;
+}*/
+
+/*TODO: Clearing the Float */
+/*.floating {
+    float: right;
+}*/
+
+/*TODO: Clearing Floats */
+/*.floating {
+    float: right;
+}
+.clearing {
+    clear: both;
+}*/
+
+/*TODO: The overflow Property */
+/*div {
+    width: 150px;
+    height: 150px;
+    background-color: LightBlue;
+    float: left;
+}*/
+
+/*TODO: The overflow Property Values */
+/*div {
+    width: 150px;
+    height: 150px;
+    background-color: LightBlue;
+    float: left;
+    overflow: scroll;
+}*/
+
+/*TODO: The z-index Property */
+/*.blue {
+    background-color: #8EC4D0;
+    margin-bottom: 15px;
+    width: 120px;
+    height: 120px;
+    color: #FFF;
+}
+.red {
+    background-color: #FF4D4D;
+    position: relative;
+    width: 120px;
+    height: 120px;
+    color: #FFF;
+    margin-top: -50px;
+    margin-left: 50px;
+}*/
+
+/*TODO: Assigning the z-index Property */
+/*.blue {
+    z-index: 3;
+    position: relative;
+    background-color: #8EC4D0;
+    margin-bottom: 15px;
+    width: 120px;
+    height: 120px;
+    color: #FFF;
+}
+.red {
+    z-index: 2;
+    position: relative;
+    background-color: #FF4D4D;
+    width: 120px;
+    height: 120px;
+    color: #FFF;
+    margin-top: -50px;
+    margin-left: 50px;
+}*/
+
+/*TODO: CSS Vendor Prefixes */
+/*.round {
+    -webkit-border-radius: 24px;
+    border-radius: 24px;
+    border: 1px solid green;
+    width: 200px;
+    padding:25px;
+}*/
+
+/*TODO: The border-radius Property */
+/*div {
+    border-radius: 20px;
+    background-color: green;
+    /*border: 3px solid black;
+    color: white;
+    padding: 50px;
+}
+
+.test {
+    border-radius: 0px 20px 10px 15px;
+    background-color: red;
+    border: 3px solid black;
+    color: black;
+    padding: 50px;
+    margin-top: 10px;
+}*/
+
+/*TODO: Creating a Circle */
+/*div {
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    background-color: green;
+    color: black;
+}
+p {
+    font-size: 20px;
+    color: blue;
+    padding-top: 90px;
+    padding-left: 35px;
+    width: 200px;
+}*/
+
+/*TODO: The box-shadow Property */
+/*div {
+    width: 300px;
+    height: 100px;
+    background-color: #9ACD32;
+    box-shadow: 10px 10px #888888;
+}*/
+
+/*TODO: Blur and Spread */
+/*div {
+    width: 300px;
+    height: 100px;
+    background-color: #9ACD32;
+    box-shadow: 10px 10px 5px 5px #888888;
+}*/
+
+/*TODO: Negative Values */
+/*div {
+    width: 300px;
+    height: 100px;
+    background-color: #9ACD32;
+    box-shadow: -10px -10px 5px -5px #888888;
+}*/
+
+/*TODO: Creating an Inner Shadow */
+/*div {
+    width: 300px;
+    height: 100px;
+    background-color: #9ACD32;
+    box-shadow: inset 10px 10px 5px #888888, 10px 10px 5px 5px #888888;
+}*/
+
+/*TODO: Layering Multiple Shadows */
+/*div {
+    width: 300px;
+    height: 100px;
+    background-color: #9ACD32;
+    box-shadow: inset 10px 10px 5px #888888, inset -10px -10px 5px #888888;
+}*/
+
+/*TODO: Layering Multiple Shadows */
+/*div {
+    width: 300px;
+    height: 100px;
+    background-color: #9ACD32;
+    box-shadow: 0 0 10px 4px #FF6347, 0 0 10px 30px #FFDAB9, 30px 0 20px 30px #B0E0E6;
+
+    margin-left:30px;
+    margin-top:30px;
+}*/
+
+/*TODO: Transparency Effect */
+/*body {
+    background:url("http://www.sololearn.com/images/bg2.jpg");
+}
+nav {
+    padding: 50px 0;
+    min-width: 500px;
+}
+nav ul {
+    background: linear-gradient(90deg,
+     rgba(255, 255, 255, 0) 0%,
+     rgba(255, 255, 255, 0.2) 25%,
+     rgba(255, 255, 255, 0.2) 75%,
+     rgba(255, 255, 255, 0) 100%);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1),
+     inset 0 0 1px rgba(255, 255, 255, 0.6);
+}
+nav ul li {
+    display: inline-block;
+}
+nav ul li a {
+    padding: 10px;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-family: Arial;
+    text-decoration: none;
+    display: block;
+ }*/
+
+/*TODO: Multiple Text Shadows */
+/*h1 {
+    text-shadow: 5px 10px 2px #93968f, -3px 6px 5px #58d1e3;
+}*/
+
+/*TODO: Working with Pseudo-Classes */
+/*#parent p:first-child {
+    color: green;
+    text-decoration: underline;
+}*/
+
+/*TODO: Working with Pseudo-Classes */
+/*#parent p:last-child {
+    color: green;
+    text-decoration: underline;
+}*/
+
+/*TODO: Working with Pseudo Elements */
+/*p::first-line {
+    color: #589432;
+}*/
+
+/*TODO: Working with Pseudo Elements */
+/*p::-webkit-selection {
+    background: #8bc34a;
+    color: #fff;
+}
+p::selection {
+    background: #8bc34a;
+    color: #fff;
+}*/
+
+/*TODO: Working with Pseudo Elements */
+/*p::before {
+    content: url("http://www.sololearn.com/images/bullet.jpg");
+}*/
+
+/*TODO: The word-wrap Property */
+/*p {
+    width: 210px;
+    height: 100px;
+    border: 1px solid #000000;
+    word-wrap: normal;
+}*/
+
+/*TODO: The word-wrap Property */
+/*p {
+    width: 210px;
+    height: 100px;
+    border: 1px solid #000000;
+    word-wrap: break-word;
+}*/
+
+/*TODO: Using the @font-face Rule */
+/*@font-face {
+  font-family: Delicious;
+  src: url('Delicious-Roman.otf');
+}
+@font-face {
+  font-family: Delicious;
+  font-weight: bold;
+  src: url('Delicious-Bold.otf');
+}
+h1{
+   font-family: Delicious, sans-serif;
+}*/
+
+/*TODO: Using the @font-face Rule */
+@font-face {
+   font-family: Delicious;
+   src: url('Delicious-Roman.ttf');
+   src: url('Delicious-Roman.eot?#iefix');
+}
+h1{
+   font-family: Delicious, sans-serif;
 }
