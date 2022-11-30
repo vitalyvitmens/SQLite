@@ -1450,11 +1450,87 @@ div.green-div {
 }*/
 
 /*TODO: The drop-shadow Function */
-img {
+/*img {
     width: 130px;
     height: 100px;
 }
 .dropshadow {
     filter: drop-shadow(5px 9px 2px blue);
     -webkit-filter: drop-shadow(5px 9px 2px blue);
+}*/
+
+/*TODO: The grayscale Function */
+/*.filtered {
+  filter: grayscale(100%);
+}*/
+
+/*TODO: The sepia Function */
+/*.filtered {
+  filter: sepia(100%);
+}*/
+
+/*TODO: The saturate Function */
+/*.filtered {
+  filter: saturate(50%);
+}*/
+
+/*TODO: The saturate Function */
+/*.filtered {
+  filter: saturate(2.5);
+}*/
+
+/*TODO: The hue-rotate Function */
+/*.filtered {
+   filter: hue-rotate(240deg);
+}*/
+
+/*TODO: The invert Function */
+/*.filtered {
+  filter: invert(70%);
+}*/
+
+/*TODO: The opacity Function */
+/*.filtered {
+  filter: opacity(70%);
+}*/
+
+/*TODO: The brightness Function */
+/*.filtered {
+  filter: brightness(50%);
+}*/
+
+/*TODO: The brightness Function */
+/*.filtered {
+  filter: brightness(1.9);
+}*/
+
+/*TODO: The contrast Function */
+/*.filtered {
+    filter: contrast(140%);
+}*/
+
+/*TODO: The blur Function */
+/*.blured {
+  filter:blur(5px);
+}*/
+
+/*TODO: The blur Function */
+/*.blured {
+  blur();
+  blur(0);
+}*/
+
+/*TODO: Using Multiple CSS Filters */
+/*.filtered {
+  filter: blur(5px) hue-rotate(180deg);
+}*/
+
+/*TODO: Using Multiple CSS Filters */
+/*.filtered {
+  filter:  saturate(30%) drop-shadow(5px 9px 2px gray) blur(1px);
+}*/
+
+/*TODO: Using Multiple CSS Filters */
+.filtered {
+  filter:  brightness(150%) sepia(100%);
 }
